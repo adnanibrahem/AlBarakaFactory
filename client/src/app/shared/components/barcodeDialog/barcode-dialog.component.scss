@@ -1,0 +1,11 @@
+.barcode-container {
+  display: flex;
+}
+.title {
+  font-family: "Almarai", sans-serif;
+  color: var(--colorInvert);
+}
+.no-btn {
+  background-color: var(--danger);
+  color: var(--colorInvert);
+}

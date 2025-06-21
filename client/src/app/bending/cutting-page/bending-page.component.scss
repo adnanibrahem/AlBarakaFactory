@@ -1,0 +1,97 @@
+::ng-deep .mat-mdc-tab-group > .mat-mdc-tab-header {
+  display: none;
+}
+div.col-xl-9,
+div.col-xl-6,
+div.col-xl-3,
+div.col-xl-2,
+div.col-xl-8,
+div.col-xl-4 {
+  margin-top: -25px;
+}
+
+mat-option,
+button,
+mat-select {
+  font-family: "Almarai", serif;
+}
+.selected-row {
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid #011302;
+  background-color: #e0a4e6 !important;
+  border-radius: 18px;
+}
+
+.edit-drawing {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #2973e2;
+
+  border-radius: 18px;
+}
+
+p span {
+  display: block;
+}
+mat-header-cell {
+  font-weight: bolder;
+}
+.mat-column-seq {
+  flex: 0 0 50px;
+}
+
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  font-family: "Almarai", serif;
+  font-weight: 500;
+  height: 60px;
+  transition: background-color 250ms cubic-bezier(0, 0, 0.2, 1);
+  margin-top: 5px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 1;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
