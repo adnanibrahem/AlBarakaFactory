@@ -51,6 +51,7 @@ export class CNCPageComponent
     "image",
     "files",
     "dateAt",
+    "items",
     // "status",
     "actions",
   ];

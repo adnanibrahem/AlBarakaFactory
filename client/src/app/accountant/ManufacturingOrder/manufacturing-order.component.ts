@@ -12,7 +12,9 @@ import { AuthService, User } from "@core";
 import {
   Agent,
   ManufacturingImages,
+  ManufacturingItems,
   ManufacturingOrder,
+  ManufacturingPath,
 } from "../accountant.model";
 import { CommercialYear } from "app/admin/admin.model";
 import { UntypedFormControl } from "@angular/forms";
@@ -21,6 +23,13 @@ import { WebcamImage } from "ngx-webcam";
 import { WebcamDialogComponent } from "@shared/components/webcam-dialog/webcam-dialog.component";
 import { generateId } from "@shared/TableElement";
 import { environment } from "environments/environment";
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "app-manufacturing-order",
@@ -49,6 +58,7 @@ export class ManufacturingOrderComponent
     "dateAt",
     "price",
     "status",
+    "itemsList",
     "paths",
     "comments",
     "actions",
@@ -166,10 +176,48 @@ export class ManufacturingOrderComponent
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  onAdd() {
+    const item = {} as ManufacturingItems;
+    item.id = -1;
+    this.varManufacturingOrder.items.push(item);
+  }
+  calcTotal() {
+    this.varManufacturingOrder.price = this.varManufacturingOrder.otherPrice || 0 ;
+    this.varManufacturingOrder.items.forEach((t) => {
+      if (t.unitCostPrice && !t.deleted) {
+        this.varManufacturingOrder.price += t.unitCostPrice * (t.quantity || 1);
+      }
+    });
+  }
 
+
+  onDelete(x: ManufacturingItems, i: number) {
+    if (x.id == -1) {
+       this.varManufacturingOrder.items.splice(i, 1);
+     }
+    else {
+      if (x.id) {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          height: "200px",
+          width: "300px",
+          data: { txt: "هل انت متأكد من حذف  ؟", title: x.title },
+          direction: "rtl",
+        });
+        this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+          if (result === 1) {
+            x.deleted = true;
+            this.calcTotal();
+          }
+        });
+      }
+      this.calcTotal();
+    }
+  }
   addNew() {
     this.varManufacturingOrder = {} as ManufacturingOrder;
     this.varManufacturingOrder.images = [];
+    this.varManufacturingOrder.items = [];
+    this.varManufacturingOrder.paths = [];
     this.varManufacturingOrder.currency = true;
     this.caption = " تسجيل مادة مخزنية ";
     this.varManufacturingOrder.otherOrder = false;
@@ -185,8 +233,30 @@ export class ManufacturingOrderComponent
     this.caption = " تسجيل طلبات اخرى";
     this.selectedIndex = 1;
   }
+
   editCall(ed: ManufacturingOrder) {
     this.varManufacturingOrder = ed;
+
+    this.pathPointsDone = [];
+    this.pathPoints = [
+      { index: 0, title: "سي ان سي", value: "cnc" },
+      { index: 1, title: "بلازما", value: "plasma" },
+      { index: 2, title: "مقص", value: "cutting" },
+      { index: 3, title: "عواجة", value: "bending" },
+    ];
+    if (this.varManufacturingOrder.paths) {
+      let i = 0;
+      this.varManufacturingOrder.paths.forEach((t) => {
+        const path = this.pathPoints.findIndex((p) => p.value === t.step);
+        if (path !== -1) {
+          i++;
+          this.pathPointsDone.push(this.pathPoints[path]);
+          this.pathPointsDone[i - 1].index = t.index;
+          this.pathPoints.splice(path, 1);
+        }
+      });
+    }
+
     this.varManufacturingOrder.images.forEach((t) => {
       if (t?.image) {
         t.obj = new UntypedFormControl();
@@ -199,15 +269,17 @@ export class ManufacturingOrderComponent
 
   onSubmit() {
     //  const dt = this.varManufacturingOrder;
+    this.uploadPath(this.varManufacturingOrder.id|| -1);
     let fd = new FormData();
     let kk = Object.entries(this.varManufacturingOrder);
     kk.forEach((kr) => {
       if (kr[0] != "designFile" && kr[0] != "images") {
         if (kr[0] == "paths") {
-          kr[1].forEach((path: any) => {
-            fd.append("paths[]", JSON.stringify(path));
-          });
-        } else if (kr[1] == "null") fd.append(kr[0], "");
+            fd.append("paths", JSON.stringify(kr[1]));
+        } else if (kr[0] == "items") 
+            fd.append("items", JSON.stringify(kr[1]));
+        
+        else if (kr[1] == "null") fd.append(kr[0], "");
         else fd.append(kr[0], kr[1]);
       }
     });
@@ -219,7 +291,9 @@ export class ManufacturingOrderComponent
           const t = this.dataSource.data.findIndex((x) => x.id == e.id);
           this.dataSource.data[t] = Object.assign(e);
           this.calcTotalAll();
+          this.varManufacturingOrder.items = e.items  ;
           this.uploadNewPictures(this.varManufacturingOrder);
+
           this.dataSource._updateChangeSubscription();
           this.showSpinner = false;
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
@@ -235,6 +309,7 @@ export class ManufacturingOrderComponent
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
           this.showSpinner = false;
           this.varManufacturingOrder.id = e.id;
+          this.varManufacturingOrder.items = e.items  ;
           this.uploadNewPictures(this.varManufacturingOrder);
           this.dataSource.data.push(this.varManufacturingOrder);
           this.dataSource._updateChangeSubscription();
@@ -384,6 +459,26 @@ export class ManufacturingOrderComponent
     return new Blob([ia], { type: mimeString });
   }
 
+  isValid(x: ManufacturingOrder): boolean {
+ 
+    for (let i = 0; i < x.items.length; i++) {
+      const item = x.items[i];
+      if (
+          (item.title && item.title.trim() == "") ||
+          (item.quantity == null) ||
+          (item.length == null) ||
+          (item.width == null) ||
+          (item.thickness == null) ||
+          (item.unitCostPrice == null)
+        ) {
+          return true;
+        }
+     }
+
+ 
+    return false;
+  }
+
   uploadNewPictures(pb: ManufacturingOrder) {
     pb.images.forEach((k) => {
       if (!k.id) {
@@ -446,4 +541,49 @@ export class ManufacturingOrderComponent
     return blob;
   }
   ///////////////////////////
+
+  uploadPath(id: number) {
+    const paths: ManufacturingPath[] = [];
+    this.pathPointsDone.forEach((t: any) => {
+      const p: ManufacturingPath = {} as ManufacturingPath;
+      p.id = -1;
+      p.index = t.index;
+      p.step = t.value;
+      p.order = id;
+      paths.push(p);
+    });
+    this.varManufacturingOrder.paths = paths;
+  }
+  
+  pathPointsDone: any = [];
+  pathPoints = [
+    { index: 0, title: "سي ان سي", value: "cnc" },
+    { index: 1, title: "بلازما", value: "plasma" },
+    { index: 2, title: "مقص", value: "cutting" },
+    { index: 3, title: "عواجة", value: "bending" },
+  ];
+
+  drop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+    event.container.data.forEach((t: any, index: number) => {
+      t.index = index + 1;
+    });
+    event.previousContainer.data.forEach((t: any, index: number) => {
+      t.index = index + 1;
+    });
+  }
+
 }

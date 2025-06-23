@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.serializers import SerializerMethodField
 
-from Apps.Box.models import BoxTransaction, Category, Documents, ManufacturingImages, ManufacturingOrder, ManufacturingPath
+from Apps.Box.models import BoxTransaction, Category, Documents, ManufacturingImages, ManufacturingItems, ManufacturingOrder, ManufacturingPath
 
 
 user_profile = User
@@ -41,10 +41,23 @@ class DocumentsSerializer(serializers.ModelSerializer):
         verbose_name = 'Documents List'
         model = Documents
         fields = '__all__'
+        
+class ManufacturingItemsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        verbose_name = 'ManufacturingItems List'
+        model = ManufacturingItems
+        fields = '__all__'        
+        
 
 class ManufacturingOrderSerializer(serializers.ModelSerializer):
     agentTitle = SerializerMethodField()
     userTitle = SerializerMethodField()
+    items = SerializerMethodField()
+    def get_items(self, obj):
+        items = ManufacturingItems.objects.filter(order=obj.pk, deleted=False)
+        return ManufacturingItemsSerializer(items, many=True).data
+    
     def get_agentTitle(self, obj):
         if obj.agent is not None:
             return obj.agent.title
@@ -87,6 +100,10 @@ class ManufacturingOrderSerializerBlank(serializers.ModelSerializer):
     def get_images(self, obj):
         doc = ManufacturingImages.objects.filter(order=obj.pk, deleted=False)
         return ManufacturingImagesSerializer(doc, many=True).data
+    items = SerializerMethodField()
+    def get_items(self, obj):
+        items = ManufacturingItems.objects.filter(order=obj.pk, deleted=False)
+        return ManufacturingItemsSerializer(items, many=True).data
 
     class Meta:
         verbose_name = 'ManufacturingOrder Order List'

@@ -70,6 +70,7 @@ class ManufacturingOrder(models.Model):
     dateAt = models.DateTimeField(auto_now_add=True)
     currency = models.BooleanField(default=True)
     price= models.FloatField()
+    otherPrice= models.FloatField(default=0)
     comments = models.TextField(null=True, blank=True)
     designFile=models.FileField(upload_to=get_document_upload_path, null=True, blank=True)
     yearId = models.ForeignKey(CommercialYear, on_delete=models.DO_NOTHING)
@@ -91,4 +92,13 @@ class ManufacturingImages(models.Model):
     image = models.ImageField(upload_to=get_document_upload_path)
     deleted = models.BooleanField(default=False)
 
- 
+  
+class ManufacturingItems(models.Model):
+    order = models.ForeignKey(ManufacturingOrder, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=50)
+    quantity = models.FloatField(default=0)
+    unitCostPrice = models.FloatField(default=0)
+    width = models.FloatField(null=True, blank=True)
+    length = models.FloatField(null=True, blank=True)
+    thickness = models.FloatField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)

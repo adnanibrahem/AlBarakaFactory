@@ -20,14 +20,8 @@
                           search
                         </i>
                       </label>
-                      <input
-                        placeholder="بحث"
-                        type="text"
-                        matInput
-                        (keyup)="applyFilter($event)"
-                        class="browser-default search-field"
-                        aria-label="Search box"
-                      />
+                      <input placeholder="بحث" type="text" matInput (keyup)="applyFilter($event)"
+                        class="browser-default search-field" aria-label="Search box" />
                     </li>
                     <li class="tbl-header-btn m-2">
                       <h5>
@@ -38,11 +32,7 @@
 
                     <li class="tbl-header-btn m-2">
                       <div class="m-l-10" matTooltip="  بحث متقدم">
-                        <button
-                          type="button"
-                          class="btn btn-info"
-                          (click)="onAdvaceSearch()"
-                        >
+                        <button type="button" class="btn btn-info" (click)="onAdvaceSearch()">
                           <i class="bi bi-binoculars-fill"></i>
                           بحث متقدم
                         </button>
@@ -55,11 +45,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip=" تسجيل طلبات اخرى">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          (click)="otherRequest()"
-                        >
+                        <button type="button" class="btn btn-primary" (click)="otherRequest()">
                           <i class="fa fa-file-excel-o"></i>
                           تسجيل طلبات اخرى
                         </button>
@@ -68,11 +54,7 @@
 
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip=" تسجيل مادة">
-                        <button
-                          type="button"
-                          class="btn btn-warning"
-                          (click)="addNew()"
-                        >
+                        <button type="button" class="btn btn-warning" (click)="addNew()">
                           <i class="fa fa-plus"></i>
                           تسجيل طلب مباشر
                         </button>
@@ -84,58 +66,27 @@
               <div class="body overflow-auto">
                 <div *ngIf="showAdvanceSearch" class="row move11 mt-4">
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <mat-form-field
-                      class="example-full-width"
-                      appearance="outline"
-                    >
+                    <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label> تاريخ البحث من </mat-label>
-                      <input
-                        matInput
-                        class="fs-5"
-                        [matDatepicker]="picker1"
-                        [(ngModel)]="dateSearchFrom"
-                        (focus)="picker1.open()"
-                        required
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="picker1"
-                      ></mat-datepicker-toggle>
+                      <input matInput class="fs-5" [matDatepicker]="picker1" [(ngModel)]="dateSearchFrom"
+                        (focus)="picker1.open()" required />
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                    <mat-form-field
-                      class="example-full-width"
-                      appearance="outline"
-                    >
+                    <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label> تاريخ البحث الى </mat-label>
-                      <input
-                        matInput
-                        class="fs-5"
-                        [matDatepicker]="picker2"
-                        [(ngModel)]="dateSearchTo"
-                        (focus)="picker2.open()"
-                        required
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="picker2"
-                      ></mat-datepicker-toggle>
+                      <input matInput class="fs-5" [matDatepicker]="picker2" [(ngModel)]="dateSearchTo"
+                        (focus)="picker2.open()" required />
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                   </div>
 
-                  <div
-                    class="col-xl-3 col-lg-3 col-md-6 col-sm-6"
-                    matTooltip=" بحث   خلال فترة"
-                  >
-                    <button
-                      type="button"
-                      class="btn btn-success"
-                      (click)="doSearch()"
-                      [disabled]="dateSearchTo === '' || dateSearchFrom === ''"
-                    >
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6" matTooltip=" بحث   خلال فترة">
+                    <button type="button" class="btn btn-success" (click)="doSearch()"
+                      [disabled]="dateSearchTo === '' || dateSearchFrom === ''">
                       <i class="fa fa-search"></i>
                       بحث
                     </button>
@@ -143,11 +94,7 @@
                 </div>
 
                 <div class="responsive_table">
-                  <table
-                    mat-table
-                    [dataSource]="dataSource"
-                    class="mat-cell advance-table"
-                  >
+                  <table mat-table [dataSource]="dataSource" class="mat-cell advance-table">
                     <ng-container matColumnDef="seq">
                       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                       <mat-cell *matCellDef="let row; let i = index">
@@ -162,12 +109,8 @@
 
                       <mat-cell *matCellDef="let row">
                         <span class="mobile-label"> التصميم:</span>
-                        <img
-                          *ngIf="row.images.length"
-                          [src]="'http://127.0.0.1:8000' + row.images[0].image"
-                          style="max-width: 100px"
-                          (click)="imgClick(row.images[0])"
-                        />
+                        <img *ngIf="row.images.length" [src]="'http://127.0.0.1:8000' + row.images[0].image"
+                          style="max-width: 100px" (click)="imgClick(row.images[0])" />
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="title">
@@ -178,6 +121,35 @@
                       <mat-cell *matCellDef="let row">
                         <span class="mobile-label"> اسم العميل:</span>
                         {{ row.agentTitle }}
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="itemsList">
+                      <mat-header-cell *matHeaderCellDef>
+                        المواد
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row">
+                        <span class="mobile-label"> المواد:</span>
+
+                        <table class="table table-bordered">
+                          <tr *ngFor="let item of row.items; let i = index">
+                            <td>
+                              {{ item.title }}
+                            </td>
+                            <td>
+                              {{ item.length }}
+                            </td>
+                            <td>
+                              {{ item.width }}
+                            </td>
+                            <td>
+                              {{ item.thickness }}
+                            </td>
+                            <td>
+                              {{ item.quantity }}
+                            </td>
+                          </tr>
+                        </table>
                       </mat-cell>
                     </ng-container>
 
@@ -243,75 +215,35 @@
                       <mat-header-cell *matHeaderCellDef class="pr-0">
                         الاجراء
                       </mat-header-cell>
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        class="pr-0"
-                      >
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          (click)="$event.stopPropagation()"
-                          (click)="editCall(row)"
-                          class="tbl-action-btn"
-                          matTooltip="التحديث"
-                        >
-                          <app-feather-icons
-                            [icon]="'edit'"
-                            [class]="'tbl-fav-edit'"
-                          >
+                      <mat-cell *matCellDef="let row; let i = index" class="pr-0">
+                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                          (click)="editCall(row)" class="tbl-action-btn" matTooltip="التحديث">
+                          <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'">
                           </app-feather-icons>
                         </button>
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          (click)="$event.stopPropagation()"
-                          (click)="deleteItem(i, row)"
-                          class="tbl-action-btn"
-                          matTooltip="حذف"
-                        >
-                          <app-feather-icons
-                            [icon]="'trash-2'"
-                            [class]="'tbl-fav-delete'"
-                          >
+                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                          (click)="deleteItem(i, row)" class="tbl-action-btn" matTooltip="حذف">
+                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'">
                           </app-feather-icons>
                         </button>
                       </mat-cell>
                     </ng-container>
-                    <mat-header-row
-                      *matHeaderRowDef="displayedColumns"
-                    ></mat-header-row>
-                    <mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                      [style.cursor]="'pointer'"
-                      matRipple
-                    >
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" [style.cursor]="'pointer'" matRipple>
                     </mat-row>
                   </table>
                   <!-- Loading spinner -->
                   <div *ngIf="showSpinner" class="tbl-spinner">
-                    <mat-progress-spinner
-                      color="accent"
-                      [diameter]="40"
-                      mode="indeterminate"
-                    >
+                    <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
                     </mat-progress-spinner>
                   </div>
-                  <div
-                    *ngIf="showSpinner"
-                    class="no-results"
-                    [style.display]="
+                  <div *ngIf="showSpinner" class="no-results" [style.display]="
                       dataSource.filteredData.length === 0 ? '' : 'none'
-                    "
-                  >
+                    ">
                     No results
                   </div>
-                  <mat-paginator
-                    #paginator
-                    [length]="dataSource.filteredData.length"
-                    [pageIndex]="0"
-                    [pageSize]="10"
-                    [pageSizeOptions]="[5, 10, 25, 100]"
-                  >
+                  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
                   </mat-paginator>
                 </div>
               </div>
@@ -332,11 +264,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="selectedIndex = 0"
-                        >
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
                           <i class="fa fa-arrow-right"></i>
                           رجوع
                         </button>
@@ -349,22 +277,15 @@
                 <div class="m-4">
                   <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                      <app-my-auto-complete
-                        placeholder="اسم العميل"
-                        [itemsList]="agentList"
-                        [initValue]="varManufacturingOrder.agent"
-                        (outputValue)="agentFN($event)"
-                        dataKey="title"
-                      ></app-my-auto-complete>
+                      <app-my-auto-complete placeholder="اسم العميل" [itemsList]="agentList"
+                        [initValue]="varManufacturingOrder.agent" (outputValue)="agentFN($event)"
+                        dataKey="title"></app-my-auto-complete>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
                       <mat-label style="display: block; font-weight: bolder">
-                        العملة:</mat-label
-                      >
-                      <mat-radio-group
-                        [(ngModel)]="varManufacturingOrder.currency"
-                      >
+                        العملة:</mat-label>
+                      <mat-radio-group [(ngModel)]="varManufacturingOrder.currency">
                         <mat-radio-button [value]="true">
                           <span class="optSelect"> دينار </span>
                         </mat-radio-button>
@@ -374,122 +295,187 @@
                       </mat-radio-group>
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>
-                          سعر التصميم
-                          <span
-                            *ngIf="varManufacturingOrder.price > 0"
-                            style="color: red; font-size: 150%"
-                          >
+                          سعر اضافي
+                          <span *ngIf="varManufacturingOrder.otherPrice > 0" style="color: red; font-size: 150%">
                             (
-                            {{ varManufacturingOrder.price | number }}
+                            {{ varManufacturingOrder.otherPrice | number }}
                             )
                           </span>
                         </mat-label>
-                        <input
-                          matInput
-                          type="number"
-                          placeholder=" سعر التصميم"
-                          [(ngModel)]="varManufacturingOrder.price"
-                          (keyup.enter)="
-                            varManufacturingOrder.price =
-                              varManufacturingOrder.price * 1000
-                          "
-                        />
-                        <mat-icon
-                          matSuffix
-                          *ngIf="varManufacturingOrder.currency"
-                        >
+                        <input matInput type="number" placeholder=" سعر التصميم" (input)="calcTotal()"
+                          [(ngModel)]="varManufacturingOrder.otherPrice" />
+                        <mat-icon matSuffix *ngIf="varManufacturingOrder.currency">
                           دع
                         </mat-icon>
-                        <mat-icon
-                          matSuffix
-                          *ngIf="!varManufacturingOrder.currency"
-                        >
+                        <mat-icon matSuffix *ngIf="!varManufacturingOrder.currency">
                           $
                         </mat-icon>
                       </mat-form-field>
+
                     </div>
 
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                      <p class="fs-5">المجموع الكلي : {{varManufacturingOrder.price | number}}
+                        <strong *ngIf="varManufacturingOrder.currency">
+                          دع
+                        </strong>
+                        <strong *ngIf="!varManufacturingOrder.currency">
+                          $
+                        </strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width mb-3"
-                        appearance="outline"
-                      >
+                      <table class="table" width="auto">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th> اسم المادة</th>
+                            <th>الطول</th>
+                            <th>العرض</th>
+                            <th>السمك</th>
+                            <th>العدد</th>
+                            <th>سعر المفرد</th>
+                            <th [width]="120">المجموع</th>
+                            <th>
+                              <button mat-raised-button color="primary" (click)="onAdd()">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let x of varManufacturingOrder.items; let i = index"
+                            [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>
+                              <input type="text" class="form-control" [(ngModel)]="x.title"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.length"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.width"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.thickness"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.quantity" (input)="calcTotal()"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.unitCostPrice"
+                                (input)="calcTotal()" [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <strong>
+                                {{ (x.quantity ) * (x.unitCostPrice ) | number }}
+                              </strong>
+
+                              <span *ngIf="varManufacturingOrder.currency">دع</span>
+                              <span *ngIf="!varManufacturingOrder.currency">$</span>
+                            </td>
+
+                            <td>
+                              <button mat-icon-button (click)="onDelete(x,i)" tabindex="-1">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!--  -->
+
+                    <h6 class="social-login-title">مسار التصنيع</h6>
+
+                    <!--  -->
+                    <div cdkDropListGroup>
+                      <div class="example-container">
+                        <h5>نقاط المسار</h5>
+
+                        <div cdkDropList [cdkDropListData]="pathPoints" class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          @for (item of pathPoints; track item) {
+                          <div class="example-box" cdkDrag>
+                            {{ item.title }}
+                          </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="example-container">
+                        <h5>مسار التصنيع</h5>
+
+                        <div cdkDropList [cdkDropListData]="pathPointsDone" class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          @for (item of pathPointsDone; track item) {
+                          <div class="example-box" cdkDrag>
+                            {{ item.index }} - {{ item.title }}
+                          </div>
+                          }
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--  -->
+
+                    <!--  -->
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
                         <mat-label>الملاحظات</mat-label>
-                        <textarea
-                          matInput
-                          [(ngModel)]="varManufacturingOrder.comments"
-                          class="description-area"
-                        >
+                        <textarea matInput [(ngModel)]="varManufacturingOrder.comments" class="description-area">
                         </textarea>
                       </mat-form-field>
                     </div>
                   </div>
+
                   <div class="row" *ngIf="!varManufacturingOrder.otherOrder">
                     <!-- المستندات -->
                     <div class="row">
                       <h6 class="social-login-title">صورة المستندات</h6>
-                      <div
-                        *ngFor="
+                      <div *ngFor="
                           let x of varManufacturingOrder.images;
                           index as i
-                        "
-                        class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2 d-flex justify-content-center"
-                      >
+                        " class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2 d-flex justify-content-center">
                         <div class="img-container position-relative">
-                          <span
-                            role="button"
-                            matTooltip="حذف الصورة"
-                            class="position-absolute delete-icon-container"
-                            style="color: red"
-                            (click)="removeResetPicture(i)"
-                          >
+                          <span role="button" matTooltip="حذف الصورة" class="position-absolute delete-icon-container"
+                            style="color: red" (click)="removeResetPicture(i)">
                             <mat-icon>cancel</mat-icon>
                           </span>
 
-                          <img
-                            [src]="x?.obj?.value"
-                            class="img-thumbnail rounded"
-                            (click)="imgClick(x)"
-                          />
+                          <img [src]="x?.obj?.value" class="img-thumbnail rounded" (click)="imgClick(x)" />
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="file-btn-container container-auth-form-btn">
-                          <button
-                            mat-raised-button
-                            type="button"
-                            color="primary"
-                            class="btn-space"
-                            (click)="selectPicture.click()"
-                          >
+                          <button mat-raised-button type="button" color="primary" class="btn-space"
+                            (click)="selectPicture.click()">
                             <i class="bi bi-window-plus"></i>
 
                             اضافة صورة من الملفات
                           </button>
 
-                          <button
-                            mat-raised-button
-                            color="accent"
-                            (click)="addImageFromWebcam()"
-                          >
+                          <button mat-raised-button color="accent" (click)="addImageFromWebcam()">
                             صورة من كامرا
                             <mat-icon>photo_camera</mat-icon>
                           </button>
 
-                          <input
-                            #selectPicture
-                            type="file"
-                            accept="image/*"
-                            onclick="this.value = null"
-                            (change)="resetFromLocalFiles(selectPicture.files)"
-                            style="display: none"
-                          />
+                          <input #selectPicture type="file" accept="image/*" onclick="this.value = null"
+                            (change)="resetFromLocalFiles(selectPicture.files)" style="display: none" />
                         </div>
                       </div>
                     </div>
@@ -497,20 +483,13 @@
 
                   <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <button
-                        class="btn-space"
-                        mat-raised-button
-                        [disabled]="
+                      <button class="btn-space" mat-raised-button [disabled]="
                           !varManufacturingOrder.agent ||
-                          !varManufacturingOrder.price
-                        "
-                        [ngClass]="{
+                          !varManufacturingOrder.price || isValid(varManufacturingOrder)
+                        " [ngClass]="{
                           'btn btn-primary': !varManufacturingOrder.id,
                           'btn btn-success': varManufacturingOrder.id
-                        }"
-                        (click)="onSubmit()"
-                        color="primary"
-                      >
+                        }" (click)="onSubmit()" color="primary">
                         خزن البيانات
                       </button>
                     </div>
@@ -536,11 +515,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="selectedIndex = 0"
-                        >
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
                           <i class="fa fa-arrow-right"></i>
                           رجوع
                         </button>

@@ -51,7 +51,8 @@ export class PlasmaPageComponent
     "image",
     "files",
     "dateAt",
-    // "status",
+    "items",
+
     "actions",
   ];
 

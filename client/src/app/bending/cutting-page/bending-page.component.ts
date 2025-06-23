@@ -52,6 +52,7 @@ export class BendingPageComponent
     // "files",
     "dateAt",
     // "status",
+    "items",
     "actions",
   ];
 

@@ -10,6 +10,7 @@ import { StoreComponent } from "./Store/store.component";
 import { SupplierInvoiceComponent } from "./SupplierInvoice/supplierinvoice.component";
 import { ManufacturingOrderComponent } from "./ManufacturingOrder/manufacturing-order.component";
 import { WithdrawMaterialsComponent } from "./WithdrawMaterials/withdraw-materials.component";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WithdrawMaterialsComponent } from "./WithdrawMaterials/withdraw-materia
   ],
   imports: [
     CommonModule,
+    DragDropModule,
     accountantRoutingModule,
     ComponentsModule,
     SharedModule,

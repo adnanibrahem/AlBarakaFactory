@@ -11,17 +11,11 @@
             <div class="p-2">
               <h4>
                 المجموع :
-                <span
-                  [ngClass]="{ danger: totalDenar < 0 }"
-                  style="display: inline"
-                >
+                <span [ngClass]="{ danger: totalDenar < 0 }" style="display: inline">
                   {{ totalDenar | number }} دع
                 </span>
                 |
-                <span
-                  [ngClass]="{ danger: totalDollar < 0 }"
-                  style="display: inline"
-                >
+                <span [ngClass]="{ danger: totalDollar < 0 }" style="display: inline">
                   {{ totalDollar | number }} $
                 </span>
               </h4>
@@ -36,17 +30,10 @@
                     <li class="tbl-search-box">
                       <label for="search-input">
                         <i class="material-icons search-icon" matSuffix>
-                          search</i
-                        >
+                          search</i>
                       </label>
-                      <input
-                        placeholder="اكتب شيء للبحث"
-                        type="text"
-                        matInput
-                        (keyup)="applyFilter($event)"
-                        class="browser-default search-field"
-                        aria-label="Search box"
-                      />
+                      <input placeholder="اكتب شيء للبحث" type="text" matInput (keyup)="applyFilter($event)"
+                        class="browser-default search-field" aria-label="Search box" />
                     </li>
                   </ul>
                 </div>
@@ -56,11 +43,7 @@
 
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip=" تسجيل عميل">
-                        <button
-                          type="button"
-                          class="btn btn-warning"
-                          (click)="addNew()"
-                        >
+                        <button type="button" class="btn btn-warning" (click)="addNew()">
                           <i class="fa fa-plus"></i>
                           تسجيل عميل
                         </button>
@@ -71,18 +54,13 @@
               </div>
               <div class="body overflow-auto">
                 <div class="responsive_table">
-                  <table
-                    mat-table
-                    [dataSource]="dataSource"
-                    class="mat-cell advance-table"
-                  >
+                  <table mat-table [dataSource]="dataSource" class="mat-cell advance-table">
                     <ng-container matColumnDef="seq">
                       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                       <mat-cell *matCellDef="let row; let i = index">
                         <span class="mobile-label"> التسلسل:</span>
                         {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
-                      </mat-cell> </ng-container
-                    ><ng-container matColumnDef="title">
+                      </mat-cell> </ng-container><ng-container matColumnDef="title">
                       <mat-header-cell *matHeaderCellDef>
                         اسم العميل
                       </mat-header-cell>
@@ -145,95 +123,44 @@
                     </ng-container>
 
                     <ng-container matColumnDef="actions">
-                      <mat-header-cell *matHeaderCellDef class="pr-0"
-                        >الاجراء</mat-header-cell
-                      >
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        class="pr-0"
-                      >
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          (click)="$event.stopPropagation()"
-                          (click)="detailsBalance(row)"
-                          class="tbl-action-btn"
-                          matTooltip="تفاصيل الرصيد"
-                        >
-                          <app-feather-icons
-                            [icon]="'info'"
-                            [class]="'tbl-fav-edit'"
-                          >
+                      <mat-header-cell *matHeaderCellDef class="pr-0">الاجراء</mat-header-cell>
+                      <mat-cell *matCellDef="let row; let i = index" class="pr-0">
+                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                          (click)="detailsBalance(row)" class="tbl-action-btn" matTooltip="تفاصيل الرصيد">
+                          <app-feather-icons [icon]="'info'" [class]="'tbl-fav-edit'">
                           </app-feather-icons>
                         </button>
 
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          (click)="$event.stopPropagation()"
-                          (click)="editCall(row)"
-                          class="tbl-action-btn"
-                          matTooltip="تعديل"
-                        >
-                          <app-feather-icons
-                            [icon]="'edit'"
-                            [class]="'tbl-fav-edit'"
-                          >
+                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                          (click)="editCall(row)" class="tbl-action-btn" matTooltip="تعديل">
+                          <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'">
                           </app-feather-icons>
                         </button>
-                        <button
-                          *ngIf="row.denar === 0"
-                          mat-icon-button
-                          color="accent"
-                          (click)="$event.stopPropagation()"
-                          (click)="deleteItem(i, row)"
-                          class="tbl-action-btn"
-                          matTooltip="حذف"
-                        >
-                          <app-feather-icons
-                            [icon]="'trash-2'"
-                            [class]="'tbl-fav-delete'"
-                          >
+                        <button *ngIf="row.denar === 0" mat-icon-button color="accent"
+                          (click)="$event.stopPropagation()" (click)="deleteItem(i, row)" class="tbl-action-btn"
+                          matTooltip="حذف">
+                          <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'">
                           </app-feather-icons>
                         </button>
                       </mat-cell>
                     </ng-container>
-                    <mat-header-row
-                      *matHeaderRowDef="displayedColumns"
-                    ></mat-header-row>
-                    <mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                      (click)="showInfo(row)"
-                      [style.cursor]="'pointer'"
-                      matRipple
-                    >
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="showInfo(row)"
+                      [style.cursor]="'pointer'" matRipple>
                     </mat-row>
                   </table>
                   <!-- Loading spinner -->
                   <div *ngIf="showSpinner" class="tbl-spinner">
-                    <mat-progress-spinner
-                      color="accent"
-                      [diameter]="40"
-                      mode="indeterminate"
-                    >
+                    <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
                     </mat-progress-spinner>
                   </div>
-                  <div
-                    *ngIf="showSpinner"
-                    class="no-results"
-                    [style.display]="
+                  <div *ngIf="showSpinner" class="no-results" [style.display]="
                       dataSource.filteredData.length === 0 ? '' : 'none'
-                    "
-                  >
+                    ">
                     No results
                   </div>
-                  <mat-paginator
-                    #paginator
-                    [length]="dataSource.filteredData.length"
-                    [pageIndex]="0"
-                    [pageSize]="10"
-                    [pageSizeOptions]="[5, 10, 25, 100]"
-                  >
+                  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
                   </mat-paginator>
                 </div>
               </div>
@@ -253,11 +180,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="selectedIndex = 0"
-                        >
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
                           <i class="fa fa-arrow-right"></i> رجوع
                         </button>
                       </div>
@@ -266,150 +189,85 @@
                 </div>
               </div>
               <div class="body">
-                <form
-                  class="m-4"
-                  [formGroup]="gFormGroup"
-                  (ngSubmit)="onSubmit()"
-                >
+                <form class="m-4" [formGroup]="gFormGroup" (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label> اسم العميل </mat-label>
-                        <input
-                          matInput
-                          type="text "
-                          formControlName="title"
-                          placeholder="اسم العميل"
-                          required
-                        />
-                        <mat-error
-                          *ngIf="gFormGroup.get('title')?.hasError('required')"
-                        >
+                        <input matInput type="text " formControlName="title" placeholder="اسم العميل" required />
+                        <mat-error *ngIf="gFormGroup.get('title')?.hasError('required')">
                           هذا الحقل مطلوب
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label> العنوان </mat-label>
-                        <input
-                          matInput
-                          type="text "
-                          formControlName="address"
-                          placeholder="العنوان"
-                          required
-                        />
-                        <mat-error
-                          *ngIf="
+                        <input matInput type="text " formControlName="address" placeholder="العنوان" required />
+                        <mat-error *ngIf="
                             gFormGroup.get('address')?.hasError('required')
-                          "
-                        >
+                          ">
                           هذا الحقل مطلوب
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label> رقم الهاتف </mat-label>
-                        <input
-                          matInput
-                          type="text "
-                          formControlName="phoneNumber"
-                          placeholder="رقم الهاتف"
-                          required
-                        />
-                        <mat-error
-                          *ngIf="
+                        <input matInput type="text " formControlName="phoneNumber" placeholder="رقم الهاتف" required />
+                        <mat-error *ngIf="
                             gFormGroup.get('phoneNumber')?.hasError('required')
-                          "
-                        >
+                          ">
                           هذا الحقل مطلوب
                         </mat-error>
                       </mat-form-field>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>
                           بداية الرصيد بالدينار
-                          <span
-                            *ngIf="gFormGroup.get('initDenar')!.value > 0"
-                            style="color: red; font-size: 150%"
-                          >
+                          <span *ngIf="gFormGroup.get('initDenar')!.value > 0" style="color: red; font-size: 150%">
                             (
                             {{ gFormGroup.get("initDenar")!.value | number }} )
                           </span>
                         </mat-label>
-                        <input
-                          matInput
-                          type="number"
-                          formControlName="initDenar"
-                          placeholder="بداية الرصيد بالدينار"
-                          required
-                          (keyup.enter)="
+                        <input matInput type="number" formControlName="initDenar" placeholder="بداية الرصيد بالدينار"
+                          required (keyup.enter)="
                             gFormGroup
                               .get('initDenar')!
                               .setValue(
                                 gFormGroup.get('initDenar')!.value * 1000
                               )
-                          "
-                        />
-                        <mat-error
-                          *ngIf="
+                          " />
+                        <mat-error *ngIf="
                             gFormGroup.get('initDenar')?.hasError('required')
-                          "
-                        >
+                          ">
                           هذا الحقل مطلوب
                         </mat-error>
                       </mat-form-field>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
-                      <mat-form-field
-                        class="example-full-width"
-                        appearance="outline"
-                      >
+                      <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>
                           بداية الرصيد بالدولار
-                          <span
-                            *ngIf="gFormGroup.get('initDollar')!.value > 0"
-                            style="color: red; font-size: 150%"
-                          >
+                          <span *ngIf="gFormGroup.get('initDollar')!.value > 0" style="color: red; font-size: 150%">
                             (
                             {{ gFormGroup.get("initDollar")!.value | number }} )
                           </span>
                         </mat-label>
-                        <input
-                          matInput
-                          type="number"
-                          formControlName="initDollar"
-                          placeholder="بداية الرصيد بالدولار"
-                          required
-                          (keyup.enter)="
+                        <input matInput type="number" formControlName="initDollar" placeholder="بداية الرصيد بالدولار"
+                          required (keyup.enter)="
                             gFormGroup
                               .get('initDollar')!
                               .setValue(
                                 gFormGroup.get('initDollar')!.value * 1000
                               )
-                          "
-                        />
-                        <mat-error
-                          *ngIf="
+                          " />
+                        <mat-error *ngIf="
                             gFormGroup.get('initDollar')?.hasError('initDollar')
-                          "
-                        >
+                          ">
                           هذا الحقل مطلوب
                         </mat-error>
                       </mat-form-field>
@@ -417,20 +275,10 @@
                   </div>
                   <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <button
-                        class="btn-space"
-                        [disabled]="!gFormGroup.valid"
-                        mat-raised-button
-                        color="primary"
-                      >
+                      <button class="btn-space" [disabled]="!gFormGroup.valid" mat-raised-button color="primary">
                         حفظ البيانات
                       </button>
-                      <button
-                        type="button"
-                        mat-raised-button
-                        color="warn"
-                        (click)="selectedIndex = 0"
-                      >
+                      <button type="button" mat-raised-button color="warn" (click)="selectedIndex = 0">
                         الغاء
                       </button>
                     </div>
@@ -449,10 +297,12 @@
                   <ul class="header-buttons-left m-r-10">
                     <h5>
                       {{ caption }}
-
-                      <span class="denar">
-                        {{ currRowDetails.denar | number }} دع</span
-                      >
+                      <span [ngClass]="{ danger: currRowDetails.denar < 0 }">
+                        {{ currRowDetails.denar | number }} دع
+                      </span>
+                      <span [ngClass]="{ danger: currRowDetails.dollar < 0 }">
+                        {{ currRowDetails.dollar | number }} $
+                      </span>
                     </h5>
                   </ul>
                 </div>
@@ -460,11 +310,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="selectedIndex = 0"
-                        >
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
                           <i class="fa fa-arrow-right"></i> رجوع
                         </button>
                       </div>
@@ -475,17 +321,12 @@
               <div class="body">
                 <div class="overflow-auto">
                   <div class="responsive_table">
-                    <table
-                      mat-table
-                      [dataSource]="dsBoxDet"
-                      class="mat-cell advance-table"
-                    >
+                    <table mat-table [dataSource]="dsBoxDet" class="mat-cell advance-table">
                       <ng-container matColumnDef="seq">
                         <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                         <mat-cell *matCellDef="let row; let i = index">
                           <span class="mobile-label"> التسلسل:</span>
-                          {{ i + 1 }}</mat-cell
-                        >
+                          {{ i + 1 }}</mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="denar">
@@ -494,12 +335,8 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
                           <span class="mobile-label"> الرصيد :</span>
-                          <span
-                            class="denar"
-                            [style.color]="row.denar < 0 ? 'red' : ''"
-                          >
-                            {{ row.denar | number }} دع</span
-                          >
+                          <span class="denar" [style.color]="row.denar < 0 ? 'red' : ''">
+                            {{ row.denar | number }} دع</span>
                         </mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="dollar">
@@ -508,12 +345,8 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
                           <span class="mobile-label"> الرصيد :</span>
-                          <span
-                            class="denar"
-                            [style.color]="row.dollar < 0 ? 'red' : ''"
-                          >
-                            {{ row.dollar | number }} $</span
-                          >
+                          <span class="denar" [style.color]="row.dollar < 0 ? 'red' : ''">
+                            {{ row.dollar | number }} $</span>
                         </mat-cell>
                       </ng-container>
 
@@ -524,11 +357,9 @@
                         <mat-cell *matCellDef="let row">
                           <span class="mobile-label"> المبلغ :</span>
                           <span *ngIf="row.amountDenar > 0">
-                            {{ row.amountDenar | number }} دع</span
-                          >
+                            {{ row.amountDenar | number }} دع</span>
                           <span *ngIf="row.amountDollar > 0">
-                            {{ row.amountDollar | number }} دولار</span
-                          >
+                            {{ row.amountDollar | number }} دولار</span>
                         </mat-cell>
                       </ng-container>
 
@@ -544,11 +375,53 @@
 
                       <ng-container matColumnDef="toFrom">
                         <mat-header-cell *matHeaderCellDef>
-                          الجهة
+                          التفاصيل
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                          <span class="mobile-label"> الجهة</span>
-                          {{ row.toFrom }}
+                          <span class="mobile-label"> التفاصيل </span>
+                          <span *ngIf="!row.items"> {{ row.toFrom }}</span>
+                          <table *ngIf="row.items && row.items.length>0" class="table" width="auto">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th> اسم المادة</th>
+                                <th>الطول</th>
+                                <th>العرض</th>
+                                <th>السمك</th>
+                                <th>العدد</th>
+                                <th>السعر</th>
+                                <th>المجموع</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let x of row.items; let i = index"
+                                [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>
+                                  {{x.title}}
+                                </td>
+                                <td>
+                                  {{ x.length | number }}
+                                </td>
+                                <td>
+                                  {{x.width | number }}
+                                </td>
+                                <td>
+                                  {{x.thickness | number }}
+                                </td>
+                                <td>
+                                  {{x.quantity | number }}
+                                </td>
+
+                                <td>
+                                  {{x.unitCostPrice | number }}
+                                </td>
+                                <td>
+                                  {{x.quantity * x.unitCostPrice | number }}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </mat-cell>
                       </ng-container>
 
@@ -582,25 +455,14 @@
                         </mat-cell>
                       </ng-container>
 
-                      <mat-header-row
-                        *matHeaderRowDef="dipBoxDetaise"
-                      ></mat-header-row>
-                      <mat-row
-                        *matRowDef="let row; columns: dipBoxDetaise"
-                        (click)="showInfo(row)"
-                        [style.cursor]="'pointer'"
-                        matRipple
-                      >
+                      <mat-header-row *matHeaderRowDef="dipBoxDetaise"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: dipBoxDetaise" (click)="showInfo(row)"
+                        [style.cursor]="'pointer'" matRipple>
                       </mat-row>
                     </table>
 
-                    <mat-paginator
-                      #pagDetails
-                      [length]="dsBoxDet.data.length"
-                      [pageIndex]="0"
-                      [pageSize]="10"
-                      [pageSizeOptions]="[5, 10, 25, 100]"
-                    >
+                    <mat-paginator #pagDetails [length]="dsBoxDet.data.length" [pageIndex]="0" [pageSize]="10"
+                      [pageSizeOptions]="[5, 10, 25, 100]">
                     </mat-paginator>
                   </div>
                 </div>

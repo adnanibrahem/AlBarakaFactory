@@ -33,6 +33,7 @@ export class BalanceDetails {
   seq!: number;
   fatora!: any;
   currency!: boolean;
+  items!: any;
 }
 
 export class BoxTransaction {
@@ -225,6 +226,19 @@ export interface ManufacturingFiles {
   objFile: any;
   file: any;
 }
+export interface ManufacturingItems {
+  id: number;
+  order: number;
+  title: string; // اسم المادة
+  quantity: number; // العدد  
+  unitCostPrice: number; // كلفة الوحدة
+  width: number | null; // العرض
+  length: number | null; // الطول
+  thickness: number | null; // السماكة
+  deleted: boolean; // هل تم حذفها
+}
+
+
 export interface ManufacturingOrder {
   id: number;
   agent: number;
@@ -235,6 +249,7 @@ export interface ManufacturingOrder {
   doneAt: any; // تاريخ الانتهاء
   currency: boolean; // العملة
   price: number; // كلفة الطلب
+  otherPrice: number; // كلفة الطلب الآخر
   comments: string; // الملاحظات
   status: string;
   selected: boolean;
@@ -243,7 +258,9 @@ export interface ManufacturingOrder {
   done: boolean;
   paths: ManufacturingPath[];
   images: ManufacturingImages[];
+  items: ManufacturingItems[];
   designFile: any;
   fileName: string;
   deleteByUpdate: boolean;
 }
+

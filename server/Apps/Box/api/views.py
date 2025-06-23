@@ -17,7 +17,7 @@ from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 from django.db.models.query_utils import Q
 
 from Apps.Box.api.serializers import BoxTransactionSerializer, CategorySerializer, ManufacturingImagesSerializer, ManufacturingOrderSerializer, ManufacturingOrderSerializerBlank, ManufacturingPathSerializer
-from Apps.Box.models import BoxTransaction, Category, InitBox, ManufacturingImages, ManufacturingOrder, ManufacturingPath
+from Apps.Box.models import BoxTransaction, Category, InitBox, ManufacturingImages, ManufacturingItems, ManufacturingOrder, ManufacturingPath
 from Apps.Users.models import CommercialYear, Users
 from Apps.lib import getBoxBallance, getPrivilege
 
@@ -152,8 +152,13 @@ class ManufacturingOrderList(ListAPIView):
             qr = ManufacturingOrder.objects.filter(deleted=False,
                                                     done=False,
                                                     otherOrder=False,
-                                                    dateAt__gte=dtFrom,
-                                                    dateAt__lte=dtTo).order_by('-pk')
+                                                    ).order_by('-pk')
+            items= []
+            for item in qr:
+                mf=ManufacturingPath.objects.filter(order=item.pk)
+                if mf.count() == 0:
+                    items.append(item)
+            qr = items
         else:
             qr =  []
 
@@ -181,28 +186,64 @@ class ManufacturingOrderCreate(CreateAPIView):
             
         request.data['userAuth'] = self.request.user.id
         request.data['yearId'] = cm[0].pk
-
-        # if '_mutable' in request.data.keys():
+ 
         request.data._mutable=False
-            
-        return super().post(request, *args, **kwargs)
+        r= super().post(request, *args, **kwargs)
+        if   'paths' in request.data.keys() and request.data['paths'] is not None and request.data['paths'] != '':
+            for path in json.loads(request.data['paths'])  :
+                p= ManufacturingPath()
+                p.order = ManufacturingOrder.objects.get(pk=r.data['id'])
+                p.step = path['step']
+                p.index = path['index']
+                p.save()
+        if 'items' in request.data.keys() and request.data['items'] is not None and request.data['items'] != '':
+            for item in json.loads(request.data['items']) :
+                img = ManufacturingItems()
+                img.title = item['title']
+                img.quantity = item['quantity']
+                img.unitCostPrice = item['unitCostPrice']
+                img.width = item['width']
+                img.length = item['length']
+                img.thickness = item['thickness']
+                img.order = ManufacturingOrder.objects.get(pk=r.data['id'])
+                img.save()
+        return r
     
 class ManufacturingOrderEdit(RetrieveUpdateAPIView):
     queryset = ManufacturingOrder.objects.all()
     serializer_class = ManufacturingOrderSerializer
     lookup_fields = ('pk')
     def put(self, request, *args, **kwargs):
-        if 'paths' in request.data.keys() and request.data['paths'] is not None and request.data['paths'] != '':
-            paths= ManufacturingPath.objects.filter(order__pk=kwargs.get('pk'))
-            for path in paths:
-                path.delete()
-
-            for path in  json.loads( request.data['paths']):
-                p= ManufacturingPath()
+        if 'paths' in request.data.keys() and request.data['paths'] is not None:
+            paths = ManufacturingPath.objects.filter(order__pk=kwargs.get('pk'))
+            for p in paths:
+                p.delete()
+              
+            for path in  json.loads(request.data['paths'] ):
+                if  path['id'] !=-1:
+                    p = ManufacturingPath.objects.get(pk=path['id'])
+                else:
+                     p= ManufacturingPath()
                 p.order = ManufacturingOrder.objects.get(pk=kwargs.get('pk'))
                 p.step = path['step']
                 p.index = path['index']
                 p.save()
+         
+        if 'items' in request.data.keys() and request.data['items'] is not None :
+            for item in json.loads(request.data['items']) :
+                if item['id'] != -1:
+                    img = ManufacturingItems.objects.get(pk=item['id'])
+                    img.deleted = item['deleted']
+                else:
+                    img = ManufacturingItems()
+                img.title = item['title']
+                img.quantity = item['quantity']
+                img.unitCostPrice = item['unitCostPrice']
+                img.width = item['width']
+                img.length = item['length']
+                img.thickness = item['thickness']
+                img.order = ManufacturingOrder.objects.get(pk=kwargs.get('pk'))
+                img.save()
  
         r=super().put(request, *args, **kwargs)
         return r

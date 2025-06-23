@@ -51,7 +51,7 @@ export class CuttingPageComponent
     "image",
     // "files",
     "dateAt",
-    // "status",
+    "items",
     "actions",
   ];
 

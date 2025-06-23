@@ -313,6 +313,7 @@ export class AgentsComponent
             }
 
             if (z.type == "manufacturingOrder") {
+              d.items = t.items;
               d.inOut = "تصنيع";
               d.currency = t.currency;
               if (t.currency) {
@@ -341,6 +342,8 @@ export class AgentsComponent
             d.date = z.date;
             this.blnsDetals.push(d);
           });
+
+          this.blnsDetals.reverse();
           this.dsBoxDet.data = this.blnsDetals;
           this.dsBoxDet.paginator = this.pagDetails;
           this.dsBoxDet._updateChangeSubscription();

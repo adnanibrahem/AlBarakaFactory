@@ -233,6 +233,7 @@ export class DesignComponent
     const paths: ManufacturingPath[] = [];
     this.pathPointsDone.forEach((t: any) => {
       const p: ManufacturingPath = {} as ManufacturingPath;
+      p.id = -1; // Assuming new paths have no ID
       p.index = t.index;
       p.step = t.value;
       p.order = id;
@@ -302,7 +303,6 @@ export class DesignComponent
 
   showImagePreview(file: File) {
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
     reader.onload = () => {
       const showPictureFile = new UntypedFormControl();
@@ -322,10 +322,7 @@ export class DesignComponent
   }
   //  ------------End pictures
 
-  getPathTitle(value: string): string {
-    const path = this.pathPoints.find((p) => p.value === value);
-    return path ? path.title : value;
-  }
+ 
 
   private updateDataSource(newData: ManufacturingOrder[]): void {
     const currentData = this.dataSource.data;

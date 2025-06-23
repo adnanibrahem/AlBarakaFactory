@@ -20,14 +20,8 @@
                           search
                         </i>
                       </label>
-                      <input
-                        placeholder="بحث"
-                        type="text"
-                        matInput
-                        (keyup)="applyFilter($event)"
-                        class="browser-default search-field"
-                        aria-label="Search box"
-                      />
+                      <input placeholder="بحث" type="text" matInput (keyup)="applyFilter($event)"
+                        class="browser-default search-field" aria-label="Search box" />
                     </li>
                   </ul>
                 </div>
@@ -43,17 +37,13 @@
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="responsive_table">
-                      <table
-                        mat-table
-                        [dataSource]="dataSource"
-                        class="mat-cell advance-table"
-                      >
+                      <table mat-table [dataSource]="dataSource" class="mat-cell advance-table">
                         <ng-container matColumnDef="seq">
                           <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                           <mat-cell *matCellDef="let row; let i = index">
                             <span class="mobile-label"> التسلسل:</span>
                             {{
-                              paginator.pageIndex * paginator.pageSize + i + 1
+                            paginator.pageIndex * paginator.pageSize + i + 1
                             }}
                           </mat-cell>
                         </ng-container>
@@ -64,15 +54,10 @@
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التصميم:</span>
-                            <img
-                              *ngIf="row.orderInfo.images.length"
-                              [src]="
+                            <img *ngIf="row.orderInfo.images.length" [src]="
                                 'http://127.0.0.1:8000' +
                                 row.orderInfo.images[0].image
-                              "
-                              style="max-width: 100px"
-                              (click)="imgClick(row.orderInfo.images[0])"
-                            />
+                              " style="max-width: 100px" (click)="imgClick(row.orderInfo.images[0])" />
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="title">
@@ -93,8 +78,8 @@
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التاريخ:</span>
                             {{
-                              row.orderInfo.dateAt
-                                | date : "yyyy-MM-dd hh:mm:ss aa"
+                            row.orderInfo.dateAt
+                            | date : "yyyy-MM-dd hh:mm:ss aa"
                             }}
                           </mat-cell>
                         </ng-container>
@@ -116,15 +101,64 @@
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الملف :</span>
-                            <a
-                              *ngIf="row.orderInfo.designFile?.length"
-                              [href]="row.orderInfo.designFile"
-                              download
-                            >
+                            <a *ngIf="row.orderInfo.designFile?.length" [href]="row.orderInfo.designFile" download>
                               تنزيل الملف
                             </a>
                           </mat-cell>
                         </ng-container>
+
+
+                        <ng-container matColumnDef="items">
+                          <mat-header-cell *matHeaderCellDef>
+                            المواد
+                          </mat-header-cell>
+
+                          <mat-cell *matCellDef="let row">
+                            <span class="mobile-label"> المواد :</span>
+                            <table class="table" width="auto">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th> اسم المادة</th>
+                                  <th>الطول</th>
+                                  <th>العرض</th>
+                                  <th>السمك</th>
+                                  <th>العدد</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let x of row.orderInfo.items; let i = index"
+                                  [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                                  <th scope="row">{{ i + 1 }}</th>
+                                  <td>
+                                    {{x.title}}
+                                  </td>
+                                  <td>
+                                    {{ x.length | number }}
+
+                                  </td>
+                                  <td>
+                                    {{x.width | number }}
+
+                                  </td>
+                                  <td>
+                                    {{x.thickness | number }}
+
+                                  </td>
+                                  <td>
+                                    {{x.quantity | number }}
+
+                                  </td>
+
+                                </tr>
+                              </tbody>
+                            </table>
+
+
+                          </mat-cell>
+                        </ng-container>
+
+
 
                         <ng-container matColumnDef="comments">
                           <mat-header-cell *matHeaderCellDef>
@@ -140,56 +174,29 @@
                           <mat-header-cell *matHeaderCellDef class="pr-0">
                             تم انجاز العمل
                           </mat-header-cell>
-                          <mat-cell
-                            *matCellDef="let row; let i = index"
-                            class="pr-0"
-                          >
-                            <button
-                              mat-icon-button
-                              color="accent"
-                              (click)="$event.stopPropagation()"
-                              (click)="SetDone(row)"
-                              class="tbl-action-btn"
-                              matTooltip="تم انجاز العمل"
-                            >
+                          <mat-cell *matCellDef="let row; let i = index" class="pr-0">
+                            <button class="button-done" (click)="$event.stopPropagation()" (click)="SetDone(row)"
+                              matTooltip="تم انجاز العمل">
                               <i class="bi bi-check2-circle fs-3"></i>
                             </button>
                           </mat-cell>
                         </ng-container>
-                        <mat-header-row
-                          *matHeaderRowDef="displayedColumns"
-                        ></mat-header-row>
-                        <mat-row
-                          *matRowDef="let row; columns: displayedColumns"
-                          matRipple
-                        >
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns" matRipple>
                         </mat-row>
                       </table>
                       <!-- Loading spinner -->
                       <div *ngIf="showSpinner" class="tbl-spinner">
-                        <mat-progress-spinner
-                          color="accent"
-                          [diameter]="40"
-                          mode="indeterminate"
-                        >
+                        <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
                         </mat-progress-spinner>
                       </div>
-                      <div
-                        *ngIf="showSpinner"
-                        class="no-results"
-                        [style.display]="
+                      <div *ngIf="showSpinner" class="no-results" [style.display]="
                           dataSource.filteredData.length === 0 ? '' : 'none'
-                        "
-                      >
+                        ">
                         No results
                       </div>
-                      <mat-paginator
-                        #paginator
-                        [length]="dataSource.filteredData.length"
-                        [pageIndex]="0"
-                        [pageSize]="10"
-                        [pageSizeOptions]="[5, 10, 25, 100]"
-                      >
+                      <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0"
+                        [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
                       </mat-paginator>
                     </div>
                   </div>
@@ -212,11 +219,7 @@
                   <ul class="tbl-export-btn">
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
-                        <button
-                          type="button"
-                          class="btn btn-danger"
-                          (click)="selectedIndex = 0"
-                        >
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
                           <i class="fa fa-arrow-right"></i>
                           رجوع
                         </button>
@@ -228,9 +231,7 @@
               <div class="body">
                 <div class="m-4">
                   <div class="row">
-                    <div
-                      class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3"
-                    ></div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3"></div>
                   </div>
                 </div>
               </div>
