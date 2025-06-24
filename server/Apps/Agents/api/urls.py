@@ -5,6 +5,9 @@ app_name = 'Agents'
 
 urlpatterns = [
     path('agent/list/<slug:group>/', views.AgentsList.as_view()),
+    path('agent/attendes/', views.AgentsListAttendes.as_view()),
+    path('agent/save/salary/', views.AgentsSaveSalary.as_view()),
+    
     path('agent/list/', views.AgentsList.as_view()),
     path('agent/create/', views.AgentsCreate.as_view()),
     path('agent/edit/<int:pk>/', views.AgentsEdit.as_view()),

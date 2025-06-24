@@ -15,6 +15,7 @@ import { NumberCommaDirective } from "./number-comma.directive";
 import { ShowFatoraItemsDialogComponent } from "./show-fatora-items/show-fatora-items.component";
 import { BalanceMigrationDialogComponent } from "./balance-migration/balance-migration-dialog.component";
 import { WithdrawalDestinationsDialogComponent } from "./WithdrawalDestinations/withdrawal-destinations.component";
+import { WokersDialogComponent } from "./Workers/workers.component";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { WithdrawalDestinationsDialogComponent } from "./WithdrawalDestinations/
     BarcodeDialogComponent,
     BalanceMigrationDialogComponent,
     WithdrawalDestinationsDialogComponent,
+    WokersDialogComponent
   ],
   imports: [SharedModule, WebcamModule, ZXingScannerModule],
   exports: [
@@ -44,6 +46,7 @@ import { WithdrawalDestinationsDialogComponent } from "./WithdrawalDestinations/
     NumberCommaDirective,
     BalanceMigrationDialogComponent,
     WithdrawalDestinationsDialogComponent,
+    WokersDialogComponent
   ],
 })
 export class ComponentsModule {}

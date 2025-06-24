@@ -17,8 +17,8 @@ from django.views.generic.base import View
 from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 from django.db.models.query_utils import Q
 
-from Apps.Agents.api.serializers import AgentsSerializer, DestinationSerializer, InvoiceItemsSerializer, InvoiceSerializer, MaterialSerializer, MaterialTitleSerializer, WithdrawItemsSerializer, WithdrawSerializer 
-from Apps.Agents.models import Agents, Destination,   InitAgentsBalance, InitMaterialQuantity, Invoice, InvoiceItems, Material, Withdraw, WithdrawItems 
+from Apps.Agents.api.serializers import AgentsSerializer, AttendesSerializer, DestinationSerializer, InvoiceItemsSerializer, InvoiceSerializer, MaterialSerializer, MaterialTitleSerializer, WithdrawItemsSerializer, WithdrawSerializer 
+from Apps.Agents.models import Agents, Attendes, Destination,   InitAgentsBalance, InitMaterialQuantity, Invoice, InvoiceItems, Material, Withdraw, WithdrawItems 
 from Apps.Users.models import CommercialYear
 from Apps.lib import HasAddOnlyPermission, HasFullPermission, getAgentBallance, getMaterialBallance
 
@@ -38,6 +38,40 @@ class AgentsList(ListAPIView):
         qr = Agents.objects.filter(deleted=False)
         return qr
 
+class AgentsListAttendes(APIView):
+    def post(self, request):
+        data= request.data
+        dtFrom = data['dtFrom']
+        dtTo = data['dtTo']
+        qr = Agents.objects.filter(group='worker', deleted=False)
+        items=[]
+        for x in qr:
+            atd= Attendes.objects.filter(agent=x,
+                                        dateAt__gte=dtFrom,
+                                        dateAt__lte=dtTo)
+            items.append({'agent': AgentsSerializer( x).data,
+                          'attendance': AttendesSerializer(atd, many=True).data})  
+        return Response(items, status=status.HTTP_200_OK)
+
+ 
+class AgentsSaveSalary(APIView):
+    def post(self, request):
+        data= request.data
+        for x in data:
+            for y in x['attendance']:
+                if 'id' in y.keys():
+                    atd = Attendes.objects.get(pk=y['id'])
+                    atd.workTime = y['workTime']
+                    atd.save()
+                else:
+                    atd = Attendes(agent=Agents.objects.get(pk=x['agent']['id']),
+                                   dateAt=y['dateAt'])
+                    if 'workTime' in y.keys():
+                        atd.workTime = y['workTime']
+                    atd.save()
+        return Response(True, status=status.HTTP_200_OK)
+
+ 
 
 class AgentsCreate(CreateAPIView):
     queryset = Agents.objects.all()
@@ -50,14 +84,15 @@ class AgentsCreate(CreateAPIView):
         auth = self.request.user.id
         data = request.data
         request.data['userAuth'] = auth
-
         r = super().create(request, *args, **kwargs)
-        cm = CommercialYear.objects.all().order_by('-pk')
-        sp = Agents.objects.filter(pk=r.data['id'])
-        b = InitAgentsBalance(denar=data['initDenar'],
-                              dollar=data['initDollar'],
-                              agent=sp[0], yearId=cm[0])
-        b.save()
+        
+        if 'initDenar'  in data.keys():
+            cm = CommercialYear.objects.all().order_by('-pk')
+            sp = Agents.objects.filter(pk=r.data['id'])
+            b = InitAgentsBalance(denar=data['initDenar'],
+                                dollar=data['initDollar'],
+                                agent=sp[0], yearId=cm[0])
+            b.save()
         return r
 
 
@@ -70,7 +105,7 @@ class AgentsEdit(RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         data = request.data
         r = self.update(request, *args, **kwargs)
-        if data['initId'] is not None:
+        if  'initId' in data.keys() and   data['initId'] is not None:
             tInit = InitAgentsBalance.objects.filter(pk=data['initId'])
             if tInit.count() > 0:
                 t = tInit[0]
@@ -78,7 +113,7 @@ class AgentsEdit(RetrieveUpdateAPIView):
                 t.dollar = data['initDollar']
                 t.save()
         return r
-
+    
     def delete(self, request, *args, **kwargs):
         if not HasFullPermission.has_object_permission(self, request, None, None):
             return Response(status=status.HTTP_403_FORBIDDEN)

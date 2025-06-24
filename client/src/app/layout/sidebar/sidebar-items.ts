@@ -105,6 +105,21 @@ export const SideMenuRouts: RouteInfo[] = [
     submenu: [],
     selected: false,
   },
+  {
+    path: "/acc/attend/",
+    title: "حضور العمال",
+    iconType: "bootstrap", /// 'feather',
+    icon: "bi bi-check2-all sidebarIcon sidebarIconColor",
+    class: "",
+    index: 4,
+    groupTitle: false,
+    badge: "",
+    badgeClass: "",
+    role: ["accountant"],
+    submenu: [],
+    selected: false,
+  },
+  
 
   {
     path: "/acc/category/",

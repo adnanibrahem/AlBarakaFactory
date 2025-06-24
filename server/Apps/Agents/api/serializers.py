@@ -3,13 +3,18 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.serializers import SerializerMethodField
 
-from Apps.Agents.models import Agents, Destination, Invoice, InvoiceItems, Material, Withdraw, WithdrawItems  
+from Apps.Agents.models import Agents, Attendes, Destination, Invoice, InvoiceItems, Material, Withdraw, WithdrawItems  
 from Apps.Users.models import Users
  
 user_profile = User
 
 
 class AgentsSerializer(serializers.ModelSerializer):
+    destinationTitle = SerializerMethodField()
+    def get_destinationTitle(self, obj):
+        if obj.destination is not None:
+            return obj.destination.title
+        return None
     class Meta:
         verbose_name = 'Agents List'
         model = Agents
@@ -20,6 +25,12 @@ class DestinationSerializer(serializers.ModelSerializer):
     class Meta:
         verbose_name = 'Destination List'
         model = Destination
+        fields = '__all__'
+        
+class AttendesSerializer(serializers.ModelSerializer):
+    class Meta:
+        verbose_name = 'Attendes List'
+        model = Attendes
         fields = '__all__'
 
 

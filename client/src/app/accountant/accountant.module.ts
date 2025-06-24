@@ -11,6 +11,7 @@ import { SupplierInvoiceComponent } from "./SupplierInvoice/supplierinvoice.comp
 import { ManufacturingOrderComponent } from "./ManufacturingOrder/manufacturing-order.component";
 import { WithdrawMaterialsComponent } from "./WithdrawMaterials/withdraw-materials.component";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AttendanceComponent } from "./Attendance/attendance.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SupplierInvoiceComponent,
     ManufacturingOrderComponent,
     WithdrawMaterialsComponent,
+    AttendanceComponent
   ],
   imports: [
     CommonModule,

@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Component, Inject } from "@angular/core";
-import { Destination } from "app/accountant/accountant.model";
+import { Agent, Destination } from "app/accountant/accountant.model";
 import { MyHTTP } from "@core/service/myHttp.service";
 
 @Component({
-  selector: "app-withdrawal-destinations",
-  templateUrl: "./withdrawal-destinations.component.html",
-  styleUrls: ["./withdrawal-destinations.component.scss"],
+  selector: "app-workers",
+  templateUrl: "./workers.component.html",
+  styleUrls: ["./workers.component.scss"],
 })
-export class WithdrawalDestinationsDialogComponent {
+export class WokersDialogComponent {
   items = "";
   title = "";
   constructor(
-    public dialogRef: MatDialogRef<WithdrawalDestinationsDialogComponent>,
+    public dialogRef: MatDialogRef<WokersDialogComponent>,
     private http: MyHTTP
   ) {
-    this.title = " الوجهات المستفيدة من سحب المواد";
+    this.title = " واجهة تسجيل الموظفين او العمال";
   }
+
 
   destinationList: Destination[] = [];
   LoadDestinationList() {
@@ -26,15 +27,22 @@ export class WithdrawalDestinationsDialogComponent {
     });
   }
 
+  agentList: Agent[] = [];
+  LoadAgentList() {
+    this.http.list("agents", "agent/list/worker").subscribe((e: any) => {
+      this.agentList = e;
+    });
+  }
+  
   ngOnInit() {
     this.LoadDestinationList();
+    this.LoadAgentList();
   }
-  onSave(x: Destination) {
-    if (x.id === 0) {
-      // إضافة وجهة جديدة
-      this.http.create("agents", "destination/create", x).subscribe(
+  onSave(x: Agent) {
+    if (!x.id) {
+      this.http.create("agents", "agent/create", x).subscribe(
         (res: any) => {
-          x.id = res.id; // تحديث id بعد الإضافة
+          x.id = res.id;  
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
         },
         () => {
@@ -43,7 +51,7 @@ export class WithdrawalDestinationsDialogComponent {
       );
     } else {
       // تحديث وجهة موجودة
-      this.http.update("agents", "destination/edit", x).subscribe(
+      this.http.update("agents", "agent/edit", x).subscribe(
         (res: any) => {
           this.http.showNotification("snackbar-success", "تم التحديث بنجاح");
         },
@@ -55,15 +63,15 @@ export class WithdrawalDestinationsDialogComponent {
     x.save = false;
   }
 
-  onDelete(x: Destination) {
-    if (x.id === 0) {
-      this.destinationList = this.destinationList.filter(
+  onDelete(x: Agent) {
+    if (!x.id ) {
+      this.agentList = this.agentList.filter(
         (item) => item.id !== x.id
       );
     } else {
-      this.http.delete("agents", "destination/edit", x).subscribe(
+      this.http.delete("agents", "agent/edit", x).subscribe(
         () => {
-          this.destinationList = this.destinationList.filter(
+          this.agentList = this.agentList.filter(
             (item) => item.id !== x.id
           );
           this.http.showNotification("snackbar-success", "تم الحذف بنجاح");
@@ -79,12 +87,8 @@ export class WithdrawalDestinationsDialogComponent {
     this.dialogRef.close();
   }
   onAdd(): void {
-    const newDestination: Destination = {
-      id: 0,
-      title: "",
-      total: 0, // المجموع
-      save: false, // هل تم حفظها
-    };
-    this.destinationList.push(newDestination);
+    const newagent: Agent = {} as Agent;
+    newagent.group = "worker";
+    this.agentList.push(newagent);
   }
 }

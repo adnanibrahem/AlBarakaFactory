@@ -19,7 +19,28 @@ export class Agent {
   initId!: number;
   details!: [];
   spinner!: boolean;
+  save!: boolean;
+  destination!: number| null; 
+  destinationTitle!: string;
+  salary!: number;
+  
 }
+
+export class Attendance{
+  id!: number;
+  agent!: number;
+  dateAt!: any;
+  workTime!: number;
+} 
+
+export class Salary {
+  agent!: Agent;
+  attendance!: Attendance[];
+  addtionMoney!: number;
+  ballance!: number;
+  totalSalary!: number;
+ }
+
 
 export class BalanceDetails {
   denar!: number;
@@ -57,6 +78,8 @@ export class BoxTransaction {
 
   fromAgent!: number;
   fromAgentTitle!: string;
+  destination!: number | null;
+  destinationTitle!: string;
 
   fromAmountComma!: string;
   toAmountComma!: string;
@@ -104,7 +127,6 @@ export class Material {
 export class StoreItemDetails {
   quantity!: number;
   balance!: number;
-
   date: any;
   type!: string;
   comments!: string;
@@ -166,6 +188,7 @@ export interface InvoiceItems {
 export interface Destination {
   id: number;
   title: string;
+  total: number; // المجموع
   save: boolean; // هل تم حفظها
 }
 export interface Withdraw {

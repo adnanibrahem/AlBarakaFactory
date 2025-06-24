@@ -1,0 +1,177 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="title"> </app-breadcrumb>
+    </div>
+
+    <div class="row">
+      <mat-tab-group [selectedIndex]="selectedIndex">
+        <mat-tab label="1">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="card">
+              <div class="materialTableHeader">
+                <div class="left">
+
+                  <div class="row p-1 mt-4">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label> تاريخ بداية الاسبوع </mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="dateSearchFrom" (focus)="picker1.open()"
+                          required />
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label> تاريخ نهاية الاسبوع </mat-label>
+                        <input matInput [matDatepicker]="picker2" [(ngModel)]="dateSearchTo" (focus)="picker2.open()"
+                          required />
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6" matTooltip=" بحث   خلال فترة">
+                      <button type="button" class="btn btn-success example-full-width" (click)="LoadAgent()">
+                        <i class="fa fa-search"></i>
+                        بحث
+                      </button>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="right">
+                  <ul class="tbl-export-btn">
+                    <li class="tbl-header-btn">
+
+                      <div class="m-l-10" matTooltip=" حفظ البيانات">
+                        <button type="button" class="btn btn-primary" (click)="saveSlary()">
+                          <i class="fa fa-save"></i>
+                          حفظ البيانات
+                        </button>
+                      </div>
+
+                    </li>
+
+                    <li class="tbl-header-btn">
+                      <div class="m-l-10" matTooltip=" تسجيل عامل / موظف">
+                        <button type="button" class="btn btn-warning" (click)="AddWorker()">
+                          <i class="fa fa-plus"></i>
+                          تسجيل عامل / موظف
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="body overflow-auto">
+                <div class="responsive_table" style="max-height: 600px; ">
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                      <table class="table table-bordered" width="auto">
+                        <thead>
+                          <tr>
+                            <th> القسم</th>
+                            <th> مجموع الرواتب</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @for (x of destinationList; track $index) {
+                          <tr>
+                            <td>{{ x.title }}</td>
+                            <td>{{ x.total | number: '1.0-0' }}</td>
+                          </tr>
+                          }
+
+                        </tbody>
+                      </table>
+
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+
+                      <p>مجموع الرواتب : {{totalAllSalary | number}} </p>
+                    </div>
+
+                  </div>
+                  <table class="table table-bordered" width="auto">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th> الاسم الكامل </th>
+                        <th>مكان العمل</th>
+                        @for (dt of dateTags; track $index) {
+                        <th width="100px">{{ dt | date: 'yyyy-MM-dd EEEE' }}</th>
+                        }
+                        <th>الراتب</th>
+                        <th>الاضافي</th>
+                        <th>صافي الراتب</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let x of  items; let i = index">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td> {{x.agent.title}} </td>
+                        <td> {{ x.agent.destinationTitle }} </td>
+                        @for (attn of x.attendance; track $index) {
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="attn.workTime"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="change(x , i)" />
+                        </td>
+                        }
+                        <td> {{x.agent.salary | number }}</td>
+                        <td>
+                          <input type="number" class="form-control" [(ngModel)]="x.addtionMoney"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="change(x , i)" />
+                        </td>
+                        <td>
+                          {{x.totalSalary | number: '1.0-0' }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- Loading spinner -->
+                  <div *ngIf="showSpinner" class="tbl-spinner">
+                    <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
+                    </mat-progress-spinner>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="2" *ngIf="selectedIndex === 1">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+              <div class="materialTableHeader">
+                <div class="left">
+                  <ul class="header-buttons-left m-r-10">
+                    <h5>{{ caption }}</h5>
+                  </ul>
+                </div>
+                <div class="right">
+                  <ul class="tbl-export-btn">
+                    <li class="tbl-header-btn">
+                      <div class="m-l-10" matTooltip="رجوع">
+                        <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
+                          <i class="fa fa-arrow-right"></i> رجوع
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="body">
+
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+  </div>
+</section>

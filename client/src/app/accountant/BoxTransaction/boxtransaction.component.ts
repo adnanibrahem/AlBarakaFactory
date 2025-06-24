@@ -19,6 +19,7 @@ import {
   BoxBalance,
   BoxTransaction,
   Category,
+  Destination,
   Documents,
 } from "../accountant.model";
 import { CommercialYear } from "app/admin/admin.model";
@@ -210,6 +211,13 @@ export class BoxTransactionComponent
       );
   }
 
+  destinationList: Destination[] = [];
+  LoadDestinationList() {
+    this.http.list("agents", "destination/list").subscribe((e: any) => {
+      this.destinationList = e;
+    });
+  }
+
   ngOnInit(): void {
     this.LoadAgentList();
     this.LoadcategoryList();
@@ -218,6 +226,7 @@ export class BoxTransactionComponent
       if (e.id > 0) {
         this.LoadBoxTransaction();
         this.loadBoxBallance();
+        this.LoadDestinationList();
         this.curUser = this.auth.currentUserValue;
       }
     });
@@ -368,8 +377,10 @@ export class BoxTransactionComponent
   }
 
   onSubmit() {
-    const dt = this.varBTrx;
+    if (!this.varBTrx.category)
+      this.varBTrx.destination = null;
 
+    const dt = this.varBTrx;
     this.showSpinner = true;
 
     dt.transactionDate = this.datePipe.transform(

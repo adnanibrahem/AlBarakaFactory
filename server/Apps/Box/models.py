@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-from Apps.Agents.models import Agents   
+from Apps.Agents.models import Agents, Destination   
 from Apps.Users.models import CommercialYear, Users
 from Backend.lists import  PRIVILEGE
 
@@ -52,6 +52,7 @@ class BoxTransaction(models.Model):
 
     comments = models.TextField(null=True, blank=True)
     transactionDate = models.DateField()
+    destination = models.ForeignKey(Destination, on_delete=models.DO_NOTHING,null=True, blank=True)    
     dateAt = models.DateTimeField(auto_now_add=True)
     userAuth = models.ForeignKey(USER_MODEL, on_delete=models.DO_NOTHING)
     deleted = models.BooleanField(default=False)

@@ -8,6 +8,7 @@ import { StoreComponent } from "./Store/store.component";
 import { SupplierInvoiceComponent } from "./SupplierInvoice/supplierinvoice.component";
 import { ManufacturingOrderComponent } from "./ManufacturingOrder/manufacturing-order.component";
 import { WithdrawMaterialsComponent } from "./WithdrawMaterials/withdraw-materials.component";
+import { AttendanceComponent } from "./Attendance/attendance.component";
 
 const allRoutes: Routes = [
   { path: "agents", component: AgentsComponent },
@@ -17,6 +18,7 @@ const allRoutes: Routes = [
   { path: "invoice", component: SupplierInvoiceComponent },
   { path: "mnforder", component: ManufacturingOrderComponent },
   { path: "withdraw", component: WithdrawMaterialsComponent },
+  { path: "attend", component: AttendanceComponent },  
 ];
 
 @NgModule({

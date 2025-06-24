@@ -54,6 +54,8 @@ export class WithdrawMaterialsComponent
       this.destinationList = e;
     });
   }
+
+  
   destinatios() {
     const dialogRef = this.dialog.open(WithdrawalDestinationsDialogComponent, {
       height: "750px",

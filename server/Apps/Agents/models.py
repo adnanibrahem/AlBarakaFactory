@@ -11,13 +11,25 @@ def get_upload_path(instance, filename):
     return os.path.join("projects", "%s" % instance.jobDay.project.pk + " %s" % instance.jobDay.workDate.strftime("%Y-%m-%d"), filename)
 
 
+class Destination(models.Model):
+    title = models.CharField(max_length=50)
+    deleted = models.BooleanField(default=False)
+
 class Agents(models.Model):
     title = models.CharField(max_length=100)
     group = models.CharField(max_length=15, default='worker')  # seller , other
     address = models.TextField(null=True, blank=True)
+    destination = models.ForeignKey(Destination, on_delete=models.DO_NOTHING,null=True, blank=True)    
     phoneNumber = models.CharField(max_length=20, null=True, blank=True)
+    salary = models.FloatField(default=0)
     deleted = models.BooleanField(default=False)
-
+    
+class Attendes(models.Model):
+    agent = models.ForeignKey(Agents, on_delete=models.DO_NOTHING)
+    dateAt = models.DateField()
+    workTime = models.FloatField(null=True, blank=True)
+   
+    
 class InitAgentsBalance(models.Model):
     agent = models.ForeignKey(Agents, on_delete=models.DO_NOTHING)
     denar = models.FloatField(default=0, )
@@ -57,9 +69,6 @@ class InvoiceItems(models.Model):
     unitCostPrice= models.FloatField()
     deleted = models.BooleanField(default=False)
 
-class Destination(models.Model):
-    title = models.CharField(max_length=50)
-    deleted = models.BooleanField(default=False)
 
 class Withdraw(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.DO_NOTHING)
