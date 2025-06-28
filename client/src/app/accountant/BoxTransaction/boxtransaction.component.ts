@@ -11,7 +11,7 @@ import { MyHTTP } from "@core/service/myHttp.service";
 
 import { AuthService, User } from "@core";
 
-import { Subject } from "rxjs";
+import { from, Subject } from "rxjs";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
   Agent,
@@ -71,6 +71,12 @@ export class BoxTransactionComponent
     });
   }
 
+  workerList: Agent[] = [];
+  LoadWorkerList() {
+    this.http.list("agents", "agent/list/worker").subscribe((e: any) => {
+      this.workerList = e;
+    });
+  }
   ////////////////////////////////////////
 
   categoryList: Category[] = [];
@@ -220,6 +226,7 @@ export class BoxTransactionComponent
 
   ngOnInit(): void {
     this.LoadAgentList();
+    this.LoadWorkerList();
     this.LoadcategoryList();
     this.auth.getCommercialYear().subscribe((e) => {
       this.cmYear = e;
@@ -252,6 +259,40 @@ export class BoxTransactionComponent
   showFromBalanceSpinner = false;
   fromDenar = 0;
   fromDollar = 0;
+
+  showToBalance = false;
+  showToBalanceSpinner = false;
+  toDenar = 0;
+  toDollar = 0;
+
+  showAgentBalance(agentId: number, from = false, to = false) {
+    if (from) {
+      this.showFromBalanceSpinner = true;
+      this.fromDenar = 0;
+      this.fromDollar = 0;
+    }
+    this.http
+      .list('agents', "agent/ballnce/0/" + agentId + '/' + this.cmYear.id)
+      .subscribe((e: any) => {
+        if (from) {
+          this.showFromBalanceSpinner = false;
+          this.fromDenar = e.denar;
+          this.fromDollar = e.dollar;
+          this.showFromBalanceSpinner = false;
+        } else if (to) {
+          this.showToBalanceSpinner = false;
+          this.toDenar = e.denar;
+          this.toDollar = e.dollar;
+        }
+      }, () => {
+        if (from) {
+          this.showFromBalanceSpinner = false;
+        } else if (to) {
+          this.showToBalanceSpinner = false;
+        }
+        this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
+      });
+  }
 
   getFromToTitle(k: BoxTransaction) {
     if (k.fromAgent) k.fromText = k.fromAgentTitle;
@@ -455,6 +496,8 @@ export class BoxTransactionComponent
   }
   toAgentEvent: Subject<boolean> = new Subject<boolean>();
   fromAgentEvent: Subject<boolean> = new Subject<boolean>();
+  fromWorkerEvent: Subject<boolean> = new Subject<boolean>();
+  toWorkerEvent: Subject<boolean> = new Subject<boolean>();
 
   categoryEvent: Subject<boolean> = new Subject<boolean>();
 
@@ -462,6 +505,7 @@ export class BoxTransactionComponent
     if (!ev) return;
     const v = ev;
     this.toAgentEvent.next(v === "toAgent");
+    this.toWorkerEvent.next(v === "toWorker");
     this.categoryEvent.next(v === "category");
     this.varBTrx.toBox = v === "toBox";
     this.varBTrx.toOther = v === "toOther";
@@ -471,6 +515,7 @@ export class BoxTransactionComponent
     if (!ev) return;
     const v = ev;
     this.fromAgentEvent.next(v === "fromAgent");
+    this.fromWorkerEvent.next(v === "fromWorker");
     this.varBTrx.fromBox = v === "fromBox";
     this.varBTrx.fromOther = v === "fromOther";
     if (this.fromSelect != "fromAgent" && this.toSelect == "discount") {
@@ -487,11 +532,25 @@ export class BoxTransactionComponent
   fromAgentFN($event: any) {
     this.varBTrx.fromAgent = $event;
     if ($event) this.varBTrx.fromAgent = $event.id;
+    if (this.varBTrx.fromAgent) {
+      this.showFromBalance=true
+      this.showAgentBalance(this.varBTrx.fromAgent,true)
+    } else {
+      this.showFromBalance=false
+    }
   }
+ 
 
   toAgentFN($event: any) {
     this.varBTrx.toAgent = $event;
     if ($event) this.varBTrx.toAgent = $event.id;
+
+    if (this.varBTrx.toAgent) {
+      this.showToBalance=true
+      this.showAgentBalance(this.varBTrx.toAgent,false,true)
+    } else {
+      this.showToBalance=false
+    }  
   }
 
   //  ---------------- pictures

@@ -83,72 +83,63 @@ export class AttendanceComponent
       this.dateSearchTo = thursday;
   };
   
-  AddWorker() {
-      const dialogRef = this.dialog.open(WokersDialogComponent, {
-        height: "750px",
-        width: Math.max(800, window.innerWidth * 0.7 )+ "px",
-        data: '',
-        direction: "rtl",
-      });
-      this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-        this.LoadAgent();
-      });
-    }
+AddWorker() {
+    const dialogRef = this.dialog.open(WokersDialogComponent, {
+      height: "750px",
+      width: Math.max(800, window.innerWidth * 0.7 )+ "px",
+      data: '',
+      direction: "rtl",
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      this.LoadAgent();
+    });
+  }
 
 
 dateSearchFrom= new Date();
 dateSearchTo= new Date();
-  getAgentBalance(k: Agent) {
-    this.http
-      .list(
-        this.appApi,
-        this.appApiURL + "ballnce/0/" + k.id + "/" + this.cmYear.id
-      )
-      .subscribe((w: any) => {
-        k.initDenar = w.initDenar;
-        k.initDollar = w.initDollar;
-        k.initId = w.initId;
-        k.denar = w.denar;
-        k.dollar = w.dollar;
- 
-      });
-  }
-
 
   destinationList: Destination[] = [];
   totalAllSalary = 0;
+
   change(attn:Salary,index:number) {
     const pr = attn.agent.salary /(6*8);
     let totalHours = 0;
-    attn.attendance.forEach((k: Attendance) => {
-      if (k.workTime) {
-        totalHours += k.workTime;
-      }
-    });
-    attn.totalSalary = totalHours * pr + (attn.addtionMoney || 0);
+      attn.attendance.forEach((k: Attendance) => {
+        if (k.workTime) {
+          totalHours += k.workTime;
+        }
+      });
+      attn.totalSalary = totalHours * pr + (attn.addtionMoney || 0);
+      this.destinationList = [];
+      this.totalAllSalary = 0;
+      this.items.forEach((k: Salary) => { 
+        const idx = this.destinationList.findIndex( (x) => x.title === k.agent.destinationTitle);
+        if (idx < 0  ) {
+          const dest = {} as Destination;
+          dest.title = k.agent.destinationTitle;
+          dest.total = k.totalSalary;
+          this.destinationList.push(dest);
+        } else {
+          this.destinationList[idx].total += k.totalSalary;
+        }
+        this.totalAllSalary+= k.totalSalary;
+      })
+    }
 
-    this.destinationList = [];
-    this.totalAllSalary = 0;
-    this.items.forEach((k: Salary) => { 
-      const idx = this.destinationList.findIndex( (x) => x.title === k.agent.destinationTitle);
-      if (idx < 0  ) {
-        const dest = {} as Destination;
-        dest.title = k.agent.destinationTitle;
-        dest.total = k.totalSalary;
-        this.destinationList.push(dest);
-      } else {
-        this.destinationList[idx].total += k.totalSalary;
-      }
-      this.totalAllSalary+= k.totalSalary;
-
-    })
+  showAgentBalance(ed: Salary) {
+    this.http
+      .list('agents', "agent/ballnce/0/" + ed.agent.id + '/' + this.cmYear.id)
+      .subscribe((e: any) => {
+        ed.balance = e.denar;
+      });
   }
 
   dateTags: any[] = [];
-  items:Salary[]=[]
+  items: Salary[] = [];
+
   LoadAgent() {
     this.showSpinner = true;
-
     this.http
       .post(this.appApi, "agent/attendes", {
         dtFrom: this.datePipe.transform(this.dateSearchFrom, 'yyyy-MM-dd'),
@@ -171,6 +162,7 @@ dateSearchTo= new Date();
           }
          
           this.items.forEach((k: any) => {
+            this.showAgentBalance(k);
             const startDate = new Date(this.dateSearchFrom  ); 
             const endDate = new Date(this.dateSearchTo  );
             let currentDate = new Date(startDate);  

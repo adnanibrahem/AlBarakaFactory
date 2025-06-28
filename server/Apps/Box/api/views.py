@@ -151,7 +151,7 @@ class ManufacturingOrderList(ListAPIView):
         elif prv == 'drawing':
             qr = ManufacturingOrder.objects.filter(deleted=False,
                                                     done=False,
-                                                    otherOrder=False,
+                                                    destination__isnull=True,
                                                     ).order_by('-pk')
             items= []
             for item in qr:
@@ -161,7 +161,6 @@ class ManufacturingOrderList(ListAPIView):
             qr = items
         else:
             qr =  []
-
             path= ManufacturingPath.objects.filter(order__done=False, 
                                                    order__deleted=False,
                                                    done=False,

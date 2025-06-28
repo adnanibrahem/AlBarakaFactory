@@ -107,8 +107,9 @@
                         <th width="100px">{{ dt | date: 'yyyy-MM-dd EEEE' }}</th>
                         }
                         <th>الراتب</th>
-                        <th>الاضافي</th>
-                        <th>صافي الراتب</th>
+                        <th style="width: 100px;">الاضافي</th>
+                        <th style="width: 100px;">الديون</th>
+                        <th style="width: 100px;">صافي الراتب</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -119,15 +120,20 @@
                         @for (attn of x.attendance; track $index) {
                         <td>
                           <input type="number" class="form-control" [(ngModel)]="attn.workTime"
-                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="change(x , i)" />
+                            style="text-align: center;" [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="change(x , i)" />
                         </td>
                         }
                         <td> {{x.agent.salary | number }}</td>
                         <td>
                           <input type="number" class="form-control" [(ngModel)]="x.addtionMoney"
-                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="change(x , i)" />
+                            style="text-align: center;" [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="change(x , i)" />
                         </td>
                         <td>
+                          {{x.balance | number: '1.0-0' }}
+                        </td>
+                        <td style="text-align: center;">
                           {{x.totalSalary | number: '1.0-0' }}
                         </td>
                       </tr>

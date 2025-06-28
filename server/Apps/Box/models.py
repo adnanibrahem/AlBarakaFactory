@@ -76,7 +76,7 @@ class ManufacturingOrder(models.Model):
     designFile=models.FileField(upload_to=get_document_upload_path, null=True, blank=True)
     yearId = models.ForeignKey(CommercialYear, on_delete=models.DO_NOTHING)
     done= models.BooleanField(default=False)
-    otherOrder = models.BooleanField(default=False)
+    destination = models.ForeignKey(Destination, on_delete=models.DO_NOTHING, null=True, blank=True)
     userAuth = models.ForeignKey(USER_MODEL, on_delete=models.DO_NOTHING)
     deleted = models.BooleanField(default=False)
 

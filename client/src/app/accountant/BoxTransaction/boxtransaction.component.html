@@ -257,12 +257,18 @@
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 border rounded-2">
                       <mat-radio-group name="frominput" [(ngModel)]="fromSelect"
                         (change)="raidChangeFrom($event.value)">
+
+
                         <mat-radio-button value="fromAgent">
                           <span class="optSelect">من عميل </span>
                         </mat-radio-button>
 
                         <mat-radio-button value="fromBox">
                           <span class="optSelect">من الصندوف</span>
+                        </mat-radio-button>
+
+                        <mat-radio-button value="fromWorker">
+                          <span class="optSelect"> من موظف/عامل </span>
                         </mat-radio-button>
 
                         <mat-radio-button value="fromOther">
@@ -274,13 +280,18 @@
                         [itemsList]="agentList" [initValue]="varBTrx.fromAgent" (outputValue)="fromAgentFN($event)"
                         [disabled]="fromAgentEvent.asObservable()" dataKey="title"></app-my-auto-complete>
 
+                      <app-my-auto-complete *ngIf="fromSelect === 'fromWorker'" placeholder="من  عامل "
+                        [itemsList]="workerList" [initValue]="varBTrx.fromAgent" (outputValue)="fromAgentFN($event)"
+                        [disabled]="fromWorkerEvent.asObservable()" dataKey="title"></app-my-auto-complete>
+
+
                       <div *ngIf="showFromBalance" class="border border-info d-flex rounded p-3 fs-5"
                         style="width: 100%">
-                        <span [ngClass]="{ danger: fromDenar < 0 }" style="display: inline">
+                        <span [ngClass]="{ danger: fromDenar < 0 }" style="display: inline; margin-left: 15px">
                           {{ fromDenar | number }} دع
                         </span>
                         |
-                        <span [ngClass]="{ danger: fromDollar < 0 }" style="display: inline">
+                        <span [ngClass]="{ danger: fromDollar < 0 }" style="display: inline; margin-right: 15px">
                           {{ fromDollar | number }} $
                         </span>
 
@@ -296,6 +307,10 @@
 
                         <mat-radio-button value="category">
                           <span class="optSelect"> الى مصاريف </span>
+                        </mat-radio-button>
+
+                        <mat-radio-button value="toWorker">
+                          <span class="optSelect"> الى موظف/عامل </span>
                         </mat-radio-button>
 
                         <mat-radio-button value="toBox">
@@ -317,9 +332,27 @@
                           <mat-option *ngFor="let x of destinationList" [value]="x.id">{{x.title}}</mat-option>
                         </mat-select>
                       </mat-form-field>
+
                       <app-my-auto-complete *ngIf="toSelect === 'toAgent'" placeholder="الى  عميل "
                         [itemsList]="agentList" [initValue]="varBTrx.toAgent" (outputValue)="toAgentFN($event)"
                         [disabled]="toAgentEvent.asObservable()" dataKey="title"></app-my-auto-complete>
+
+                      <app-my-auto-complete *ngIf="toSelect === 'toWorker'" placeholder="الى  عامل "
+                        [itemsList]="workerList" [initValue]="varBTrx.toAgent" (outputValue)="toAgentFN($event)"
+                        [disabled]="toWorkerEvent.asObservable()" dataKey="title"></app-my-auto-complete>
+
+                      <div *ngIf="showToBalance" class="border border-info d-flex rounded p-3 fs-5" style="width: 100%">
+                        <span [ngClass]="{ danger: toDenar < 0 }" style="display: inline;margin-left: 15px">
+                          {{ toDenar | number }} دع
+                        </span>
+                        |
+                        <span [ngClass]="{ danger: toDollar < 0 }" style="display: inline;margin-right: 15px">
+                          {{ toDollar | number }} $
+                        </span>
+
+                        <div *ngIf="showToBalanceSpinner" class="spinner-border" role="status"></div>
+                      </div>
+
                     </div>
                   </div>
 

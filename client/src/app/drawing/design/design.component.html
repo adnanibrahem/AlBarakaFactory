@@ -86,7 +86,14 @@
                           </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الحالة :</span>
-                            {{ row.status }}
+
+                            <span [ngClass]="{'cnc': row.status === 'سي ان سي', 
+                          'plasma': row.status === 'بلازما',
+                           'cutting': row.status === 'مقص',
+                           'bending': row.status === 'عواجة',
+                           'drawing': row.status === 'رسم',
+                           'donee': row.status === 'مكتمل'}">{{ row.status }}</span>
+
                           </mat-cell>
                         </ng-container>
 

@@ -181,7 +181,12 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let row">
                         <span class="mobile-label"> الحالة :</span>
-                        {{ row.status }}
+                        <span [ngClass]="{'cnc': row.status === 'سي ان سي', 
+                          'plasma': row.status === 'بلازما',
+                           'cutting': row.status === 'مقص',
+                           'bending': row.status === 'عواجة',
+                           'drawing': row.status === 'رسم',
+                           'donee': row.status === 'مكتمل'}">{{ row.status }}</span>
                       </mat-cell>
                     </ng-container>
 
@@ -328,7 +333,7 @@
                       </p>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="!varManufacturingOrder.otherOrder">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                       <table class="table" width="auto">
                         <thead>
@@ -395,7 +400,7 @@
                       </table>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="!varManufacturingOrder.otherOrder">
                     <!--  -->
 
                     <h6 class="social-login-title">مسار التصنيع</h6>
@@ -500,15 +505,14 @@
           </div>
         </mat-tab>
 
+
         <mat-tab label="2" *ngIf="selectedIndex === 2">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
               <div class="materialTableHeader">
                 <div class="left">
                   <ul class="header-buttons-left m-r-10">
-                    <h5>
-                      {{ caption }}
-                    </h5>
+                    <h5>{{ caption }}</h5>
                   </ul>
                 </div>
                 <div class="right">
@@ -525,104 +529,237 @@
                 </div>
               </div>
               <div class="body">
-                <div class="overflow-auto">
-                  <div class="responsive_table">
-                    <!--                     
-                    <table
-                      mat-table
-                      [dataSource]="itemsDetals"
-                      class="mat-cell advance-table"
-                    >
-                      <ng-container matColumnDef="sq">
-                        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-                        <mat-cell *matCellDef="let row; let i = index">
-                          <span class="mobile-label"> التسلسل:</span>
-                          {{ i + 1 }}</mat-cell
-                        >
-                      </ng-container>
+                <div class="m-4">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                      <app-my-auto-complete placeholder="اسم العميل" [itemsList]="agentList"
+                        [initValue]="varManufacturingOrder.agent" (outputValue)="agentFN($event)"
+                        dataKey="title"></app-my-auto-complete>
+                    </div>
 
-                      <ng-container matColumnDef="balance">
-                        <mat-header-cell *matHeaderCellDef>
-                          الرصيد
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                          <span class="mobile-label"> الرصيد :</span>
-                          <span class="balance">
-                            {{ row.balance | number }}
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                      <mat-label style="display: block; font-weight: bolder">
+                        العملة:</mat-label>
+                      <mat-radio-group [(ngModel)]="varManufacturingOrder.currency">
+                        <mat-radio-button [value]="true">
+                          <span class="optSelect"> دينار </span>
+                        </mat-radio-button>
+                        <mat-radio-button [value]="false">
+                          <span class="optSelect"> دولار </span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>
+                          سعر
+                          <span *ngIf="varManufacturingOrder.price > 0" style="color: red; font-size: 150%">
+                            (
+                            {{ varManufacturingOrder.price | number }}
+                            )
                           </span>
-                        </mat-cell>
-                      </ng-container>
+                        </mat-label>
+                        <input matInput type="number" placeholder=" سعر التصميم"
+                          [(ngModel)]="varManufacturingOrder.price" />
+                        <mat-icon matSuffix *ngIf="varManufacturingOrder.currency">
+                          دع
+                        </mat-icon>
+                        <mat-icon matSuffix *ngIf="!varManufacturingOrder.currency">
+                          $
+                        </mat-icon>
+                      </mat-form-field>
 
-                      <ng-container matColumnDef="type">
-                        <mat-header-cell *matHeaderCellDef>
-                          العملية
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                          <span class="mobile-label"> العملية</span>
-                          {{ row.type }}
-                        </mat-cell>
-                      </ng-container>
+                    </div>
 
-                      <ng-container matColumnDef="quantity">
-                        <mat-header-cell *matHeaderCellDef>
-                          العدد
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                          <span class="mobile-label"> العدد</span>
-                          {{ row.quantity }}
-                        </mat-cell>
-                      </ng-container>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>الجهة المنفذة</mat-label>
+                        <mat-select [(ngModel)]="varManufacturingOrder.destination">
+                          <mat-option *ngFor="let dest of destinationList" [value]="dest.id">
+                            {{ dest.title }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
 
-                      <ng-container matColumnDef="date">
-                        <mat-header-cell *matHeaderCellDef>
-                          {{ "Date" | translate }}
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                          <span class="mobile-label">
-                            {{ "Date" | translate }}:</span
-                          >
-                          {{ row.date | date : "yyyy-MM-dd" }}
-                        </mat-cell>
-                      </ng-container>
+                  </div>
+                  <div class="row" *ngIf="!varManufacturingOrder.otherOrder">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <table class="table" width="auto">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th> اسم المادة</th>
+                            <th>الطول</th>
+                            <th>العرض</th>
+                            <th>السمك</th>
+                            <th>العدد</th>
+                            <th>سعر المفرد</th>
+                            <th [width]="120">المجموع</th>
+                            <th>
+                              <button mat-raised-button color="primary" (click)="onAdd()">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let x of varManufacturingOrder.items; let i = index"
+                            [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>
+                              <input type="text" class="form-control" [(ngModel)]="x.title"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.length"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.width"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.thickness"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.quantity" (input)="calcTotal()"
+                                [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <input type="number" class="form-control" [(ngModel)]="x.unitCostPrice"
+                                (input)="calcTotal()" [ngModelOptions]="{ standalone: true }" />
+                            </td>
+                            <td>
+                              <strong>
+                                {{ (x.quantity ) * (x.unitCostPrice ) | number }}
+                              </strong>
 
-                      <ng-container matColumnDef="comments">
-                        <mat-header-cell *matHeaderCellDef>
-                          {{ "CommnetsTAG" | translate }}
-                        </mat-header-cell>
-                        <mat-cell *matCellDef="let row">
-                          <span class="mobile-label">
-                            {{ "CommnetsTAG" | translate }}:</span
-                          >
-                          {{ row.comments }}
-                        </mat-cell>
-                      </ng-container>
+                              <span *ngIf="varManufacturingOrder.currency">دع</span>
+                              <span *ngIf="!varManufacturingOrder.currency">$</span>
+                            </td>
 
-                      <mat-header-row
-                        *matHeaderRowDef="dipBoxDetaise"
-                      ></mat-header-row>
-                      <mat-row
-                        *matRowDef="let row; columns: dipBoxDetaise"
-                        [style.cursor]="'pointer'"
-                        matRipple
-                      >
-                      </mat-row>
-                    </table>
+                            <td>
+                              <button mat-icon-button (click)="onDelete(x,i)" tabindex="-1">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="!varManufacturingOrder.otherOrder">
+                    <!--  -->
 
-                    <mat-paginator
-                      #pagBoxDetails
-                      [length]="itemsDetals.data.length"
-                      [pageIndex]="0"
-                      [pageSize]="10"
-                      [pageSizeOptions]="[5, 10, 25, 100]"
-                    >
-                    </mat-paginator>
-                 -->
+                    <h6 class="social-login-title">مسار التصنيع</h6>
+
+                    <!--  -->
+                    <div cdkDropListGroup>
+                      <div class="example-container">
+                        <h5>نقاط المسار</h5>
+
+                        <div cdkDropList [cdkDropListData]="pathPoints" class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          @for (item of pathPoints; track item) {
+                          <div class="example-box" cdkDrag>
+                            {{ item.title }}
+                          </div>
+                          }
+                        </div>
+                      </div>
+
+                      <div class="example-container">
+                        <h5>مسار التصنيع</h5>
+
+                        <div cdkDropList [cdkDropListData]="pathPointsDone" class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          @for (item of pathPointsDone; track item) {
+                          <div class="example-box" cdkDrag>
+                            {{ item.index }} - {{ item.title }}
+                          </div>
+                          }
+                        </div>
+                      </div>
+                    </div>
+
+                    <!--  -->
+
+                    <!--  -->
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>الملاحظات</mat-label>
+                        <textarea matInput rows="5" [(ngModel)]="varManufacturingOrder.comments"
+                          class="description-area">
+                        </textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <!-- المستندات -->
+                    <div class="row">
+                      <h6 class="social-login-title">صورة المستندات</h6>
+                      <div *ngFor="
+                          let x of varManufacturingOrder.images;
+                          index as i
+                        " class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2 d-flex justify-content-center">
+                        <div class="img-container position-relative">
+                          <span role="button" matTooltip="حذف الصورة" class="position-absolute delete-icon-container"
+                            style="color: red" (click)="removeResetPicture(i)">
+                            <mat-icon>cancel</mat-icon>
+                          </span>
+
+                          <img [src]="x?.obj?.value" class="img-thumbnail rounded" (click)="imgClick(x)" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="file-btn-container container-auth-form-btn">
+                          <button mat-raised-button type="button" color="primary" class="btn-space"
+                            (click)="selectPicture.click()">
+                            <i class="bi bi-window-plus"></i>
+
+                            اضافة صورة من الملفات
+                          </button>
+
+                          <button mat-raised-button color="accent" (click)="addImageFromWebcam()">
+                            صورة من كامرا
+                            <mat-icon>photo_camera</mat-icon>
+                          </button>
+
+                          <input #selectPicture type="file" accept="image/*" onclick="this.value = null"
+                            (change)="resetFromLocalFiles(selectPicture.files)" style="display: none" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <button class="btn-space" mat-raised-button [disabled]="
+                          !varManufacturingOrder.agent ||
+                          !varManufacturingOrder.price  ||
+                          varManufacturingOrder.destination
+                        " [ngClass]="{
+                          'btn btn-primary': !varManufacturingOrder.id,
+                          'btn btn-success': varManufacturingOrder.id
+                        }" (click)="onSubmit()" color="primary">
+                        خزن البيانات
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </mat-tab>
+
+
+
       </mat-tab-group>
     </div>
   </div>

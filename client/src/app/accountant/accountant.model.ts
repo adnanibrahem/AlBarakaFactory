@@ -37,7 +37,7 @@ export class Salary {
   agent!: Agent;
   attendance!: Attendance[];
   addtionMoney!: number;
-  ballance!: number;
+  balance!: number;
   totalSalary!: number;
  }
 
@@ -277,6 +277,7 @@ export interface ManufacturingOrder {
   status: string;
   selected: boolean;
   otherOrder: boolean; // طلب آخر
+  destination: number | null; // المجهز
 
   done: boolean;
   paths: ManufacturingPath[];

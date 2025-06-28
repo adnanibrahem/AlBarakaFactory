@@ -11,6 +11,7 @@ import { MyHTTP } from "@core/service/myHttp.service";
 import { AuthService, User } from "@core";
 import {
   Agent,
+  Destination,
   ManufacturingImages,
   ManufacturingItems,
   ManufacturingOrder,
@@ -110,12 +111,21 @@ export class ManufacturingOrderComponent
       dtTo: this.datePipe.transform(this.dateSearchTo, "yyyy-MM-dd"),
     });
   }
+
   ngOnInit(): void {
     this.curUser = this.auth.currentUserValue;
     this.LoadManufacturingOrder();
     this.LoadagentList();
+    this.LoadDestinationList();
   }
 
+  destinationList: Destination[] = [];
+  LoadDestinationList() {
+    this.http.list("agents", "destination/list").subscribe((e: any) => {
+      this.destinationList = e;
+    });
+  }
+    
   agentFN(edt: any) {
     if (edt) {
       this.varManufacturingOrder.agent = edt.id;
@@ -126,7 +136,7 @@ export class ManufacturingOrderComponent
   decideStatus(m: ManufacturingOrder) {
     if (m.otherOrder) return; // Skip other orders
     if (m.done) {
-      m.status = "مكتمل  ";
+      m.status = "مكتمل";
       return;
     }
     if (!m.paths || m.paths.length == 0) {
@@ -218,6 +228,7 @@ export class ManufacturingOrderComponent
     this.varManufacturingOrder.images = [];
     this.varManufacturingOrder.items = [];
     this.varManufacturingOrder.paths = [];
+    this.varManufacturingOrder.destination = null;
     this.varManufacturingOrder.currency = true;
     this.caption = " تسجيل مادة مخزنية ";
     this.varManufacturingOrder.otherOrder = false;
@@ -231,7 +242,7 @@ export class ManufacturingOrderComponent
     this.varManufacturingOrder.otherOrder = true;
     this.varManufacturingOrder.done = true;
     this.caption = " تسجيل طلبات اخرى";
-    this.selectedIndex = 1;
+    this.selectedIndex = 2;
   }
 
   editCall(ed: ManufacturingOrder) {
@@ -272,14 +283,14 @@ export class ManufacturingOrderComponent
     this.uploadPath(this.varManufacturingOrder.id|| -1);
     let fd = new FormData();
     let kk = Object.entries(this.varManufacturingOrder);
+ 
     kk.forEach((kr) => {
       if (kr[0] != "designFile" && kr[0] != "images") {
         if (kr[0] == "paths") {
             fd.append("paths", JSON.stringify(kr[1]));
         } else if (kr[0] == "items") 
             fd.append("items", JSON.stringify(kr[1]));
-        
-        else if (kr[1] == "null") fd.append(kr[0], "");
+        else if (kr[1] == "null" || kr[1] == null) fd.append(kr[0], "");
         else fd.append(kr[0], kr[1]);
       }
     });
@@ -295,6 +306,7 @@ export class ManufacturingOrderComponent
           this.uploadNewPictures(this.varManufacturingOrder);
 
           this.dataSource._updateChangeSubscription();
+          this.decideStatus(e);
           this.showSpinner = false;
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
         },
@@ -313,6 +325,7 @@ export class ManufacturingOrderComponent
           this.uploadNewPictures(this.varManufacturingOrder);
           this.dataSource.data.push(this.varManufacturingOrder);
           this.dataSource._updateChangeSubscription();
+          this.decideStatus(e);
           this.calcTotalAll();
           this.selectedIndex = 0;
         },
