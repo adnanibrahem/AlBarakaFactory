@@ -145,20 +145,8 @@ class ManufacturingOrderList(ListAPIView):
                 dtFrom = self.data['dtFrom']+ ' 00:00:00'
                 dtTo = self.data['dtTo']+ ' 23:59:59'
             
-            qr = ManufacturingOrder.objects.filter(deleted=False,
-                                                   dateAt__gte=dtFrom,
-                                                   dateAt__lte=dtTo).order_by('-pk')
-        elif prv == 'drawing':
-            qr = ManufacturingOrder.objects.filter(deleted=False,
-                                                    done=False,
-                                                    destination__isnull=True,
-                                                    ).order_by('-pk')
-            items= []
-            for item in qr:
-                mf=ManufacturingPath.objects.filter(order=item.pk)
-                if mf.count() == 0:
-                    items.append(item)
-            qr = items
+            qr = ManufacturingOrder.objects.filter(Q(done=False ) | Q(dateAt__gte=dtFrom,  dateAt__lte=dtTo ),
+                                                   deleted=False ).order_by('-pk')
         else:
             qr =  []
             path= ManufacturingPath.objects.filter(order__done=False, 
