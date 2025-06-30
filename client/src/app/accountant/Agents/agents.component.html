@@ -35,6 +35,16 @@
                       <input placeholder="اكتب شيء للبحث" type="text" matInput (keyup)="applyFilter($event)"
                         class="browser-default search-field" aria-label="Search box" />
                     </li>
+                    <li class="tbl-search-box">
+                      <mat-radio-group aria-label="Select an option" [(ngModel)]="radType" (change)="LoadAgent($event)">
+                        <mat-radio-button [value]=true>
+                          <span class="fs-5"> اسماء العملاء</span>
+                        </mat-radio-button>
+                        <mat-radio-button [value]=false class="fs-14">
+                          <span class="fs-5">اسماء الموظين/العمال</span>
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </li>
                   </ul>
                 </div>
                 <div class="right">

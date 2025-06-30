@@ -48,6 +48,7 @@ export class AgentsComponent
 
   title = " العملاء ";
 
+  radType=true;
   isloading = false;
   sendToPdf() {
     this.isloading = true;
@@ -131,11 +132,13 @@ export class AgentsComponent
       });
   }
 
-  LoadAgent() {
+  LoadAgent(event?: any) {
     this.showSpinner = true;
 
     this.totalDenar = 0;
     this.totalDollar = 0;
+    this.group = event ? (event.value ? "agent" : "worker") : "agent";
+
 
     this.http
       .list(this.appApi, this.appApiURL + "list/" + this.group)
