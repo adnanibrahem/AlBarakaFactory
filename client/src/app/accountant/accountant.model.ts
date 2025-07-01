@@ -8,8 +8,13 @@ export class Agent {
 
   address!: string;
   phoneNumber!: string;
+
+  limitDenar!: number;
+  limitDollar!: number;
+
   initDenar!: number;
   initDollar!: number;
+
 
   branch!: number;
   userAuth!: number;

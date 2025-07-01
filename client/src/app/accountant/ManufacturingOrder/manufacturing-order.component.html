@@ -110,7 +110,7 @@
                       <mat-cell *matCellDef="let row">
                         <span class="mobile-label"> التصميم:</span>
                         <img *ngIf="row.images.length" [src]="'http://127.0.0.1:8000' + row.images[0].image"
-                          style="max-width: 100px" (click)="imgClick(row.images[0])" />
+                          style="max-width: 100px" (click)="imgClick(row.images[0], row.agentTitle)" />
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="title">
@@ -462,7 +462,8 @@
                             <mat-icon>cancel</mat-icon>
                           </span>
 
-                          <img [src]="x?.obj?.value" class="img-thumbnail rounded" (click)="imgClick(x)" />
+                          <img [src]="x?.obj?.value" class="img-thumbnail rounded"
+                            (click)="imgClick(x, varManufacturingOrder.agentTitle)" />
                         </div>
                       </div>
                       <div class="form-group">
@@ -714,7 +715,8 @@
                             <mat-icon>cancel</mat-icon>
                           </span>
 
-                          <img [src]="x?.obj?.value" class="img-thumbnail rounded" (click)="imgClick(x)" />
+                          <img [src]="x?.obj?.value" class="img-thumbnail rounded"
+                            (click)="imgClick(x, varManufacturingOrder.agentTitle)" />
                         </div>
                       </div>
                       <div class="form-group">
@@ -764,3 +766,8 @@
     </div>
   </div>
 </section>
+
+<div class="fullscreen-overlay" *ngIf="showFullScreenImage" (click)="closeFullScreenImage()">
+  <img [src]="fullScreenImageUrl" class="fullscreen-image" />
+  <div class="image-title">{{ fullScreenImageTitle }}</div>
+</div>

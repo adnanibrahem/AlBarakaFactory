@@ -233,43 +233,13 @@
 
                       <h6 class="social-login-title">مسار التصنيع</h6>
 
-                      <!--  -->
-                      <div cdkDropListGroup>
-                        <div class="example-container">
-                          <h5>نقاط المسار</h5>
 
-                          <div cdkDropList [cdkDropListData]="pathPoints" class="example-list"
-                            (cdkDropListDropped)="drop($event)">
-                            @for (item of pathPoints; track item) {
-                            <div class="example-box" cdkDrag>
-                              {{ item.title }}
-                            </div>
-                            }
-                          </div>
-                        </div>
-
-                        <div class="example-container">
-                          <h5>مسار التصنيع</h5>
-
-                          <div cdkDropList [cdkDropListData]="pathPointsDone" class="example-list"
-                            (cdkDropListDropped)="drop($event)">
-                            @for (item of pathPointsDone; track item) {
-                            <div class="example-box" cdkDrag>
-                              {{ item.index }} - {{ item.title }}
-                            </div>
-                            }
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--  -->
 
                       <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 m-3">
                           <button class="btn btn-success btn-space" style="width: 100%" mat-raised-button [disabled]="
                               (varManufacturingOrder!.fileName.length === 0 &&
-                                !varManufacturingOrder.designFile?.value) ||
-                              pathPointsDone.length === 0
+                                !varManufacturingOrder.designFile?.value)  
                             " (click)="onSubmit()" color="primary">
                             خزن البيانات
                           </button>

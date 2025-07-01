@@ -202,15 +202,27 @@ class ManufacturingOrderEdit(RetrieveUpdateAPIView):
     lookup_fields = ('pk')
     def put(self, request, *args, **kwargs):
         if 'paths' in request.data.keys() and request.data['paths'] is not None:
-            paths = ManufacturingPath.objects.filter(order__pk=kwargs.get('pk'))
-            for p in paths:
-                p.delete()
-              
-            for path in  json.loads(request.data['paths'] ):
+            oldPaths = ManufacturingPath.objects.filter(order__pk=kwargs.get('pk'))
+            # for oldPath in oldPaths:
+            #     oldPath.delete()
+            pathsNew=json.loads(request.data['paths'] )
+            for oldPath in oldPaths:
+                if oldPath.id not in [path['id'] for path in pathsNew]:
+                    oldPath.delete()
+
+            for path in  pathsNew:
                 if  path['id'] !=-1:
                     p = ManufacturingPath.objects.get(pk=path['id'])
+                    
                 else:
                      p= ManufacturingPath()
+
+                prv= getPrivilege(self.request.user.pk)
+                if p.step == prv and prv=='drawing':
+                    p.done = True
+                    p.doneAt = datetime.now()
+                    p.userDoneId = User.objects.get(pk=self.request.user.id)
+                    
                 p.order = ManufacturingOrder.objects.get(pk=kwargs.get('pk'))
                 p.step = path['step']
                 p.index = path['index']

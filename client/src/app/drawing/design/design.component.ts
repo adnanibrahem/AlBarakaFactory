@@ -7,14 +7,6 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
 import { UnsubscribeOnDestroyAdapter } from "@shared/UnsubscribeOnDestroyAdapter";
 import { MyHTTP } from "@core/service/myHttp.service";
-import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
-} from "@angular/cdk/drag-drop";
 import { AuthService, User } from "@core";
 import { interval, Subscription } from "rxjs";
 
@@ -29,6 +21,7 @@ import {
   ManufacturingOrder,
   ManufacturingPath,
 } from "app/accountant/accountant.model";
+import { decideStatus } from "app/app.component";
 
 @Component({
   selector: "app-design",
@@ -80,34 +73,7 @@ export class DesignComponent
     );
   }
 
-  decideStatus(m: ManufacturingOrder) {
-    if (m.done) {
-      m.status = "مكتمل  ";
-      return;
-    }
-    if (!m.paths || m.paths.length == 0) {
-      m.status = "رسم";
-      return;
-    } else {
-      for (let i = 0; i < m.paths.length; i++) {
-        const path = m.paths[i];
-        if (path.done) continue; // Skip if the path is already done
-        if (path.step === "cnc") {
-          m.status = "سي ان سي";
-          return;
-        } else if (path.step === "plasma") {
-          m.status = "بلازما";
-          return;
-        } else if (path.step === "cutting") {
-          m.status = "مقص";
-          return;
-        } else if (path.step === "bending") {
-          m.status = "عواجة";
-          return;
-        }
-      }
-    }
-  }
+
 
   LoadManufacturingOrder() {
     this.showSpinner = true;
@@ -141,32 +107,10 @@ export class DesignComponent
 
   editCall(ed: ManufacturingOrder) {
     this.varManufacturingOrder = ed;
-    this.pathPointsDone = [];
-
-    this.pathPoints = [
-      { index: 0, title: "سي ان سي", value: "cnc" },
-      { index: 1, title: "بلازما", value: "plasma" },
-      { index: 2, title: "مقص", value: "cutting" },
-      { index: 3, title: "عواجة", value: "bending" },
-    ];
-    if (this.varManufacturingOrder.paths) {
-      let i = 0;
-      this.varManufacturingOrder.paths.forEach((t) => {
-        const path = this.pathPoints.findIndex((p) => p.value === t.step);
-        if (path !== -1) {
-          i++;
-          this.pathPointsDone.push(this.pathPoints[path]);
-          this.pathPointsDone[i - 1].index = t.index;
-          this.pathPoints.splice(path, 1);
-        }
-      });
-    }
-
     this.dataSource.data.forEach((t) => {
       t.selected = false;
     });
     this.varManufacturingOrder.selected = true;
-
     this.varManufacturingOrder.fileName = "";
     if (
       this.varManufacturingOrder.designFile !== null &&
@@ -185,42 +129,9 @@ export class DesignComponent
         t.obj.setValue(environment.imgUrl + t.image);
       }
     });
-    if (!this.varManufacturingOrder.paths) {
-      this.varManufacturingOrder.paths = []; // Initialize paths if not present
-    }
     this.caption = " تعديل بيانات مادة مخزنية ";
   }
-
-  pathPointsDone: any = [];
-  pathPoints = [
-    { index: 0, title: "سي ان سي", value: "cnc" },
-    { index: 1, title: "بلازما", value: "plasma" },
-    { index: 2, title: "مقص", value: "cutting" },
-    { index: 3, title: "عواجة", value: "bending" },
-  ];
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-    event.container.data.forEach((t: any, index: number) => {
-      t.index = index + 1;
-    });
-    event.previousContainer.data.forEach((t: any, index: number) => {
-      t.index = index + 1;
-    });
-  }
-
+ 
   onFileSelected(fileList: FileList | null): void {
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
@@ -229,26 +140,13 @@ export class DesignComponent
     }
   }
 
-  uploadPath(id: number) {
-    const paths: ManufacturingPath[] = [];
-    this.pathPointsDone.forEach((t: any) => {
-      const p: ManufacturingPath = {} as ManufacturingPath;
-      p.id = -1; // Assuming new paths have no ID
-      p.index = t.index;
-      p.step = t.value;
-      p.order = id;
-      paths.push(p);
-    });
-    this.varManufacturingOrder.paths = paths;
-  }
-
   onSubmit() {
     const dt = this.varManufacturingOrder;
     let fd = new FormData();
     if (dt.designFile && dt.designFile.value) {
       fd.append("designFile", dt.designFile.value, dt.designFile.value.name);
     }
-    this.uploadPath(this.varManufacturingOrder.id);
+
     fd.append("agent", dt.agent.toString());
     fd.append("comments", dt.comments);
     fd.append("yearId", dt.yearId.toString());
@@ -257,13 +155,14 @@ export class DesignComponent
     fd.append("price", dt.price.toString());
     fd.append("id", dt.id.toString());
     fd.append("paths", JSON.stringify(dt.paths));
+    
     this.showSpinner = true;
 
     this.http.update("box", "manufacturingOrder/edit", fd).subscribe(
       (e: any) => {
         const t = this.dataSource.data.findIndex((x) => x.id == e.id);
         this.dataSource.data[t] = Object.assign(e);
-        this.decideStatus(e);
+        decideStatus(e);
         this.dataSource._updateChangeSubscription();
         this.showSpinner = false;
         this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
@@ -334,12 +233,12 @@ export class DesignComponent
       if (existingItemIndex > -1) {
         currentData[existingItemIndex].deleteByUpdate = false; // Mark existing items as not deleted
         currentData[existingItemIndex].paths = item.paths; // Mark existing items as not deleted
-        this.decideStatus(currentData[existingItemIndex]); // Decide status for existing item
+         decideStatus(currentData[existingItemIndex]); // Decide status for existing item
         // Update existing item
       } else {
         item.deleteByUpdate = false; // Mark new items as not deleted
         currentData.push(item);
-        this.decideStatus(item); // Decide status for new item
+         decideStatus(item); // Decide status for new item
       }
     });
 

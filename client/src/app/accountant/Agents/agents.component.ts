@@ -77,6 +77,8 @@ export class AgentsComponent
       title: [],
       address: [],
       phoneNumber: [],
+      limitDenar: [],
+      limitDollar: [],
       initDenar: [],
       initDollar: [],
     });
@@ -92,6 +94,8 @@ export class AgentsComponent
       initDenar: [dt.initDenar],
       initDollar: [dt.initDollar],
       initId: [dt.initId],
+      limitDenar: [dt.limitDenar],
+      limitDollar: [dt.limitDollar],
     });
   }
   appApi = "agents";

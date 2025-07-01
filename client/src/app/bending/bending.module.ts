@@ -6,7 +6,7 @@ import { ComponentsModule } from "@shared/components/components.module";
 import { SharedModule } from "@shared/shared.module";
 
 import { QRCodeModule } from "angularx-qrcode";
-import { BendingPageComponent } from "./cutting-page/bending-page.component";
+import { BendingPageComponent } from "./bending-page/bending-page.component";
 import { BendingRoutingModule } from "./bending-routing.module";
 
 @NgModule({

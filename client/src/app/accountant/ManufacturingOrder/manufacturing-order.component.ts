@@ -31,6 +31,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { decideStatus } from "app/app.component";
 
 @Component({
   selector: "app-manufacturing-order",
@@ -133,35 +134,7 @@ export class ManufacturingOrderComponent
     }
   }
 
-  decideStatus(m: ManufacturingOrder) {
-    if (m.otherOrder) return; // Skip other orders
-
-    if (m.done) {
-      m.status = "مكتمل";
-      return;
-    }
  
-    for (let i = 0; i < m.paths.length; i++) {
-      const path = m.paths[i];
-      if (path.done) continue; // Skip if the path is already done
-      if (path.step === "cnc") {
-        m.status = "سي ان سي";
-        return;
-      } else if (path.step === "plasma") {
-        m.status = "بلازما";
-        return;
-      } else if (path.step === "cutting") {
-        m.status = "مقص";
-        return;
-      } else if (path.step === "drawing") {
-        m.status = "رسم";
-        return;
-      } else if (path.step === "bending") {
-        m.status = "عواجة";
-        return;
-      }
-    }
-  }
 
   LoadManufacturingOrder(js = {}) {
     this.showSpinner = true;
@@ -169,7 +142,7 @@ export class ManufacturingOrderComponent
       (e: any) => {
         this.dataSource = new MatTableDataSource(e);
         this.dataSource.data.forEach((t) => {
-          this.decideStatus(t);
+          decideStatus(t);
         });
         this.dataSource.paginator = this.pagi;
         this.showSpinner = false;
@@ -251,11 +224,11 @@ export class ManufacturingOrderComponent
     this.pathPointsDone = [];
 
     this.pathPoints = [
-        { index: 0, title: "رسم", value: "drawing" },  
-        { index: 1, title: "سي ان سي", value: "cnc" },
-        { index: 2, title: "بلازما", value: "plasma" },
-        { index: 3, title: "مقص", value: "cutting" },
-        { index: 4, title: "عواجة", value: "bending" },
+        {id:-1,  index: 0, title: "رسم", value: "drawing" },  
+        {id:-1, index: 1, title: "سي ان سي", value: "cnc" },
+        {id:-1, index: 2, title: "بلازما", value: "plasma" },
+        {id:-1, index: 3, title: "مقص", value: "cutting" },
+        {id:-1, index: 4, title: "عواجة", value: "bending" },
     ];
 
     if (this.varManufacturingOrder.paths) {
@@ -266,11 +239,11 @@ export class ManufacturingOrderComponent
           i++;
           this.pathPointsDone.push(this.pathPoints[path]);
           this.pathPointsDone[i - 1].index = t.index;
+          this.pathPointsDone[i - 1].id = t.id;
           this.pathPoints.splice(path, 1);
         }
       });
     }
-
     this.varManufacturingOrder.images.forEach((t) => {
       if (t?.image) {
         t.obj = new UntypedFormControl();
@@ -309,7 +282,7 @@ export class ManufacturingOrderComponent
           this.uploadNewPictures(this.varManufacturingOrder);
 
           this.dataSource._updateChangeSubscription();
-          this.decideStatus(e);
+          decideStatus(e);
           this.showSpinner = false;
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
         },
@@ -328,7 +301,7 @@ export class ManufacturingOrderComponent
           this.uploadNewPictures(this.varManufacturingOrder);
           this.dataSource.data.push(this.varManufacturingOrder);
           this.dataSource._updateChangeSubscription();
-          this.decideStatus(e);
+          decideStatus(e);
           this.calcTotalAll();
           this.selectedIndex = 0;
         },
@@ -524,8 +497,20 @@ export class ManufacturingOrderComponent
     });
   }
 
-  imgClick(x: any) {
-    window.open(environment.imgUrl + x.image);
+  showFullScreenImage: boolean = false;
+  fullScreenImageUrl: string = '';
+  fullScreenImageTitle: string = '';
+
+  imgClick(image: any, agentTitle: string) {
+    this.fullScreenImageUrl = environment.imgUrl + image.image;
+    this.fullScreenImageTitle = agentTitle;
+    this.showFullScreenImage = true;
+  }
+
+  closeFullScreenImage() {
+    this.showFullScreenImage = false;
+    this.fullScreenImageUrl = '';
+    this.fullScreenImageTitle = '';
   }
   //  ------------End pictures
 
@@ -564,7 +549,7 @@ export class ManufacturingOrderComponent
     const paths: ManufacturingPath[] = [];
     this.pathPointsDone.forEach((t: any) => {
       const p: ManufacturingPath = {} as ManufacturingPath;
-      p.id = -1;
+      p.id = t.id || -1; // Use existing id or -1 for new paths
       p.index = t.index;
       p.step = t.value;
       p.order = id;
@@ -576,11 +561,11 @@ export class ManufacturingOrderComponent
   pathPointsDone: any = [];
   
   pathPoints = [
-      { index: 0, title: "رسم", value: "drawing" },  
-      { index: 1, title: "سي ان سي", value: "cnc" },
-      { index: 2, title: "بلازما", value: "plasma" },
-      { index: 3, title: "مقص", value: "cutting" },
-      { index: 4, title: "عواجة", value: "bending" },
+      {id:-1, index: 0, title: "رسم", value: "drawing" },  
+      {id:-1, index: 1, title: "سي ان سي", value: "cnc" },
+      {id:-1, index: 2, title: "بلازما", value: "plasma" },
+      {id:-1, index: 3, title: "مقص", value: "cutting" },
+      {id:-1, index: 4, title: "عواجة", value: "bending" },
   ];
      
   drop(event: CdkDragDrop<any>) {

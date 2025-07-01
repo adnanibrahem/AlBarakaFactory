@@ -24,6 +24,7 @@ import {
   ManufacturingOrder,
   ManufacturingPath,
 } from "app/accountant/accountant.model";
+import { decideStatus } from "app/app.component";
 
 @Component({
   selector: "app-plasma-page",
@@ -83,36 +84,7 @@ export class PlasmaPageComponent
       }
     );
   }
-
-  decideStatus(m: ManufacturingOrder) {
-    if (m.done) {
-      m.status = "مكتمل في " + m.doneAt;
-      return;
-    }
-    if (!m.paths || m.paths.length == 0) {
-      m.status = "رسم";
-      return;
-    } else {
-      for (let i = 0; i < m.paths.length; i++) {
-        const path = m.paths[i];
-        if (path.done) continue; // Skip if the path is already done
-        if (path.step === "cnc") {
-          m.status = "سي ان سي";
-          return;
-        } else if (path.step === "plasma") {
-          m.status = "بلازما";
-          return;
-        } else if (path.step === "cutting") {
-          m.status = "مقص";
-          return;
-        } else if (path.step === "bending") {
-          m.status = "عواجة";
-          return;
-        }
-      }
-    }
-  }
-
+ 
   LoadManufacturingPath() {
     this.showSpinner = true;
     this.http.list("box", "manufacturingPath/list").subscribe(
@@ -166,9 +138,20 @@ export class PlasmaPageComponent
   //  ---------------- pictures
 
   loading = false;
+  showFullScreenImage: boolean = false;
+  fullScreenImageUrl: string = '';
+  fullScreenImageTitle: string = '';
 
-  imgClick(x: any) {
-    window.open(environment.imgUrl + x.image);
+  imgClick(image: any, agentTitle: string) {
+    this.fullScreenImageUrl = environment.imgUrl + image.image;
+    this.fullScreenImageTitle = agentTitle;
+    this.showFullScreenImage = true;
+  }
+
+  closeFullScreenImage() {
+    this.showFullScreenImage = false;
+    this.fullScreenImageUrl = '';
+    this.fullScreenImageTitle = '';
   }
   //  ------------End pictures
 
@@ -186,12 +169,12 @@ export class PlasmaPageComponent
       const existingItemIndex = currentData.findIndex((x) => x.id === item.id);
       if (existingItemIndex > -1) {
         currentData[existingItemIndex].deleteByUpdate = false; // Mark existing items as not deleted
-        this.decideStatus(currentData[existingItemIndex].orderInfo); // Decide status for existing item
+        decideStatus(currentData[existingItemIndex].orderInfo); // Decide status for existing item
         // Update existing item
       } else {
         item.deleteByUpdate = false; // Mark new items as not deleted
         currentData.push(item);
-        this.decideStatus(item.orderInfo); // Decide status for new item
+        decideStatus(item.orderInfo); // Decide status for new item
       }
     });
 

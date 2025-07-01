@@ -21,6 +21,9 @@ class Agents(models.Model):
     address = models.TextField(null=True, blank=True)
     destination = models.ForeignKey(Destination, on_delete=models.DO_NOTHING,null=True, blank=True)    
     phoneNumber = models.CharField(max_length=20, null=True, blank=True)
+    limitDenar = models.FloatField(default=0)
+    limitDollar = models.FloatField(default=0)
+
     salary = models.FloatField(default=0)
     deleted = models.BooleanField(default=False)
     
