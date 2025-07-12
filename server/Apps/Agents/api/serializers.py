@@ -5,7 +5,7 @@ from rest_framework.serializers import SerializerMethodField
 
 from Apps.Agents.models import Agents, Attendes, Destination, Invoice, InvoiceItems, Material, Withdraw, WithdrawItems  
 from Apps.Users.models import Users
- 
+
 user_profile = User
 
 

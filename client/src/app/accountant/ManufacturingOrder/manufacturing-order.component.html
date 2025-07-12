@@ -285,6 +285,19 @@
                       <app-my-auto-complete placeholder="اسم العميل" [itemsList]="agentList"
                         [initValue]="varManufacturingOrder.agent" (outputValue)="agentFN($event)"
                         dataKey="title"></app-my-auto-complete>
+                      <div *ngIf="showToBalance" class="border border-info d-flex rounded p-3 fs-5"
+                        [ngStyle]="{ 'background-color': !inLimitState ? '' : 'red','color': !inLimitState ? '' : 'white' }"
+                        style="width: 100%">
+                        <span [ngClass]="{ danger: toDenar < 0 }" style="display: inline;margin-left: 15px">
+                          {{ toDenar | number }} دع
+                        </span>
+                        |
+                        <span [ngClass]="{ danger: toDollar < 0 }" style="display: inline;margin-right: 15px">
+                          {{ toDollar | number }} $
+                        </span>
+
+                        <div *ngIf="showToBalanceSpinner" class="spinner-border" role="status"></div>
+                      </div>
                     </div>
 
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
@@ -491,7 +504,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <button class="btn-space" mat-raised-button [disabled]="
                           !varManufacturingOrder.agent ||
-                          !varManufacturingOrder.price || isValid(varManufacturingOrder)
+                          !varManufacturingOrder.price || isValid(varManufacturingOrder) || inLimitState
                         " [ngClass]="{
                           'btn btn-primary': !varManufacturingOrder.id,
                           'btn btn-success': varManufacturingOrder.id
@@ -745,7 +758,7 @@
                       <button class="btn-space" mat-raised-button [disabled]="
                           !varManufacturingOrder.agent ||
                           !varManufacturingOrder.price  ||
-                          varManufacturingOrder.destination
+                          !varManufacturingOrder.destination 
                         " [ngClass]="{
                           'btn btn-primary': !varManufacturingOrder.id,
                           'btn btn-success': varManufacturingOrder.id

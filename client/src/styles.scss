@@ -1,5 +1,14 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
+@font-face {
+  font-family: "Almarai";
+  src: url("assets/fonts/Almarai/Almarai-Regular.ttf") format("truetype"),
+       url("assets/fonts/Almarai/Almarai-Bold.ttf") format("truetype"),
+       url("assets/fonts/Almarai/Almarai-ExtraBold.ttf") format("truetype"),
+       url("assets/fonts/Almarai/Almarai-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 mat-cell,
 li,
 body,

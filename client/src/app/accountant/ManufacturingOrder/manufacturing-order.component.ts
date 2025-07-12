@@ -114,10 +114,17 @@ export class ManufacturingOrderComponent
   }
 
   ngOnInit(): void {
-    this.curUser = this.auth.currentUserValue;
+ 
     this.LoadManufacturingOrder();
     this.LoadagentList();
     this.LoadDestinationList();
+    this.auth.getCommercialYear().subscribe((e) => {
+      this.cmYear = e;
+      if (e.id > 0) {
+ 
+        this.curUser = this.auth.currentUserValue;
+      }
+    });
   }
 
   destinationList: Destination[] = [];
@@ -126,11 +133,21 @@ export class ManufacturingOrderComponent
       this.destinationList = e;
     });
   }
-    
+  limitDenar = 0;
+  limitDollar = 0;
+  inLimitState = false;
   agentFN(edt: any) {
+    this.limitDenar = 0;
+    this.limitDollar = 0;
     if (edt) {
       this.varManufacturingOrder.agent = edt.id;
       this.varManufacturingOrder.agentTitle = edt.title;
+ 
+      if (edt.id) {
+        this.showAgentBalance(edt.id);
+        this.limitDenar = edt.limitDenar || 0;
+        this.limitDollar = edt.limitDollar || 0;
+      }
     }
   }
 
@@ -171,6 +188,18 @@ export class ManufacturingOrderComponent
         this.varManufacturingOrder.price += t.unitCostPrice * (t.quantity || 1);
       }
     });
+
+    this.inLimitState = false;
+
+    if (this.varManufacturingOrder.currency) {
+      if (this.limitDenar > 0) {
+        this.inLimitState = this.limitDenar < this.varManufacturingOrder.price+ this.toDenar;
+      }
+    } else {
+      if(this.limitDollar>0) {
+        this.inLimitState = this.limitDollar < this.varManufacturingOrder.price+ this.toDollar;
+      }
+    }
   }
 
 
@@ -197,6 +226,7 @@ export class ManufacturingOrderComponent
     }
   }
   addNew() {
+    this.showToBalance = false;
     this.varManufacturingOrder = {} as ManufacturingOrder;
     this.varManufacturingOrder.images = [];
     this.varManufacturingOrder.items = [];
@@ -219,6 +249,7 @@ export class ManufacturingOrderComponent
   }
 
   editCall(ed: ManufacturingOrder) {
+    this.showToBalance = false;
     this.varManufacturingOrder = ed;
 
     this.pathPointsDone = [];
@@ -590,5 +621,28 @@ export class ManufacturingOrderComponent
       t.index = index + 1;
     });
   }
+
+    showToBalance = false;
+  toDenar = 0;
+  toDollar = 0;
+  showToBalanceSpinner = false;
+  showAgentBalance(agentId: number,  ) {
+  this.showToBalance = false;
+  this.toDenar = 0;
+  this.toDollar = 0;
+  this.showToBalanceSpinner = false;
+  this.http
+    .list('agents', "agent/ballnce/0/" + agentId + '/' + this.cmYear.id)
+    .subscribe((e: any) => {
+      this.showToBalanceSpinner = false;
+        this.showToBalance = true;
+        this.toDenar = e.denar;
+        this.toDollar = e.dollar;
+    }, () => {
+      this.showToBalanceSpinner = false;
+        this.showToBalance = false;
+      this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
+    });
+}
 
 }

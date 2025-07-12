@@ -36,8 +36,8 @@ class BoxTransaction(models.Model):
     toAmount = models.FloatField(default=0)
     fromCurrency= models.BooleanField(default=True)
     toCurrency = models.BooleanField(default=True)
-    fromOther= models.BooleanField(default=True)
-    toOther= models.BooleanField(default=True)
+    fromOther= models.BooleanField(default=False)
+    toOther= models.BooleanField(default=False)
 
     fromBox = models.BooleanField(default=False)
     toBox = models.BooleanField(default=False)

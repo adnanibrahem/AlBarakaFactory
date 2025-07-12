@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     # 3rd-parties Apps
     'rest_framework',
     'corsheaders',
-
+    'django.contrib.humanize',
+    'wkhtmltopdf',
+    
     'Apps.Users.apps.UsersConfig',
     'Apps.Agents.apps.AgentsConfig',
     'Apps.Box.apps.BoxConfig',
@@ -174,3 +176,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # SESSION_COOKIE_SECURE = True
 # X_FRAME_OPTIONS = 'DENY'
 # CSRF_COOKIE_SECURE = True
+# WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'
+WKHTMLTOPDF_CMD_OPTIONS = {
+    'quiet': True,
+}
