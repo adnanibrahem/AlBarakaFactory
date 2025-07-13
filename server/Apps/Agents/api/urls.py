@@ -13,6 +13,7 @@ urlpatterns = [
     path('agent/edit/<int:pk>/', views.AgentsEdit.as_view()),
     path('agent/ballnce/<int:details>/<int:id>/<int:yearId>/',
          views.AgentBalance.as_view()),
+    path('agent/ballnce/pdf/', views.AgentBalancePDF.as_view()),
 
 #    ----------------------------------------------------
     path('material/list/', views.MaterialList.as_view()),

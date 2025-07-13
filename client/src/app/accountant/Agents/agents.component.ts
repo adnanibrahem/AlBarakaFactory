@@ -286,7 +286,7 @@ export class AgentsComponent
           const dinit = {} as BalanceDetails;
           dinit.denar = bDenar;
           dinit.dollar = bDollar;
-
+          dinit.items = []
           dinit.comments = "بداية الرصيد";
           this.blnsDetals.push(dinit);
           w.details.sort((a: any, b: any) => (a.date < b.date ? -1 : 1));
@@ -336,6 +336,7 @@ export class AgentsComponent
             if (z.type == "invoice") {
               d.inOut = "شراء مواد مخزنية";
               d.currency = t.currency;
+              d.items = [];
               if (t.currency) {
                 d.amountDenar = t.totalCost;
                 bDenar -= t.totalCost;
@@ -347,7 +348,7 @@ export class AgentsComponent
 
             d.denar = bDenar;
             d.dollar = bDollar;
-            d.date = z.date;
+            d.date = this.datePipe.transform( z.date ,'yyyy-MM-dd');
             this.blnsDetals.push(d);
           });
 
@@ -360,6 +361,34 @@ export class AgentsComponent
         },
         () => {
           this.showSpinner = false;
+        }
+      );
+  }
+
+  saveToPdf() {
+    this.isloading = true;
+    this.http
+      .postblob(this.appApi, this.appApiURL + "ballnce/pdf", {
+        items: this.dsBoxDet.filteredData,
+        title: this.caption,
+        agent: this.currRowDetails,
+        year: this.cmYear,
+      })
+      .subscribe(
+        (res: any) => {
+            const url = window.URL.createObjectURL(res);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = this.caption + '.pdf';
+            link.click();
+            window.URL.revokeObjectURL(url);
+          // window.open(url, "_blank");
+          this.isloading = false;
+        },
+        (e) => {
+          console.error("Error generating PDF:", e);
+          this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
+          this.isloading = false;
         }
       );
   }

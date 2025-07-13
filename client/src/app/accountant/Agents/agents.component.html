@@ -379,6 +379,18 @@
                 </div>
                 <div class="right">
                   <ul class="tbl-export-btn">
+
+                    <li class="tbl-header-btn">
+                      <div class="m-l-10" matTooltip="خزن على ملف PDF">
+                        <button type="button" class="btn btn-primary" (click)="saveToPdf()" [disabled]="isloading">
+                          <i class="fa fa-file-pdf"></i> طبع PDF
+                          <span *ngIf="isloading" class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true"></span>
+                        </button>
+
+                      </div>
+                    </li>
+
                     <li class="tbl-header-btn">
                       <div class="m-l-10" matTooltip="رجوع">
                         <button type="button" class="btn btn-danger" (click)="selectedIndex = 0">
@@ -410,6 +422,7 @@
                             {{ row.denar | number }} دع</span>
                         </mat-cell>
                       </ng-container>
+
                       <ng-container matColumnDef="dollar">
                         <mat-header-cell *matHeaderCellDef>
                           الرصيد

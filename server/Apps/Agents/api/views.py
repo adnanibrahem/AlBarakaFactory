@@ -433,3 +433,39 @@ class WithdrawItemsEdit(RetrieveUpdateAPIView):
             t.deleted = True
             t.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# # Customer
+
+class AgentBalancePDF(APIView):
+    template = 'AgentBalance.html'  # the template
+
+    def save_pdf(self, file, filename):
+        with open(filename, 'wb+') as destination:
+            destination.write(file)
+
+    def post(self, request):
+        ww = {'data': request.data,
+              'dateAt': datetime.today()}
+        response = PDFTemplateResponse(request=request,
+                                       template=self.template,
+                                       filename="كشف رصيد العملاء.pdf",
+                                       context=ww,
+                                       show_content_in_browser=False,
+                                       #    footer_template='AgentBalance_Footer.html',
+
+                                       cmd_options={
+                                           'margin-top': '10mm',
+                                           'margin-bottom': '20mm',
+                                           'orientation': 'landscape',
+                                           'zoom': 1,
+                                           'page-size': 'A4',
+                                           },
+                                       )
+        
+        # filePath = 'Media/cb'+request.data['title'] + '.pdf'
+        # self.save_pdf(response.rendered_content, filePath)
+
+        # return Response({'url': 'https://acc.alhadir.us/'+filePath},
+        #                 status.HTTP_200_OK)
+        from django.http import HttpResponse
+        return HttpResponse(response.rendered_content, content_type='application/pdf')  

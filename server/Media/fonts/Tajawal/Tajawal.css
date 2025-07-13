@@ -1,0 +1,66 @@
+/* Tajawal Font Family */
+/* Arabic font designed specifically for Arabic text */
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: 
+       url('Tajawal-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+       url('Tajawal-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+       url('Tajawal-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: 
+       url('Tajawal-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: 
+       url('Tajawal-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: 
+       url('Tajawal-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: 
+       url('Tajawal-Black.ttf') format('truetype');
+}
+ 

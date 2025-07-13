@@ -13,28 +13,35 @@ import { environment } from "environments/environment";
   providedIn: "root",
 })
 export class MyHTTP {
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+    // this.apiUrl = document.location.origin + "/api/";
+  }
   sacnFromOptical(app: string, path: string) {
     return this.http.get(`${app}/${path}/`);
   }
 
   list(app: string, path: string) {
-    return this.http.get(`${environment.apiUrl}${app}/${path}/`);
+    return this.http.get(`${this.apiUrl}${app}/${path}/`);
   }
 
   post(app: string, path: string, data: any) {
-    return this.http.post(`${environment.apiUrl}${app}/${path}/`, data);
+    return this.http.post(`${this.apiUrl}${app}/${path}/`, data);
   }
 
+  postblob(app: string, path: string, data: any) {
+    return this.http.post(`${this.apiUrl}${app}/${path}/`, data, { responseType: "blob" });
+  }
+  
   create(app: string, path: string, data: any) {
-    return this.http.post(`${environment.apiUrl}${app}/${path}/`, data);
+    return this.http.post(`${this.apiUrl}${app}/${path}/`, data);
   }
 
   update(app: string, path: string, data: any) {
     let id = data.id;
     if (!id) id = data.get("id");
     return this.http.put(
-      `${environment.apiUrl}${app}/${path}/` + id + "/",
+      `${this.apiUrl}${app}/${path}/` + id + "/",
       data
     );
   }
@@ -51,14 +58,14 @@ export class MyHTTP {
 
   updateId(app: string, path: string, data: any, id: number) {
     return this.http.put(
-      `${environment.apiUrl}${app}/${path}/` + id + "/",
+      `${this.apiUrl}${app}/${path}/` + id + "/",
       data
     );
   }
 
   delete(app: string, path: string, data: any) {
     return this.http.delete(
-      `${environment.apiUrl}${app}/${path}/` + data.id + "/"
+      `${this.apiUrl}${app}/${path}/` + data.id + "/"
     );
   }
 

@@ -10,6 +10,7 @@ import { CommercialYear } from 'app/admin/admin.model';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   dkeey = 'c+t6l2g*_fpwjg_mq+bhy9gox(49r6td1_j1wo6f(2$sr#++jm';
   public currentUserSubject: BehaviorSubject<User>;
@@ -18,12 +19,14 @@ export class AuthService {
   public currentCommpercialYear: Observable<CommercialYear>;
   public currentCommpercialYearSubject: BehaviorSubject<CommercialYear>;
 
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(
         this.decrypt(localStorage.getItem('currentUser') || '') || '{}'
       )
     );
+    
     this.currentUser = this.currentUserSubject.asObservable();
 
     this.currentCommpercialYearSubject = new BehaviorSubject<CommercialYear>({
@@ -32,6 +35,7 @@ export class AuthService {
     });
     this.currentCommpercialYear =
       this.currentCommpercialYearSubject.asObservable();
+    const apiUrl = document.location.origin + "/api/";
   }
 
   public encrypt(txt: string): string {
@@ -61,8 +65,9 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
+
     return this.http
-      .post<User>(`${environment.apiUrl}auth/token/`, {
+      .post<User>(`${this.apiUrl}auth/token/`, {
         username,
         password,
       })
@@ -85,7 +90,7 @@ export class AuthService {
   }
 
   getInfo() {
-    return this.http.get<User>(`${environment.apiUrl}users/info/`);
+    return this.http.get<User>(`${this.apiUrl}users/info/`);
   }
 
   logout() {
