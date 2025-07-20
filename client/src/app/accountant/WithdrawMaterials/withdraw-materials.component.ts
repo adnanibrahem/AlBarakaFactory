@@ -188,10 +188,10 @@ export class WithdrawMaterialsComponent
   }
 
   print(ed: Withdraw) {
-
-        this.showSpinner = true;
+    this.showSpinner = true;
+   
     this.http
-      .postblob("agents","withdraw/pdf", ed      )
+      .postblob("agents","withdraw/pdf", ed)
       .subscribe(
         (res: any) => {
             const url = window.URL.createObjectURL(res);

@@ -35,6 +35,12 @@ class AttendesSerializer(serializers.ModelSerializer):
 
 
 class WithdrawItemsSerializer(serializers.ModelSerializer):
+    itemInfo = SerializerMethodField()
+    def get_itemInfo(self, obj):
+        if obj.material is not None:
+            return MaterialSerializer(obj.material).data
+        return None
+    
     itemTitle = SerializerMethodField()
     def get_itemTitle(self, obj):
         if obj.material is not None:

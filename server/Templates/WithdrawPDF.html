@@ -44,30 +44,43 @@
       td {
         text-aling: center;
       }
+      tr td {
+        padding: 5px;
+      }
     </style>
   </head>
 
   <body>
 
       <h2 class="text-center" style="color: rgb(15, 57, 243);">
-        <strong> قائمة سحب مواد مخزنية </strong>
+        <strong> معمل حدادة البركة</strong>
       </h2>
-   
+      <h4 class="text-center mt-2" style="color: rgba(70, 6, 48, 1);">
+        <strong> قائمة سحب مواد مخزنية </strong>
+      </h4>
       <div>
         <div class="row">
           <div class="column70">
-            <p
-              style="
-                font-size: large;
-                color: rgb(5, 12, 70);
-                padding-right: 30px;
-              "
-            ></p>
+            <p>
+              <strong>جهة السحب :</strong>
+              {{ data.destinationTitle }}
+            </p>
           </div>
           <div class="column30">
             <p>
               <strong> التاريخ :</strong>
-              {{dateAt |date:"Y-m-d"}}
+              {{ data.withdrawDate  }}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column70">
+           <p></p>
+          </div>
+          <div class="column30">
+            <p>
+              <strong> التسلسل :</strong>
+              {{ data.id  }}
             </p>
           </div>
         </div>
@@ -87,16 +100,12 @@
             <tbody>
             {% for item in data.items %}
             <tr>
-              <td>{{forloop.counter}}</td>
-              <td>{{item.denar | intcomma}} دع</td>
-              <td>{{item.dollar | intcomma}} $</td>
-              <td>{{item.inOut }}</td>
-              <td>
-                {% if item.currency %} {{item.amountDenar | intcomma}} دع {% else %} {{item.amountDollar | intcomma}} $ {% endif %}
-              </td>   
-              <td>{{item.date}}</td>
-           
-              <td>{{item.comments }}</td>
+              <td >{{forloop.counter}}</td>
+              <td>{{item.itemInfo.title }}  </td>
+                <td>{{item.itemInfo.length }} سم</td>
+                <td>{{item.itemInfo.width }} سم</td>
+                <td>{{item.itemInfo.thickness }} سم</td>
+                <td>{{item.quantity }} </td>
             </tr>
             {% endfor %}  
             </tbody>
@@ -104,15 +113,19 @@
         </div>
 
 
-        <div class="row">
+        <div class="row mt-5 mt-5">
           <div class="column50">
-            <p>
-              <strong> الرصيد الحالي :</strong>
-              {{ data.denar| intcomma}} دع |
-              <!--  -->
-              {{data.dollar | intcomma}} $
+            <p class="text-center">
+              <strong>  مسؤول المخزن</strong>
             </p>
           </div>
+
+          <div class="column50">
+            <p class="text-center">
+              <strong>المستلم</strong>
+            </p>
+          </div>
+
         </div>
       </div>
       

@@ -484,7 +484,7 @@ class WithdrawPDF(APIView):
                                            'margin-bottom': '20mm',
                                         #    'orientation': 'landscape',
                                            'zoom': 1,
-                                           'page-size': 'A4',
+                                           'page-size': 'A5',
                                            },
                                        )
         
