@@ -21,9 +21,9 @@ export const SideMenuRouts: RouteInfo[] = [
 
   {
     path: "/acc/box/",
-    title: " الحسابات",
-    iconType: "bootstrap",
-    icon: "bi bi-box-seam sidebarIcon sidebarIconColor",
+    title: " الحسابات ssss",
+    iconType: "feather",
+    icon: "dollar-sign",
     class: "",
     index: 1,
     groupTitle: false,
@@ -37,8 +37,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/agents/",
     title: " العملاء",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-people sidebarIcon sidebarIconColor",
+    iconType: "feather", /// 'feather',
+    icon: "users",
     class: "",
     index: 2,
     groupTitle: false,
@@ -51,8 +51,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/mnforder/",
     title: " طلبات التصنيع",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-tools sidebarIcon sidebarIconColor",
+    iconType:   'feather',
+    icon: "tool",
     class: "",
     index: 2.5,
     groupTitle: false,
@@ -65,8 +65,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/store/",
     title: " المخزن",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-shop-window sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "archive",
     class: "",
     index: 3,
     groupTitle: false,
@@ -80,8 +80,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/invoice/",
     title: " شراء مواد",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-basket sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "shopping-cart",
     class: "",
     index: 5,
     groupTitle: false,
@@ -94,8 +94,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/withdraw/",
     title: " سحب مواد مخزنية",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-box-arrow-right sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "corner-up-right",
     class: "",
     index: 4,
     groupTitle: false,
@@ -108,8 +108,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/attend/",
     title: "حضور العمال",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-check2-all sidebarIcon sidebarIconColor",
+    iconType: 'feather',
+    icon: "check-circle",
     class: "",
     index: 4,
     groupTitle: false,
@@ -124,8 +124,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/acc/category/",
     title: "تبويب المصارف",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-tags sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "align-justify",
     class: "",
     index: 11,
     groupTitle: false,
@@ -139,8 +139,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/drw/design/",
     title: " رسم الطلبات",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-diagram-3 sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "cpu",
     class: "",
     index: 11,
     groupTitle: false,
@@ -154,8 +154,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/cnc/page/",
     title: "CNC طلبات ",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-diagram-3 sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "cpu",
     class: "",
     index: 11,
     groupTitle: false,
@@ -165,11 +165,11 @@ export const SideMenuRouts: RouteInfo[] = [
     submenu: [],
     selected: false,
   },
-
+    
   {
     path: "/plasma/page/",
     title: "طلبات البلازما",
-    iconType: "bootstrap", /// 'feather',
+    iconType:  'feather',
     icon: "bi bi-diagram-3 sidebarIcon sidebarIconColor",
     class: "",
     index: 11,
@@ -184,7 +184,7 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/cutting/page/",
     title: "طلبات القص",
-    iconType: "bootstrap", /// 'feather',
+    iconType:  'feather',
     icon: "bi bi-diagram-3 sidebarIcon sidebarIconColor",
     class: "",
     index: 11,
@@ -199,8 +199,8 @@ export const SideMenuRouts: RouteInfo[] = [
   {
     path: "/bending/page/",
     title: "طلبات العواجة",
-    iconType: "bootstrap", /// 'feather',
-    icon: "bi bi-diagram-3 sidebarIcon sidebarIconColor",
+    iconType:  'feather',
+    icon: "cpu",
     class: "",
     index: 11,
     groupTitle: false,

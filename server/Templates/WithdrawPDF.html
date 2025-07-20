@@ -6,9 +6,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>كشف ارصدة الفروع</title>
- 
-       <link
+    <title> قائمة سحب مواد</title>
+
+    <link
       href="http://127.0.0.1:8000/Media/fonts/Tajawal/Tajawal.css"
       rel="stylesheet"
     />
@@ -48,10 +48,9 @@
   </head>
 
   <body>
-     
 
       <h2 class="text-center" style="color: rgb(15, 57, 243);">
-        <strong> {{data.title}} </strong>
+        <strong> قائمة سحب مواد مخزنية </strong>
       </h2>
    
       <div>
@@ -78,13 +77,11 @@
             <thead>
               <tr>
                 <th>ت</th>
-                <th>الرصيد</th>
-                <th>الرصيد</th>
-                <th>العملية</th>  
-                <th>المبلغ</th>                
-                <th>التاريخ</th>
-                <th>التفاصيل</th>
-                <th>الملاحظات</th>
+                <th>اسم المادة</th>
+                <th>الطول</th>
+                <th>العرض</th>  
+                <th>السمك</th>                
+                <th>العدد</th>
               </tr>
             </thead>
             <tbody>
@@ -98,42 +95,7 @@
                 {% if item.currency %} {{item.amountDenar | intcomma}} دع {% else %} {{item.amountDollar | intcomma}} $ {% endif %}
               </td>   
               <td>{{item.date}}</td>
-              <td>
-                {% if item.toFrom is not None %}
-                {{item.toFrom }}
-                {%else%}
-                  {% if item.items is not None and item.items|length > 0 %}
-                    <table class="table"  style="width: 100%">
-                      <thead class="table-light">
-                        <tr>
-                          <th>ت</th>
-                          <th>اسم المادة</th>
-                          <th>الطول</th>
-                          <th>العرض</th>  
-                          <th>السمك</th>                
-                          <th>العدد</th>
-                          <th>السعر</th>
-                          <th>المجموع</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for item2 in item.items %}
-                        <tr>
-                          <td>{{forloop.counter}}</td>
-                          <td>{{item2.title }}</td>
-                          <td>{{item2.length }}</td>
-                          <td>{{item2.width }}</td>
-                          <td>{{item2.thickness }}</td>
-                          <td>{{item2.quantity }}</td>
-                          <td>{{item2.unitCostPrice | intcomma }} </td>
-                          <td>{{ item2.unitCostPrice   | intcomma }} </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  {% endif %}
-                {%endif%}
-              </td>  
+           
               <td>{{item.comments }}</td>
             </tr>
             {% endfor %}  

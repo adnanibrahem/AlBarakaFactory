@@ -772,9 +772,6 @@
             </div>
           </div>
         </mat-tab>
-
-
-
       </mat-tab-group>
     </div>
   </div>
@@ -782,5 +779,6 @@
 
 <div class="fullscreen-overlay" *ngIf="showFullScreenImage" (click)="closeFullScreenImage()">
   <img [src]="fullScreenImageUrl" class="fullscreen-image" />
-  <div class="image-title">{{ fullScreenImageTitle }}</div>
+  <div class="image-title">{{ fullScreenImageTitle }}
+  </div>
 </div>

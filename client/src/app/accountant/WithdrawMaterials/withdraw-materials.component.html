@@ -102,11 +102,19 @@
                         الاجراء
                       </mat-header-cell>
                       <mat-cell *matCellDef="let row; let i = index" class="pr-0">
-                        <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                          (click)="editCall(row)" class="tbl-action-btn" matTooltip="تعديل">
+
+                        <button mat-icon-button color="info" (click)="$event.stopPropagation()" (click)="editCall(row)"
+                          class="tbl-action-btn" matTooltip="تعديل">
                           <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'">
                           </app-feather-icons>
                         </button>
+
+                        <button mat-icon-button color="primary" (click)="$event.stopPropagation()" (click)="print(row)"
+                          class="tbl-action-btn" matTooltip="طباعة">
+                          <app-feather-icons [icon]="'printer'" [class]="'tbl-fav-printer'">
+                          </app-feather-icons>
+                        </button>
+
 
                         <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
                           (click)="deleteItem(i, row)" class="tbl-action-btn" matTooltip="حذف">

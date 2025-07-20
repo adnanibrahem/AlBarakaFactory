@@ -8,7 +8,7 @@ import {
 } from "@angular/material/snack-bar";
 
 import { environment } from "environments/environment";
-
+  
 @Injectable({
   providedIn: "root",
 })
@@ -17,6 +17,7 @@ export class MyHTTP {
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
     // this.apiUrl = document.location.origin + "/api/";
   }
+
   sacnFromOptical(app: string, path: string) {
     return this.http.get(`${app}/${path}/`);
   }

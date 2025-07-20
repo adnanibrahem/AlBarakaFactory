@@ -462,10 +462,31 @@ class AgentBalancePDF(APIView):
                                            },
                                        )
         
-        # filePath = 'Media/cb'+request.data['title'] + '.pdf'
-        # self.save_pdf(response.rendered_content, filePath)
-
-        # return Response({'url': 'https://acc.alhadir.us/'+filePath},
-        #                 status.HTTP_200_OK)
+ 
         from django.http import HttpResponse
         return HttpResponse(response.rendered_content, content_type='application/pdf')  
+    
+class WithdrawPDF(APIView):
+    template = 'WithdrawPDF.html'  # the template
+
+    def post(self, request):
+        ww = {'data': request.data,
+              'dateAt': datetime.today()}
+        response = PDFTemplateResponse(request=request,
+                                       template=self.template,
+                                       filename="كشف سحب المواد.pdf",
+                                       context=ww,
+                                       show_content_in_browser=False,
+                                       #    footer_template='AgentBalance_Footer.html',
+
+                                       cmd_options={
+                                           'margin-top': '10mm',
+                                           'margin-bottom': '20mm',
+                                        #    'orientation': 'landscape',
+                                           'zoom': 1,
+                                           'page-size': 'A4',
+                                           },
+                                       )
+        
+        from django.http import HttpResponse
+        return HttpResponse(response.rendered_content, content_type='application/pdf')

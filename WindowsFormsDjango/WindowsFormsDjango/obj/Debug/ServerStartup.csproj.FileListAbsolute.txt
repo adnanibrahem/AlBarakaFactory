@@ -1,0 +1,11 @@
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\ServerStartup\ServerStartup.exe.config
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\ServerStartup\ServerStartup.exe
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\ServerStartup\ServerStartup.pdb
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.csproj.AssemblyReference.cache
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\WindowsFormsDjango.Form1.resources
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.Properties.Resources.resources
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.csproj.GenerateResource.cache
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.csproj.CoreCompileInputs.cache
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.exe
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.pdb
+D:\MyWeb\AlBarakaFactory\WindowsFormsDjango\WindowsFormsDjango\obj\Debug\ServerStartup.exe.config

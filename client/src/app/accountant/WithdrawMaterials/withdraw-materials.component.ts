@@ -187,6 +187,32 @@ export class WithdrawMaterialsComponent
     this.onChangeRow(null);
   }
 
+  print(ed: Withdraw) {
+
+        this.showSpinner = true;
+    this.http
+      .postblob("agents","withdraw/pdf", ed      )
+      .subscribe(
+        (res: any) => {
+            const url = window.URL.createObjectURL(res);
+            // const link = document.createElement('a');
+            // link.href = url;
+            // link.download = this.caption + '.pdf';
+            // link.click();
+            // window.URL.revokeObjectURL(url);
+          window.open(url, "_blank");
+          this.showSpinner = false;
+        },
+        (e) => {
+          console.error("Error generating PDF:", e);
+          this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
+          this.showSpinner = false;
+        }
+      );
+
+
+
+  }
   onSubmit() {
     const dt = this.varWithdraw;
     this.showSpinner = true;

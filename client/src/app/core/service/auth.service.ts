@@ -35,7 +35,7 @@ export class AuthService {
     });
     this.currentCommpercialYear =
       this.currentCommpercialYearSubject.asObservable();
-    const apiUrl = document.location.origin + "/api/";
+    // this.apiUrl = document.location.origin + "/api/";
   }
 
   public encrypt(txt: string): string {

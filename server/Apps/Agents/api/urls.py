@@ -41,4 +41,6 @@ urlpatterns = [
     path('withdraw/edit/<int:pk>/', views.WithdrawEdit.as_view()),
     path('withdraw/item/create/', views.WithdrawItemCreate.as_view()),
     path('withdraw/item/edit/<int:pk>/', views.WithdrawItemsEdit.as_view()),
+    path('withdraw/pdf/<int:pk>/', views.WithdrawPDF.as_view()),
+
 ]

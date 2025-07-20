@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|d:\\myweb\\albarakafactory\\windowsformsdjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|solutionrelative:windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|solutionrelative:windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\WindowsFormsDjango.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\WindowsFormsDjango.csproj|solutionrelative:windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ServerStartup||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs [Design]*",
+              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T10:10:57.613Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ServerStartup",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\ServerStartup.csproj",
+              "RelativeDocumentMoniker": "WindowsFormsDjango\\ServerStartup.csproj",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\ServerStartup.csproj",
+              "RelativeToolTip": "WindowsFormsDjango\\ServerStartup.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-07-14T07:38:45.611Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs*",
+              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T22:08:02.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs [Design]",
+              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T22:05:21.767Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
