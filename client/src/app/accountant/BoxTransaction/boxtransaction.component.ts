@@ -374,6 +374,7 @@ export class BoxTransactionComponent
     this.caption = " تعديل بيانات حركة حسابات ";
 
     this.varBTrx.fromAmountComma = ed.fromAmount;
+    this.varBTrx.toAmountComma = ed.toAmount;
     this.selectedIndex = 1;
     if (
       ed.fromAgent &&
@@ -399,6 +400,11 @@ export class BoxTransactionComponent
       this.fromSelect == "fromAgent" &&
       this.varBTrx?.fromAgent?.toString() == ""
     )
+      return true;
+    
+    if (this.fromSelect == "fromBox" && this.toSelect == "toBox")
+      return true;
+    if (this.fromSelect == "fromOther" && this.toSelect == "toOther")
       return true;
 
     if (this.toSelect == "toAgent" && this.varBTrx?.toAgent?.toString() == "")
@@ -498,9 +504,7 @@ export class BoxTransactionComponent
   fromAgentEvent: Subject<boolean> = new Subject<boolean>();
   fromWorkerEvent: Subject<boolean> = new Subject<boolean>();
   toWorkerEvent: Subject<boolean> = new Subject<boolean>();
-
   categoryEvent: Subject<boolean> = new Subject<boolean>();
-
   raidChangeTo(ev: string) {
     if (!ev) return;
     const v = ev;

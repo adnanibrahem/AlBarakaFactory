@@ -384,18 +384,17 @@
                       <mat-form-field class="example-full-width mt-3" appearance="outline">
                         <mat-label>
                           المبلغ من :
-                          <span *ngIf="varBTrx.fromAmount > 0" style="color: red; font-size: 150%">
-                            ( {{ varBTrx.fromAmount | number }} )
-                          </span>
                         </mat-label>
 
-                        <input matInput type="number" [(ngModel)]="varBTrx.fromAmount"
-                          (input)="varBTrx.toAmount = varBTrx.fromAmount" placeholder="المبلغ من" required
-                          (keyup.enter)="
-                            varBTrx.fromAmount = varBTrx.fromAmount * 1000;
-                            varBTrx.toAmount = varBTrx.fromAmount
-                          " />
-                        <mat-icon *ngIf="!varBTrx.fromCurrency" matSuffix><i class="bi bi-currency-dollar"></i>
+                        <input matInput type="text" inputWithComma [(ngModel)]="varBTrx.fromAmountComma" (input)="
+                           varBTrx.toAmountComma = varBTrx.fromAmountComma;
+                            varBTrx.toAmount = varBTrx.toAmountComma
+                              .split(',')
+                              .join('');
+                            varBTrx.fromAmount = varBTrx.toAmount;
+                          " placeholder="المبلغ من" required />
+                        <mat-icon *ngIf="!varBTrx.fromCurrency" matSuffix>
+                          $
                         </mat-icon>
                         <mat-icon *ngIf="varBTrx.fromCurrency" matSuffix>
                           دع
@@ -418,16 +417,18 @@
                       <mat-form-field class="example-full-width mt-3" appearance="outline">
                         <mat-label>
                           المبلغ من :
-                          <span *ngIf="varBTrx.toAmount > 0" style="color: red; font-size: 150%">
+                          <!-- <span *ngIf="varBTrx.toAmount > 0" style="color: red; font-size: 150%">
                             ( {{ varBTrx.toAmount | number }} )
-                          </span>
+                          </span> -->
                         </mat-label>
 
-                        <input matInput type="number" [(ngModel)]="varBTrx.toAmount" placeholder="المبلغ الى" required
-                          (keyup.enter)="
-                            varBTrx.toAmount = varBTrx.toAmount * 1000
-                          " />
-                        <mat-icon *ngIf="!varBTrx.toCurrency" matSuffix><i class="bi bi-currency-dollar"> </i>
+                        <input matInput type="text" inputWithComma [(ngModel)]="varBTrx.toAmountComma" (input)="
+                            varBTrx.toAmount = varBTrx.toAmountComma
+                              .split(',')
+                              .join('');
+                          " placeholder="المبلغ الى" required />
+                        <mat-icon *ngIf="!varBTrx.toCurrency" matSuffix>
+                          $
                         </mat-icon>
                         <mat-icon *ngIf="varBTrx.toCurrency" matSuffix>
                           دع
@@ -483,9 +484,11 @@
                           varBTrx.fromAmount === undefined ||
                           varBTrx.toAmount === undefined ||
                           varBTrx.transactionDate === undefined ||
-                          isValid()
+                          isValid() || showSpinner
                         " (click)="onSubmit()">
                         حفظ البيانات
+
+                        <span class="spinner-border spinner-border-sm" *ngIf="showSpinner"></span>
                       </button>
                       <button type="button" mat-raised-button color="warn" (click)="selectedIndex = 0">
                         الغاء
@@ -506,9 +509,12 @@
                   <ul class="header-buttons-left m-r-10">
                     <h5>
                       {{ caption }}
-
                       <span [style.color]="boxBalance.denar < 0 ? 'red' : ''">
                         {{ boxBalance.denar | number }} دع</span>
+                      <span style="margin-left: 10px; margin-right: 10px">|</span>
+                      <span [style.color]="boxBalance.dollar < 0 ? 'red' : ''">
+                        {{ boxBalance.dollar | number }} $
+                      </span>
                     </h5>
                   </ul>
                 </div>
@@ -573,7 +579,7 @@
                           <span *ngIf="row.amountDenar > 0">
                             {{ row.amountDenar | number }} دع
                           </span>
-                          <span *ngIf="row.amountDollar > 0">
+                          <span *ngIf="row.amountDollar > 0" style="margin-left: 10px; margin-right: 10px">
                             {{ row.amountDollar | number }} $
                           </span>
                         </mat-cell>

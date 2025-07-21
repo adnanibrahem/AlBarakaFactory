@@ -21,7 +21,7 @@ export const SideMenuRouts: RouteInfo[] = [
 
   {
     path: "/acc/box/",
-    title: " الحسابات ssss",
+    title: " الحسابات",
     iconType: "feather",
     icon: "dollar-sign",
     class: "",
