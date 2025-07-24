@@ -28,7 +28,6 @@ export class AuthService {
     );
     
     this.currentUser = this.currentUserSubject.asObservable();
-
     this.currentCommpercialYearSubject = new BehaviorSubject<CommercialYear>({
       id: -1,
       title: '',

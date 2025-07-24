@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerStartup", "WindowsFormsDjango\ServerStartup.csproj", "{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawingWindows7", "DrawingWindows7\DrawingWindows7.csproj", "{60739B22-95E1-4202-8CE5-8A2BCC30335F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60739B22-95E1-4202-8CE5-8A2BCC30335F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60739B22-95E1-4202-8CE5-8A2BCC30335F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60739B22-95E1-4202-8CE5-8A2BCC30335F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60739B22-95E1-4202-8CE5-8A2BCC30335F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -85,22 +85,7 @@
                           </mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="status">
-                          <mat-header-cell *matHeaderCellDef>
-                            الحالة
-                          </mat-header-cell>
-                          <mat-cell *matCellDef="let row">
-                            <span class="mobile-label"> الحالة :</span>
-                            <span [ngClass]="{
-                              'cnc': row.orderInfo.status === 'سي ان سي',
-                              'plasma': row.orderInfo.status === 'بلازما',
-                              'cutting': row.orderInfo.status === 'مقص',
-                              'bending': row.orderInfo.status === 'عواجة',
-                              'drawing': row.orderInfo.status === 'رسم',
-                              'donee': row.orderInfo.status === 'مكتمل'
-                            }"></span>
-                          </mat-cell>
-                        </ng-container>
+
 
                         <ng-container matColumnDef="files">
                           <mat-header-cell *matHeaderCellDef>
@@ -166,8 +151,6 @@
                           </mat-cell>
                         </ng-container>
 
-
-
                         <ng-container matColumnDef="comments">
                           <mat-header-cell *matHeaderCellDef>
                             الملاحظات
@@ -185,8 +168,9 @@
                           <mat-cell *matCellDef="let row; let i = index" class="pr-0">
                             <button class="button-done" (click)="$event.stopPropagation()" (click)="SetDone(row)"
                               matTooltip="تم انجاز العمل">
-                              <i class="bi bi-check2-circle fs-3"></i>
+                              <i class="fa fa-check-circle"></i>
                             </button>
+
                           </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

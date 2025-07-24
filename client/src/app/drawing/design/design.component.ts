@@ -161,7 +161,7 @@ export class DesignComponent
     this.http.update("box", "manufacturingOrder/edit", fd).subscribe(
       (e: any) => {
         const t = this.dataSource.data.findIndex((x) => x.id == e.id);
-        this.dataSource.data[t] = Object.assign(e);
+        this.dataSource.data.splice(t, 1);
         decideStatus(e);
         this.dataSource._updateChangeSubscription();
         this.showSpinner = false;

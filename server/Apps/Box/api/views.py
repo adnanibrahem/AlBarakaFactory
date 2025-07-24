@@ -201,6 +201,7 @@ class ManufacturingOrderEdit(RetrieveUpdateAPIView):
     serializer_class = ManufacturingOrderSerializer
     lookup_fields = ('pk')
     def put(self, request, *args, **kwargs):
+        print('put', request.data)
         if 'paths' in request.data.keys() and request.data['paths'] is not None:
             oldPaths = ManufacturingPath.objects.filter(order__pk=kwargs.get('pk'))
             # for oldPath in oldPaths:
@@ -275,7 +276,6 @@ class ManufacturingPathList(ListAPIView):
                 if t.count() > 0:
                     if t[0].done:
                         items.append(item)
-
         return items
 
 class ManufacturingPathCreate(CreateAPIView):
@@ -287,7 +287,12 @@ class ManufacturingPathEdit(RetrieveUpdateAPIView):
     queryset = ManufacturingPath.objects.all()
     serializer_class = ManufacturingPathSerializer
     lookup_fields = ('pk')
-
+    def put(self, request, *args, **kwargs):
+        prv= getPrivilege(self.request.user.pk)
+        print('prv', prv)
+        r= super().put(request, *args, **kwargs)
+        return r
+    
     def delete(self, request, *args, **kwargs):
         sp = ManufacturingPath.objects.filter(pk=kwargs.get('pk'))
         if sp.count() > 0:

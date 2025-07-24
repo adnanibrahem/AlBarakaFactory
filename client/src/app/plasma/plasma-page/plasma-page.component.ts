@@ -53,7 +53,6 @@ export class PlasmaPageComponent
     "files",
     "dateAt",
     "items",
-
     "actions",
   ];
 
@@ -169,12 +168,12 @@ export class PlasmaPageComponent
       const existingItemIndex = currentData.findIndex((x) => x.id === item.id);
       if (existingItemIndex > -1) {
         currentData[existingItemIndex].deleteByUpdate = false; // Mark existing items as not deleted
-        decideStatus(currentData[existingItemIndex].orderInfo); // Decide status for existing item
+        // decideStatus(currentData[existingItemIndex].orderInfo); // Decide status for existing item
         // Update existing item
       } else {
         item.deleteByUpdate = false; // Mark new items as not deleted
         currentData.push(item);
-        decideStatus(item.orderInfo); // Decide status for new item
+        // decideStatus(item.orderInfo); // Decide status for new item
       }
     });
 

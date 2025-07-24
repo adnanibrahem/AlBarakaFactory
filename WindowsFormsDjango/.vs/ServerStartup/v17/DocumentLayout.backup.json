@@ -3,8 +3,34 @@
   "WorkspaceRootPath": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|d:\\myweb\\albarakafactory\\windowsformsdjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|d:\\myweb\\albarakafactory\\windowsformsdjango\\drawingwindows7\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|solutionrelative:drawingwindows7\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\drawingwindows7\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|solutionrelative:drawingwindows7\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|DrawingWindows7||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\drawingwindows7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|solutionrelative:drawingwindows7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\drawingwindows7\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|solutionrelative:drawingwindows7\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ServerStartup||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|solutionrelative:windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\drawingwindows7\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|solutionrelative:drawingwindows7\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\ServerStartup.csproj|D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -15,7 +41,7 @@
       "RelativeMoniker": "D:0:0:{B6BF6BB3-601E-4AC1-B3AA-D47D1363D978}|WindowsFormsDjango\\WindowsFormsDjango.csproj|solutionrelative:windowsformsdjango\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ServerStartup||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{60739B22-95E1-4202-8CE5-8A2BCC30335F}|DrawingWindows7\\DrawingWindows7.csproj|d:\\myweb\\albarakafactory\\windowsformsdjango\\drawingwindows7\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +51,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,19 +59,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
-              "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
-              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs [Design]*",
-              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs [Design]*",
+              "DocumentIndex": 0,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\MainForm.cs",
+              "RelativeDocumentMoniker": "DrawingWindows7\\MainForm.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\MainForm.cs",
+              "RelativeToolTip": "DrawingWindows7\\MainForm.cs",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAUwK0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T10:10:57.613Z",
+              "WhenOpened": "2025-07-23T19:16:10.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DrawingWindows7",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\DrawingWindows7.csproj",
+              "RelativeDocumentMoniker": "DrawingWindows7\\DrawingWindows7.csproj",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\DrawingWindows7.csproj",
+              "RelativeToolTip": "DrawingWindows7\\DrawingWindows7.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-07-23T19:07:19.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\MainForm.cs",
+              "RelativeDocumentMoniker": "DrawingWindows7\\MainForm.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\MainForm.cs [Design]",
+              "RelativeToolTip": "DrawingWindows7\\MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T18:53:29.552Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\Program.cs",
+              "RelativeDocumentMoniker": "DrawingWindows7\\Program.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\Program.cs",
+              "RelativeToolTip": "DrawingWindows7\\Program.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAD4vwUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T18:45:41.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginForm.cs",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\LoginForm.cs",
+              "RelativeDocumentMoniker": "DrawingWindows7\\LoginForm.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\LoginForm.cs",
+              "RelativeToolTip": "DrawingWindows7\\LoginForm.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAIA2wDUAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T18:36:54.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginForm.cs [Design]",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\LoginForm.cs",
+              "RelativeDocumentMoniker": "DrawingWindows7\\LoginForm.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\DrawingWindows7\\LoginForm.cs [Design]",
+              "RelativeToolTip": "DrawingWindows7\\LoginForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T18:35:45.447Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
+              "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs [Design]",
+              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T10:10:57.613Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ServerStartup",
               "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\ServerStartup.csproj",
               "RelativeDocumentMoniker": "WindowsFormsDjango\\ServerStartup.csproj",
@@ -56,20 +156,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",
-              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs*",
-              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
+              "ToolTip": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
+              "RelativeToolTip": "WindowsFormsDjango\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-07T22:08:02.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-07T22:08:02.446Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "D:\\MyWeb\\AlBarakaFactory\\WindowsFormsDjango\\WindowsFormsDjango\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsDjango\\Form1.cs",

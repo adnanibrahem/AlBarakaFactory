@@ -396,10 +396,8 @@ export class BoxTransactionComponent
   }
 
   isValid(): boolean {
-    if (
-      this.fromSelect == "fromAgent" &&
-      this.varBTrx?.fromAgent?.toString() == ""
-    )
+    if (this.fromSelect == "fromAgent" &&
+      this.varBTrx?.fromAgent?.toString() == ""  )
       return true;
     
     if (this.fromSelect == "fromBox" && this.toSelect == "toBox")
