@@ -1,21 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
 
 import { environment } from "environments/environment";
-  
+
 @Injectable({
   providedIn: "root",
 })
 export class MyHTTP {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
-    // this.apiUrl = document.location.origin + "/api/";
+    if (environment.production) this.apiUrl = document.location.origin + "/api/";
   }
 
   sacnFromOptical(app: string, path: string) {
@@ -33,7 +29,7 @@ export class MyHTTP {
   postblob(app: string, path: string, data: any) {
     return this.http.post(`${this.apiUrl}${app}/${path}/`, data, { responseType: "blob" });
   }
-  
+
   create(app: string, path: string, data: any) {
     return this.http.post(`${this.apiUrl}${app}/${path}/`, data);
   }
@@ -41,10 +37,7 @@ export class MyHTTP {
   update(app: string, path: string, data: any) {
     let id = data.id;
     if (!id) id = data.get("id");
-    return this.http.put(
-      `${this.apiUrl}${app}/${path}/` + id + "/",
-      data
-    );
+    return this.http.put(`${this.apiUrl}${app}/${path}/` + id + "/", data);
   }
 
   // listPostBookPagination(
@@ -58,16 +51,11 @@ export class MyHTTP {
   // }
 
   updateId(app: string, path: string, data: any, id: number) {
-    return this.http.put(
-      `${this.apiUrl}${app}/${path}/` + id + "/",
-      data
-    );
+    return this.http.put(`${this.apiUrl}${app}/${path}/` + id + "/", data);
   }
 
   delete(app: string, path: string, data: any) {
-    return this.http.delete(
-      `${this.apiUrl}${app}/${path}/` + data.id + "/"
-    );
+    return this.http.delete(`${this.apiUrl}${app}/${path}/` + data.id + "/");
   }
 
   showNotification(

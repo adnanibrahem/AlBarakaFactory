@@ -16,12 +16,16 @@
                     </li>
                     <li class="tbl-search-box">
                       <label for="search-input">
-                        <i class="material-icons search-icon" matSuffix>
-                          search
-                        </i>
+                        <i class="material-icons search-icon" matSuffix> search </i>
                       </label>
-                      <input placeholder="بحث" type="text" matInput (keyup)="applyFilter($event)"
-                        class="browser-default search-field" aria-label="Search box" />
+                      <input
+                        placeholder="بحث"
+                        type="text"
+                        matInput
+                        (keyup)="applyFilter($event)"
+                        class="browser-default search-field"
+                        aria-label="Search box"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -42,27 +46,24 @@
                           <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                           <mat-cell *matCellDef="let row; let i = index">
                             <span class="mobile-label"> التسلسل:</span>
-                            {{
-                            paginator.pageIndex * paginator.pageSize + i + 1
-                            }}
+                            {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="img">
-                          <mat-header-cell *matHeaderCellDef>
-                            التصميم
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> التصميم </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التصميم:</span>
-                            <img *ngIf="row.images.length" [src]="
-                                'http://127.0.0.1:8000' + row.images[0].image
-                              " style="max-width: 100px" (click)="imgClick(row.images[0])" />
+                            <img
+                              *ngIf="row.images.length"
+                              [src]="'http://127.0.0.1:8000' + row.images[0].image"
+                              style="max-width: 100px"
+                              (click)="imgClick(row.images[0])"
+                            />
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="title">
-                          <mat-header-cell *matHeaderCellDef>
-                            اسم العميل
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> اسم العميل </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> اسم العميل:</span>
@@ -71,9 +72,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="dateAt">
-                          <mat-header-cell *matHeaderCellDef>
-                            التاريخ
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> التاريخ </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التاريخ:</span>
                             {{ row.dateAt | date : "yyyy-MM-dd hh:mm:ss aa" }}
@@ -81,26 +80,26 @@
                         </ng-container>
 
                         <ng-container matColumnDef="status">
-                          <mat-header-cell *matHeaderCellDef>
-                            الحالة
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> الحالة </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الحالة :</span>
 
-                            <span [ngClass]="{'cnc': row.status === 'سي ان سي', 
-                          'plasma': row.status === 'بلازما',
-                           'cutting': row.status === 'مقص',
-                           'bending': row.status === 'عواجة',
-                           'drawing': row.status === 'رسم',
-                           'donee': row.status === 'مكتمل'}">{{ row.status }}</span>
-
+                            <span
+                              [ngClass]="{
+                                cnc: row.status === 'سي ان سي',
+                                plasma: row.status === 'بلازما',
+                                cutting: row.status === 'مقص',
+                                bending: row.status === 'عواجة',
+                                drawing: row.status === 'رسم',
+                                donee: row.status === 'مكتمل'
+                              }"
+                              >{{ row.status }}</span
+                            >
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="comments">
-                          <mat-header-cell *matHeaderCellDef>
-                            الملاحظات
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> الملاحظات </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الملاحظات:</span>
                             {{ row.comments }}
@@ -108,21 +107,30 @@
                         </ng-container>
 
                         <ng-container matColumnDef="actions">
-                          <mat-header-cell *matHeaderCellDef class="pr-0">
-                            الاجراء
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="pr-0"> الاجراء </mat-header-cell>
                           <mat-cell *matCellDef="let row; let i = index" class="pr-0">
-                            <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                              (click)="editCall(row)" class="tbl-action-btn" matTooltip="التحديث">
-                              <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'">
-                              </app-feather-icons>
+                            <button
+                              mat-icon-button
+                              color="accent"
+                              (click)="$event.stopPropagation()"
+                              (click)="editCall(row)"
+                              class="tbl-action-btn"
+                              matTooltip="التحديث"
+                            >
+                              <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"> </app-feather-icons>
                             </button>
                           </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumns" [style.cursor]="'pointer'" [ngClass]="{
+                        <mat-row
+                          *matRowDef="let row; columns: displayedColumns"
+                          [style.cursor]="'pointer'"
+                          [ngClass]="{
                             'selected-row': row.selected
-                          }" (click)="editCall(row)" matRipple>
+                          }"
+                          (click)="editCall(row)"
+                          matRipple
+                        >
                         </mat-row>
                       </table>
                       <!-- Loading spinner -->
@@ -130,13 +138,20 @@
                         <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
                         </mat-progress-spinner>
                       </div>
-                      <div *ngIf="showSpinner" class="no-results" [style.display]="
-                          dataSource.filteredData.length === 0 ? '' : 'none'
-                        ">
+                      <div
+                        *ngIf="showSpinner"
+                        class="no-results"
+                        [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'"
+                      >
                         No results
                       </div>
-                      <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0"
-                        [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                      <mat-paginator
+                        #paginator
+                        [length]="dataSource.filteredData.length"
+                        [pageIndex]="0"
+                        [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                      >
                       </mat-paginator>
                     </div>
                   </div>
@@ -144,10 +159,7 @@
                     <div class="edit-drawing" *ngIf="varManufacturingOrder.id > 0">
                       <h5>
                         <strong>التاريخ :</strong>
-                        {{
-                        varManufacturingOrder.dateAt
-                        | date : "yyyy-MM-dd hh:mm:ss aa"
-                        }}
+                        {{ varManufacturingOrder.dateAt | date : "yyyy-MM-dd hh:mm:ss aa" }}
                       </h5>
                       <h5>
                         <strong>اسم العميل :</strong>
@@ -157,17 +169,16 @@
                         <strong>الملاحظات :</strong>
                         {{ varManufacturingOrder.comments }}
                       </h5>
-                      <div *ngIf="varManufacturingOrder.items.length > 0  ">
+                      <div *ngIf="varManufacturingOrder.items.length > 0">
                         <h5>
                           <strong>المواد :</strong>
                         </h5>
-
 
                         <table class="table" width="auto">
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th> اسم المادة</th>
+                              <th>اسم المادة</th>
                               <th>الطول</th>
                               <th>العرض</th>
                               <th>السمك</th>
@@ -175,55 +186,60 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let x of varManufacturingOrder.items; let i = index"
-                              [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                            <tr
+                              *ngFor="let x of varManufacturingOrder.items; let i = index"
+                              [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }"
+                            >
                               <th scope="row">{{ i + 1 }}</th>
                               <td>
-                                {{x.title}}
+                                {{ x.title }}
                               </td>
                               <td>
                                 {{ x.length | number }}
-
                               </td>
                               <td>
-                                {{x.width | number }}
-
+                                {{ x.width | number }}
                               </td>
                               <td>
-                                {{x.thickness | number }}
-
+                                {{ x.thickness | number }}
                               </td>
                               <td>
-                                {{x.quantity | number }}
-
+                                {{ x.quantity | number }}
                               </td>
-
                             </tr>
                           </tbody>
                         </table>
-
                       </div>
 
-
-
-                      <h6 *ngIf="varManufacturingOrder.images.length > 0" class="social-login-title">
-                        صور التصميم
-                      </h6>
-                      <img *ngFor="
-                          let x of varManufacturingOrder.images;
-                          let i = index
-                        " class="img-thumbnail rounded" src="{{ x.obj.value }}" (click)="imgClick(x)"
-                        style="max-width: 200px; max-height: 200px" alt="" />
+                      <h6 *ngIf="varManufacturingOrder.images.length > 0" class="social-login-title">صور التصميم</h6>
+                      <img
+                        *ngFor="let x of varManufacturingOrder.images; let i = index"
+                        class="img-thumbnail rounded"
+                        src="{{ x.obj.value }}"
+                        (click)="imgClick(x)"
+                        style="max-width: 200px; max-height: 200px"
+                        alt=""
+                      />
                       <h6 class="social-login-title">ملف التصميم</h6>
-                      <button mat-raised-button type="button" color="primary" class="btn-space"
-                        (click)="selectPicture.click()">
+                      <button
+                        mat-raised-button
+                        type="button"
+                        color="primary"
+                        class="btn-space"
+                        (click)="selectPicture.click()"
+                      >
                         <i class="bi bi-window-plus"></i>
 
                         اختر ملف التصميم
                       </button>
 
-                      <input #selectPicture type="file" accept="*" (change)="onFileSelected(selectPicture.files)"
-                        style="display: none" />
+                      <input
+                        #selectPicture
+                        type="file"
+                        accept="*"
+                        (change)="onFileSelected(selectPicture.files)"
+                        style="display: none"
+                      />
 
                       @if (varManufacturingOrder.designFile?.value) {
                       {{ varManufacturingOrder.designFile?.value?.name }}
@@ -233,14 +249,18 @@
 
                       <h6 class="social-login-title">مسار التصنيع</h6>
 
-
-
                       <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 m-3">
-                          <button class="btn btn-success btn-space" style="width: 100%" mat-raised-button [disabled]="
-                              (varManufacturingOrder!.fileName.length === 0 &&
-                                !varManufacturingOrder.designFile?.value)  
-                            " (click)="onSubmit()" color="primary">
+                          <button
+                            class="btn btn-success btn-space"
+                            style="width: 100%"
+                            mat-raised-button
+                            [disabled]="
+                              varManufacturingOrder!.fileName.length === 0 && !varManufacturingOrder.designFile?.value
+                            "
+                            (click)="onSubmit()"
+                            color="primary"
+                          >
                             خزن البيانات
                           </button>
                         </div>
@@ -279,13 +299,17 @@
                 <div class="m-4">
                   <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <button class="btn-space" mat-raised-button [disabled]="
-                          !varManufacturingOrder.agent ||
-                          !varManufacturingOrder.price
-                        " [ngClass]="{
+                      <button
+                        class="btn-space"
+                        mat-raised-button
+                        [disabled]="!varManufacturingOrder.agent || !varManufacturingOrder.price"
+                        [ngClass]="{
                           'btn btn-primary': !varManufacturingOrder.id,
                           'btn btn-success': varManufacturingOrder.id
-                        }" (click)="onSubmit()" color="primary">
+                        }"
+                        (click)="onSubmit()"
+                        color="primary"
+                      >
                         خزن البيانات
                       </button>
                     </div>

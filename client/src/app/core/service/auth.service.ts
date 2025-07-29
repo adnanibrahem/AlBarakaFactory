@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { User } from '../models/user';
-import { environment } from 'environments/environment';
-import * as CryptoJS from 'crypto-js';
-import { CommercialYear } from 'app/admin/admin.model';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
+import { User } from "../models/user";
+import { environment } from "environments/environment";
+import * as CryptoJS from "crypto-js";
+import { CommercialYear } from "app/admin/admin.model";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
-
 export class AuthService {
-  dkeey = 'c+t6l2g*_fpwjg_mq+bhy9gox(49r6td1_j1wo6f(2$sr#++jm';
+  dkeey = "c+t6l2g*_fpwjg_mq+bhy9gox(49r6td1_j1wo6f(2$sr#++jm";
   public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -22,19 +21,16 @@ export class AuthService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(
-        this.decrypt(localStorage.getItem('currentUser') || '') || '{}'
-      )
+      JSON.parse(this.decrypt(localStorage.getItem("currentUser") || "") || "{}")
     );
-    
+
     this.currentUser = this.currentUserSubject.asObservable();
     this.currentCommpercialYearSubject = new BehaviorSubject<CommercialYear>({
       id: -1,
-      title: '',
+      title: "",
     });
-    this.currentCommpercialYear =
-      this.currentCommpercialYearSubject.asObservable();
-    // this.apiUrl = document.location.origin + "/api/";
+    this.currentCommpercialYear = this.currentCommpercialYearSubject.asObservable();
+    if (environment.production) this.apiUrl = document.location.origin + "/api/";
   }
 
   public encrypt(txt: string): string {
@@ -42,9 +38,7 @@ export class AuthService {
   }
 
   private decrypt(txtToDecrypt: string) {
-    return CryptoJS.AES.decrypt(txtToDecrypt, this.dkeey).toString(
-      CryptoJS.enc.Utf8
-    );
+    return CryptoJS.AES.decrypt(txtToDecrypt, this.dkeey).toString(CryptoJS.enc.Utf8);
   }
 
   public get currentUserValue(): User {
@@ -52,7 +46,7 @@ export class AuthService {
   }
 
   public setCurrentUserValue(v: User) {
-    localStorage.setItem('currentUser', this.encrypt(JSON.stringify(v)));
+    localStorage.setItem("currentUser", this.encrypt(JSON.stringify(v)));
     this.currentUserSubject.next(v);
   }
 
@@ -64,7 +58,6 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-
     return this.http
       .post<User>(`${this.apiUrl}auth/token/`, {
         username,
@@ -77,10 +70,7 @@ export class AuthService {
           const tUser = {} as User;
           tUser.token = user.token;
           tUser.validPasswprd = rTest.test(password);
-          localStorage.setItem(
-            'currentUser',
-            this.encrypt(JSON.stringify(user))
-          );
+          localStorage.setItem("currentUser", this.encrypt(JSON.stringify(user)));
 
           this.currentUserSubject.next(user);
           return user;
@@ -94,7 +84,7 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("currentUser");
     this.currentUserSubject.next(this.currentUserValue);
     return of({ success: false });
   }

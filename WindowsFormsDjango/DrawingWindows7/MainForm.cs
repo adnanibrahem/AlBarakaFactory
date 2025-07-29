@@ -101,7 +101,6 @@ namespace DrawingWindows7
                             }
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {

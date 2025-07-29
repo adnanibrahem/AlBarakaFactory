@@ -12,7 +12,8 @@ namespace DrawingWindows7
         /// The main entry point for the application.
         /// </summary>
 
-        public static string apiUrl = "http://127.0.0.1:8000/api/";// "https://10.121.7.14/api/";
+     //   public static string apiUrl = "http://127.0.0.1:8000/api/";// "https://10.121.7.14/api/";
+        public static string apiUrl = "http://192.168.0.200/api/";
         [STAThread]
         static void Main()
         {

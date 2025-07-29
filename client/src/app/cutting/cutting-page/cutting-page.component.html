@@ -16,12 +16,16 @@
                     </li>
                     <li class="tbl-search-box">
                       <label for="search-input">
-                        <i class="material-icons search-icon" matSuffix>
-                          search
-                        </i>
+                        <i class="material-icons search-icon" matSuffix> search </i>
                       </label>
-                      <input placeholder="بحث" type="text" matInput (keyup)="applyFilter($event)"
-                        class="browser-default search-field" aria-label="Search box" />
+                      <input
+                        placeholder="بحث"
+                        type="text"
+                        matInput
+                        (keyup)="applyFilter($event)"
+                        class="browser-default search-field"
+                        aria-label="Search box"
+                      />
                     </li>
                   </ul>
                 </div>
@@ -42,29 +46,24 @@
                           <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                           <mat-cell *matCellDef="let row; let i = index">
                             <span class="mobile-label"> التسلسل:</span>
-                            {{
-                            paginator.pageIndex * paginator.pageSize + i + 1
-                            }}
+                            {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="image">
-                          <mat-header-cell *matHeaderCellDef>
-                            التصميم
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> التصميم </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التصميم:</span>
-                            <img *ngIf="row.orderInfo.images.length" [src]="
-                                'http://127.0.0.1:8000' +
-                                row.orderInfo.images[0].image
-                              " style="max-width: 100px"
-                              (click)="imgClick(row.orderInfo.images[0], row.orderInfo.agentTitle)" />
+                            <img
+                              *ngIf="row.orderInfo.images.length"
+                              [src]="'http://127.0.0.1:8000' + row.orderInfo.images[0].image"
+                              style="max-width: 100px"
+                              (click)="imgClick(row.orderInfo.images[0], row.orderInfo.agentTitle)"
+                            />
                           </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="title">
-                          <mat-header-cell *matHeaderCellDef>
-                            اسم العميل
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> اسم العميل </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> اسم العميل:</span>
@@ -73,40 +72,33 @@
                         </ng-container>
 
                         <ng-container matColumnDef="dateAt">
-                          <mat-header-cell *matHeaderCellDef>
-                            التاريخ
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> التاريخ </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> التاريخ:</span>
-                            {{
-                            row.orderInfo.dateAt
-                            | date : "yyyy-MM-dd hh:mm:ss aa"
-                            }}
+                            {{ row.orderInfo.dateAt | date : "yyyy-MM-dd hh:mm:ss aa" }}
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="status">
-                          <mat-header-cell *matHeaderCellDef>
-                            الحالة
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> الحالة </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الحالة :</span>
 
-                            <span [ngClass]="{
-                              'cnc': row.orderInfo.status === 'سي ان سي',
-                              'plasma': row.orderInfo.status === 'بلازما',
-                              'cutting': row.orderInfo.status === 'مقص',
-                              'bending': row.orderInfo.status === 'عواجة',
-                              'drawing': row.orderInfo.status === 'رسم',
-                              'donee': row.orderInfo.status === 'مكتمل'
-                            }"></span>
+                            <span
+                              [ngClass]="{
+                                cnc: row.orderInfo.status === 'سي ان سي',
+                                plasma: row.orderInfo.status === 'بلازما',
+                                cutting: row.orderInfo.status === 'مقص',
+                                bending: row.orderInfo.status === 'عواجة',
+                                drawing: row.orderInfo.status === 'رسم',
+                                donee: row.orderInfo.status === 'مكتمل'
+                              }"
+                            ></span>
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="files">
-                          <mat-header-cell *matHeaderCellDef>
-                            الملف
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> الملف </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الملف :</span>
@@ -117,20 +109,15 @@
                         </ng-container>
 
                         <ng-container matColumnDef="comments">
-                          <mat-header-cell *matHeaderCellDef>
-                            الملاحظات
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> الملاحظات </mat-header-cell>
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> الملاحظات:</span>
                             {{ row.orderInfo.comments }}
                           </mat-cell>
                         </ng-container>
 
-
                         <ng-container matColumnDef="items">
-                          <mat-header-cell *matHeaderCellDef>
-                            المواد
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef> المواد </mat-header-cell>
 
                           <mat-cell *matCellDef="let row">
                             <span class="mobile-label"> المواد :</span>
@@ -138,7 +125,7 @@
                               <thead>
                                 <tr>
                                   <th>#</th>
-                                  <th> اسم المادة</th>
+                                  <th>اسم المادة</th>
                                   <th>الطول</th>
                                   <th>العرض</th>
                                   <th>السمك</th>
@@ -146,67 +133,67 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let x of row.orderInfo.items; let i = index"
-                                  [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }">
+                                <tr
+                                  *ngFor="let x of row.orderInfo.items; let i = index"
+                                  [ngStyle]="{ display: x.deleted ? 'none' : 'table-row' }"
+                                >
                                   <th scope="row">{{ i + 1 }}</th>
                                   <td>
-                                    {{x.title}}
+                                    {{ x.title }}
                                   </td>
                                   <td>
                                     {{ x.length | number }}
-
                                   </td>
                                   <td>
-                                    {{x.width | number }}
-
+                                    {{ x.width | number }}
                                   </td>
                                   <td>
-                                    {{x.thickness | number }}
-
+                                    {{ x.thickness | number }}
                                   </td>
                                   <td>
-                                    {{x.quantity | number }}
-
+                                    {{ x.quantity | number }}
                                   </td>
-
                                 </tr>
                               </tbody>
                             </table>
-
-
                           </mat-cell>
                         </ng-container>
 
-
-
-
                         <ng-container matColumnDef="actions">
-                          <mat-header-cell *matHeaderCellDef class="pr-0">
-                            تم انجاز العمل
-                          </mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="pr-0"> تم انجاز العمل </mat-header-cell>
                           <mat-cell *matCellDef="let row; let i = index" class="pr-0">
-                            <button class="button-done" (click)="$event.stopPropagation()" (click)="SetDone(row)"
-                              matTooltip="تم انجاز العمل">
-                              <i class="bi bi-check2-circle fs-3"></i>
+                            <button
+                              class="button-done"
+                              (click)="$event.stopPropagation()"
+                              (click)="SetDone(row)"
+                              matTooltip="تم انجاز العمل"
+                            >
+                              <i class="fa fa-check-circle fs-3"></i>
                             </button>
                           </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumns" matRipple>
-                        </mat-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns" matRipple> </mat-row>
                       </table>
                       <!-- Loading spinner -->
                       <div *ngIf="showSpinner" class="tbl-spinner">
                         <mat-progress-spinner color="accent" [diameter]="40" mode="indeterminate">
                         </mat-progress-spinner>
                       </div>
-                      <div *ngIf="showSpinner" class="no-results" [style.display]="
-                          dataSource.filteredData.length === 0 ? '' : 'none'
-                        ">
+                      <div
+                        *ngIf="showSpinner"
+                        class="no-results"
+                        [style.display]="dataSource.filteredData.length === 0 ? '' : 'none'"
+                      >
                         No results
                       </div>
-                      <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0"
-                        [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                      <mat-paginator
+                        #paginator
+                        [length]="dataSource.filteredData.length"
+                        [pageIndex]="0"
+                        [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                      >
                       </mat-paginator>
                     </div>
                   </div>

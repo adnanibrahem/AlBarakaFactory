@@ -28,10 +28,7 @@ import { decideStatus } from "app/app.component";
   templateUrl: "./design.component.html",
   styleUrls: ["./design.component.scss"],
 })
-export class DesignComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
+export class DesignComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   dataSource: MatTableDataSource<ManufacturingOrder> = new MatTableDataSource();
   @ViewChild("paginator") pagi!: MatPaginator;
   @ViewChild("pagBoxDetails") pagBoxDetails!: MatPaginator;
@@ -66,14 +63,10 @@ export class DesignComponent
     this.curUser = this.auth.currentUserValue;
     this.LoadManufacturingOrder();
 
-    this.refreshSubscription = this.subs.sink = interval(10000).subscribe(
-      () => {
-        this.LoadManufacturingOrder();
-      }
-    );
+    this.refreshSubscription = this.subs.sink = interval(10000).subscribe(() => {
+      this.LoadManufacturingOrder();
+    });
   }
-
-
 
   LoadManufacturingOrder() {
     this.showSpinner = true;
@@ -112,14 +105,9 @@ export class DesignComponent
     });
     this.varManufacturingOrder.selected = true;
     this.varManufacturingOrder.fileName = "";
-    if (
-      this.varManufacturingOrder.designFile !== null &&
-      this.varManufacturingOrder.designFile != undefined
-    ) {
+    if (this.varManufacturingOrder.designFile !== null && this.varManufacturingOrder.designFile != undefined) {
       this.varManufacturingOrder.fileName = (
-        decodeURIComponent(this.varManufacturingOrder.designFile)
-          .split("/")
-          .pop() ?? ""
+        decodeURIComponent(this.varManufacturingOrder.designFile).split("/").pop() ?? ""
       ).toString();
     }
 
@@ -131,7 +119,7 @@ export class DesignComponent
     });
     this.caption = " تعديل بيانات مادة مخزنية ";
   }
- 
+
   onFileSelected(fileList: FileList | null): void {
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
@@ -155,15 +143,17 @@ export class DesignComponent
     fd.append("price", dt.price.toString());
     fd.append("id", dt.id.toString());
     fd.append("paths", JSON.stringify(dt.paths));
-    
+
     this.showSpinner = true;
 
     this.http.update("box", "manufacturingOrder/edit", fd).subscribe(
       (e: any) => {
         const t = this.dataSource.data.findIndex((x) => x.id == e.id);
         this.dataSource.data.splice(t, 1);
-        decideStatus(e);
+        // decideStatus(e);
         this.dataSource._updateChangeSubscription();
+        this.varManufacturingOrder = {} as ManufacturingOrder;
+        this.varManufacturingOrder.id = -1;
         this.showSpinner = false;
         this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
       },
@@ -183,16 +173,14 @@ export class DesignComponent
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        this.http
-          .delete(this.appApi, this.appApiURL + "edit", row)
-          .subscribe(() => {
-            const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
-            if (idx > -1) {
-              this.dataSource.data.splice(idx, 1);
-              this.dataSource._updateChangeSubscription();
-              this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
-            }
-          });
+        this.http.delete(this.appApi, this.appApiURL + "edit", row).subscribe(() => {
+          const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
+          if (idx > -1) {
+            this.dataSource.data.splice(idx, 1);
+            this.dataSource._updateChangeSubscription();
+            this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
+          }
+        });
       }
     });
   }
@@ -205,9 +193,7 @@ export class DesignComponent
     reader.readAsDataURL(file);
     reader.onload = () => {
       const showPictureFile = new UntypedFormControl();
-      showPictureFile.setValue(
-        this.sanitizer.bypassSecurityTrustUrl(reader.result as string)
-      );
+      showPictureFile.setValue(this.sanitizer.bypassSecurityTrustUrl(reader.result as string));
       const doc = {} as ManufacturingImages;
       doc.obj = showPictureFile;
       doc.objFile = file;
@@ -221,8 +207,6 @@ export class DesignComponent
   }
   //  ------------End pictures
 
- 
-
   private updateDataSource(newData: ManufacturingOrder[]): void {
     const currentData = this.dataSource.data;
     currentData.forEach((item) => {
@@ -233,12 +217,12 @@ export class DesignComponent
       if (existingItemIndex > -1) {
         currentData[existingItemIndex].deleteByUpdate = false; // Mark existing items as not deleted
         currentData[existingItemIndex].paths = item.paths; // Mark existing items as not deleted
-         decideStatus(currentData[existingItemIndex]); // Decide status for existing item
+        //  decideStatus(currentData[existingItemIndex]); // Decide status for existing item
         // Update existing item
       } else {
         item.deleteByUpdate = false; // Mark new items as not deleted
         currentData.push(item);
-         decideStatus(item); // Decide status for new item
+        //  decideStatus(item); // Decide status for new item
       }
     });
 
