@@ -24,13 +24,7 @@ import { WebcamImage } from "ngx-webcam";
 import { WebcamDialogComponent } from "@shared/components/webcam-dialog/webcam-dialog.component";
 import { generateId } from "@shared/TableElement";
 import { environment } from "environments/environment";
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { decideStatus } from "app/app.component";
 
 @Component({
@@ -38,10 +32,7 @@ import { decideStatus } from "app/app.component";
   templateUrl: "./manufacturing-order.component.html",
   styleUrls: ["./manufacturing-order.component.scss"],
 })
-export class ManufacturingOrderComponent
-  extends UnsubscribeOnDestroyAdapter
-  implements OnInit
-{
+export class ManufacturingOrderComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   dataSource: MatTableDataSource<ManufacturingOrder> = new MatTableDataSource();
   @ViewChild("paginator") pagi!: MatPaginator;
   @ViewChild("pagBoxDetails") pagBoxDetails!: MatPaginator;
@@ -53,18 +44,7 @@ export class ManufacturingOrderComponent
   totalDenar = 0;
   totalDollar = 0;
   curUser: User = {} as User;
-  displayedColumns = [
-    "seq",
-    "img",
-    "title",
-    "dateAt",
-    "price",
-    "status",
-    "itemsList",
-    "paths",
-    "comments",
-    "actions",
-  ];
+  displayedColumns = ["seq", "img", "title", "dateAt", "price", "status", "itemsList", "paths", "comments", "actions"];
 
   title = "طلبات التصنيع";
   calcTotalAll() {
@@ -114,14 +94,12 @@ export class ManufacturingOrderComponent
   }
 
   ngOnInit(): void {
- 
     this.LoadManufacturingOrder();
     this.LoadagentList();
     this.LoadDestinationList();
     this.auth.getCommercialYear().subscribe((e) => {
       this.cmYear = e;
       if (e.id > 0) {
- 
         this.curUser = this.auth.currentUserValue;
       }
     });
@@ -142,7 +120,7 @@ export class ManufacturingOrderComponent
     if (edt) {
       this.varManufacturingOrder.agent = edt.id;
       this.varManufacturingOrder.agentTitle = edt.title;
- 
+
       if (edt.id) {
         this.showAgentBalance(edt.id);
         this.limitDenar = edt.limitDenar || 0;
@@ -150,8 +128,6 @@ export class ManufacturingOrderComponent
       }
     }
   }
-
- 
 
   LoadManufacturingOrder(js = {}) {
     this.showSpinner = true;
@@ -182,7 +158,7 @@ export class ManufacturingOrderComponent
     this.varManufacturingOrder.items.push(item);
   }
   calcTotal() {
-    this.varManufacturingOrder.price = this.varManufacturingOrder.otherPrice || 0 ;
+    this.varManufacturingOrder.price = this.varManufacturingOrder.otherPrice || 0;
     this.varManufacturingOrder.items.forEach((t) => {
       if (t.unitCostPrice && !t.deleted) {
         this.varManufacturingOrder.price += t.unitCostPrice * (t.quantity || 1);
@@ -193,21 +169,19 @@ export class ManufacturingOrderComponent
 
     if (this.varManufacturingOrder.currency) {
       if (this.limitDenar > 0) {
-        this.inLimitState = this.limitDenar < this.varManufacturingOrder.price+ this.toDenar;
+        this.inLimitState = this.limitDenar < this.varManufacturingOrder.price + this.toDenar;
       }
     } else {
-      if(this.limitDollar>0) {
-        this.inLimitState = this.limitDollar < this.varManufacturingOrder.price+ this.toDollar;
+      if (this.limitDollar > 0) {
+        this.inLimitState = this.limitDollar < this.varManufacturingOrder.price + this.toDollar;
       }
     }
   }
 
-
   onDelete(x: ManufacturingItems, i: number) {
     if (x.id == -1) {
-       this.varManufacturingOrder.items.splice(i, 1);
-     }
-    else {
+      this.varManufacturingOrder.items.splice(i, 1);
+    } else {
       if (x.id) {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
           height: "200px",
@@ -245,6 +219,7 @@ export class ManufacturingOrderComponent
     this.varManufacturingOrder.otherOrder = true;
     this.varManufacturingOrder.done = true;
     this.caption = " تسجيل طلبات اخرى";
+    this.pathPointsDone = [];
     this.selectedIndex = 2;
   }
 
@@ -255,11 +230,11 @@ export class ManufacturingOrderComponent
     this.pathPointsDone = [];
 
     this.pathPoints = [
-        {id:-1,  index: 0, title: "رسم", value: "drawing" },  
-        {id:-1, index: 1, title: "سي ان سي", value: "cnc" },
-        {id:-1, index: 2, title: "بلازما", value: "plasma" },
-        {id:-1, index: 3, title: "مقص", value: "cutting" },
-        {id:-1, index: 4, title: "عواجة", value: "bending" },
+      { id: -1, index: 0, title: "رسم", value: "drawing" },
+      { id: -1, index: 1, title: "سي ان سي", value: "cnc" },
+      { id: -1, index: 2, title: "بلازما", value: "plasma" },
+      { id: -1, index: 3, title: "مقص", value: "cutting" },
+      { id: -1, index: 4, title: "عواجة", value: "bending" },
     ];
 
     if (this.varManufacturingOrder.paths) {
@@ -287,16 +262,15 @@ export class ManufacturingOrderComponent
 
   onSubmit() {
     //  const dt = this.varManufacturingOrder;
-    this.uploadPath(this.varManufacturingOrder.id|| -1);
+    this.uploadPath(this.varManufacturingOrder.id || -1);
     let fd = new FormData();
     let kk = Object.entries(this.varManufacturingOrder);
- 
+
     kk.forEach((kr) => {
       if (kr[0] != "designFile" && kr[0] != "images") {
         if (kr[0] == "paths") {
-            fd.append("paths", JSON.stringify(kr[1]));
-        } else if (kr[0] == "items") 
-            fd.append("items", JSON.stringify(kr[1]));
+          fd.append("paths", JSON.stringify(kr[1]));
+        } else if (kr[0] == "items") fd.append("items", JSON.stringify(kr[1]));
         else if (kr[1] == "null" || kr[1] == null) fd.append(kr[0], "");
         else fd.append(kr[0], kr[1]);
       }
@@ -309,7 +283,7 @@ export class ManufacturingOrderComponent
           const t = this.dataSource.data.findIndex((x) => x.id == e.id);
           this.dataSource.data[t] = Object.assign(e);
           this.calcTotalAll();
-          this.varManufacturingOrder.items = e.items  ;
+          this.varManufacturingOrder.items = e.items;
           this.uploadNewPictures(this.varManufacturingOrder);
 
           this.dataSource._updateChangeSubscription();
@@ -328,7 +302,7 @@ export class ManufacturingOrderComponent
           this.http.showNotification("snackbar-success", "تم الخزن بنجاح");
           this.showSpinner = false;
           this.varManufacturingOrder.id = e.id;
-          this.varManufacturingOrder.items = e.items  ;
+          this.varManufacturingOrder.items = e.items;
           this.uploadNewPictures(this.varManufacturingOrder);
           this.dataSource.data.push(this.varManufacturingOrder);
           this.dataSource._updateChangeSubscription();
@@ -353,16 +327,14 @@ export class ManufacturingOrderComponent
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        this.http
-          .delete(this.appApi, this.appApiURL + "edit", row)
-          .subscribe(() => {
-            const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
-            if (idx > -1) {
-              this.dataSource.data.splice(idx, 1);
-              this.dataSource._updateChangeSubscription();
-              this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
-            }
-          });
+        this.http.delete(this.appApi, this.appApiURL + "edit", row).subscribe(() => {
+          const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
+          if (idx > -1) {
+            this.dataSource.data.splice(idx, 1);
+            this.dataSource._updateChangeSubscription();
+            this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
+          }
+        });
       }
     });
   }
@@ -377,17 +349,15 @@ export class ManufacturingOrderComponent
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
       if (result === 1) {
-        this.http
-          .delete("box", "manufacturingOrder/edit", row)
-          .subscribe(() => {
-            const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
-            if (idx > -1) {
-              this.dataSource.data.splice(idx, 1);
-              this.dataSource._updateChangeSubscription();
-              this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
-            }
-            this.calcTotalAll();
-          });
+        this.http.delete("box", "manufacturingOrder/edit", row).subscribe(() => {
+          const idx = this.dataSource.data.findIndex((x) => x.id == row.id);
+          if (idx > -1) {
+            this.dataSource.data.splice(idx, 1);
+            this.dataSource._updateChangeSubscription();
+            this.http.showNotification("snackbar-success", "تم الحدف بنجاح");
+          }
+          this.calcTotalAll();
+        });
       }
     });
   }
@@ -407,15 +377,9 @@ export class ManufacturingOrderComponent
       });
       this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
         if (result === 1) {
-          this.http
-            .delete(
-              "box",
-              "manufacturingImages/edit",
-              this.varManufacturingOrder.images[i]
-            )
-            .subscribe(() => {
-              this.varManufacturingOrder.images.splice(i, 1);
-            });
+          this.http.delete("box", "manufacturingImages/edit", this.varManufacturingOrder.images[i]).subscribe(() => {
+            this.varManufacturingOrder.images.splice(i, 1);
+          });
         }
       });
     } else this.varManufacturingOrder.images.splice(i, 1);
@@ -426,9 +390,7 @@ export class ManufacturingOrderComponent
     reader.readAsDataURL(file);
     reader.onload = () => {
       const showPictureFile = new UntypedFormControl();
-      showPictureFile.setValue(
-        this.sanitizer.bypassSecurityTrustUrl(reader.result as string)
-      );
+      showPictureFile.setValue(this.sanitizer.bypassSecurityTrustUrl(reader.result as string));
       const doc = {} as ManufacturingImages;
       doc.obj = showPictureFile;
       doc.objFile = file;
@@ -457,10 +419,7 @@ export class ManufacturingOrderComponent
   resetFromLocalFiles(fileList: FileList | null) {
     if (!fileList?.length) return;
     if (fileList[0].type.split("/")[0] !== "image") {
-      this.http.showNotification(
-        "snackbar-danger",
-        "يرجى اختيار ملف من نوع صورة"
-      );
+      this.http.showNotification("snackbar-danger", "يرجى اختيار ملف من نوع صورة");
       return;
     }
 
@@ -469,35 +428,29 @@ export class ManufacturingOrderComponent
 
   DataURIToBlob(dataURI: string) {
     const splitDataURI = dataURI.split(",");
-    const byteString =
-      splitDataURI[0].indexOf("base64") >= 0
-        ? atob(splitDataURI[1])
-        : decodeURI(splitDataURI[1]);
+    const byteString = splitDataURI[0].indexOf("base64") >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
     const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
     const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++)
-      ia[i] = byteString.charCodeAt(i);
+    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
 
     return new Blob([ia], { type: mimeString });
   }
 
   isValid(x: ManufacturingOrder): boolean {
- 
     for (let i = 0; i < x.items.length; i++) {
       const item = x.items[i];
       if (
-          (item.title && item.title.trim() == "") ||
-          (item.quantity == null) ||
-          (item.length == null) ||
-          (item.width == null) ||
-          (item.thickness == null) ||
-          (item.unitCostPrice == null)
-        ) {
-          return true;
-        }
-     }
+        (item.title && item.title.trim() == "") ||
+        item.quantity == null ||
+        item.length == null ||
+        item.width == null ||
+        item.thickness == null ||
+        item.unitCostPrice == null
+      ) {
+        return true;
+      }
+    }
 
- 
     return false;
   }
 
@@ -508,29 +461,25 @@ export class ManufacturingOrderComponent
         fd.append("order", pb.id.toString());
         if (k.objFile) fd.append("image", k.objFile);
         else {
-          const file = this.DataURIToBlob(
-            k.obj.value.changingThisBreaksApplicationSecurity
-          );
+          const file = this.DataURIToBlob(k.obj.value.changingThisBreaksApplicationSecurity);
           fd.append("image", file, "image.jpg");
         }
         this.showSpinner = true;
-        this.http
-          .create("box", "manufacturingImages/create", fd)
-          .subscribe((e: any) => {
-            this.showSpinner = false;
-            const pbk = this.dataSource.data.find((x) => x.id == pb.id);
-            if (pbk) {
-              e.obj = k.obj;
-              pbk.images.push(e);
-            }
-          });
+        this.http.create("box", "manufacturingImages/create", fd).subscribe((e: any) => {
+          this.showSpinner = false;
+          const pbk = this.dataSource.data.find((x) => x.id == pb.id);
+          if (pbk) {
+            e.obj = k.obj;
+            pbk.images.push(e);
+          }
+        });
       }
     });
   }
 
   showFullScreenImage: boolean = false;
-  fullScreenImageUrl: string = '';
-  fullScreenImageTitle: string = '';
+  fullScreenImageUrl: string = "";
+  fullScreenImageTitle: string = "";
 
   imgClick(image: any, agentTitle: string) {
     this.fullScreenImageUrl = environment.imgUrl + image.image;
@@ -540,8 +489,8 @@ export class ManufacturingOrderComponent
 
   closeFullScreenImage() {
     this.showFullScreenImage = false;
-    this.fullScreenImageUrl = '';
-    this.fullScreenImageTitle = '';
+    this.fullScreenImageUrl = "";
+    this.fullScreenImageTitle = "";
   }
   //  ------------End pictures
 
@@ -588,31 +537,22 @@ export class ManufacturingOrderComponent
     });
     this.varManufacturingOrder.paths = paths;
   }
-  
+
   pathPointsDone: any = [];
-  
+
   pathPoints = [
-      {id:-1, index: 0, title: "رسم", value: "drawing" },  
-      {id:-1, index: 1, title: "سي ان سي", value: "cnc" },
-      {id:-1, index: 2, title: "بلازما", value: "plasma" },
-      {id:-1, index: 3, title: "مقص", value: "cutting" },
-      {id:-1, index: 4, title: "عواجة", value: "bending" },
+    { id: -1, index: 0, title: "رسم", value: "drawing" },
+    { id: -1, index: 1, title: "سي ان سي", value: "cnc" },
+    { id: -1, index: 2, title: "بلازما", value: "plasma" },
+    { id: -1, index: 3, title: "مقص", value: "cutting" },
+    { id: -1, index: 4, title: "عواجة", value: "bending" },
   ];
-     
+
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
     event.container.data.forEach((t: any, index: number) => {
       t.index = index + 1;
@@ -622,27 +562,27 @@ export class ManufacturingOrderComponent
     });
   }
 
-    showToBalance = false;
+  showToBalance = false;
   toDenar = 0;
   toDollar = 0;
   showToBalanceSpinner = false;
-  showAgentBalance(agentId: number,  ) {
-  this.showToBalance = false;
-  this.toDenar = 0;
-  this.toDollar = 0;
-  this.showToBalanceSpinner = false;
-  this.http
-    .list('agents', "agent/ballnce/0/" + agentId + '/' + this.cmYear.id)
-    .subscribe((e: any) => {
-      this.showToBalanceSpinner = false;
+  showAgentBalance(agentId: number) {
+    this.showToBalance = false;
+    this.toDenar = 0;
+    this.toDollar = 0;
+    this.showToBalanceSpinner = false;
+    this.http.list("agents", "agent/ballnce/0/" + agentId + "/" + this.cmYear.id).subscribe(
+      (e: any) => {
+        this.showToBalanceSpinner = false;
         this.showToBalance = true;
         this.toDenar = e.denar;
         this.toDollar = e.dollar;
-    }, () => {
-      this.showToBalanceSpinner = false;
+      },
+      () => {
+        this.showToBalanceSpinner = false;
         this.showToBalance = false;
-      this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
-    });
-}
-
+        this.http.showNotification("snackbar-danger", "حدثت مشكلة ");
+      }
+    );
+  }
 }
